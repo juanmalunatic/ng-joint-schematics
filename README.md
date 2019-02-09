@@ -24,5 +24,6 @@ npm run build
 npm publish
 ```
 
-That's it!
- 
+### Helpfull Links
+
+* intro https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2

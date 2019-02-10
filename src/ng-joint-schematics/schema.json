@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "MySchema",
+    "title": "My Schema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "default": "cactus"
+        }
+    }
+}

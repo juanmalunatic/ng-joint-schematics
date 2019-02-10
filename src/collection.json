@@ -3,7 +3,8 @@
   "schematics": {
     "ng-joint-schematics": {
       "description": "A blank schematic.",
-      "factory": "./ng-joint-schematics/index#ngJointSchematics"
+      "factory": "./ng-joint-schematics/index#ngJointSchematics",
+      "schema": "./ng-joint-schematics/schema.json"
     }
   }
 }

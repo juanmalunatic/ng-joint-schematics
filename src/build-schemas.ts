@@ -9,9 +9,9 @@ const schematics = ['shape'];
 for (const schematic of schematics) {
         const jsonSchemaPath = join(__dirname, collection, schematic);
         const jsonSchemaFile = join(jsonSchemaPath, 'schema.json');
-        const tsSchemaFile = join(jsonSchemaPath, 'schema.d.ts');
+        const srcSchemaFile = join(jsonSchemaPath, 'schema.d.ts');
         compileFromFile(jsonSchemaFile)
                 .then(tsSchemaInterface => {
-                        writeFileSync(tsSchemaFile, tsSchemaInterface);
+                        writeFileSync(srcSchemaFile, tsSchemaInterface);
                 });
 }

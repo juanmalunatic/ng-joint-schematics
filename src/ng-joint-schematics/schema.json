@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "id": "MySchema",
-    "title": "My Schema",
+    "id": "ng-joint-schematics",
+    "title": "ng-joint-schematics",
     "type": "object",
     "properties": {
         "name": {

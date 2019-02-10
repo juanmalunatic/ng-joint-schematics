@@ -28,3 +28,4 @@ npm publish
 
 * intro https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2
 * schematic context https://stackoverflow.com/questions/54406061/classoptions-schema-angular-schematics
+* add to angular cli https://blog.angularindepth.com/creating-your-own-application-template-for-angular-cli-95e22319cc24

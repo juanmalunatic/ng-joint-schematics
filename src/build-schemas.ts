@@ -2,12 +2,15 @@
 import { compileFromFile } from 'json-schema-to-typescript';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
-import * as npm from 'npm';
 
+const collection = 'ng-joint-schematics';
 const schematics = ['shape'];
 
 for (const schematic of schematics) {
-    compileFromFile(join(schematic, 'schema.json'))
-        .then(ts => writeFileSync('schema.d.ts', ts));
-        npm.config
+        const jsonSchemaFilePath = join(__dirname, collection, schematic, 'schema');
+        console.log('jsonSchemaFilePath', jsonSchemaFilePath);
+        compileFromFile(jsonSchemaFilePath + '.json')
+                .then(tsSchemaInterface => {
+                        writeFileSync(jsonSchemaFilePath + '.d.ts', tsSchemaInterface);
+                });
 }

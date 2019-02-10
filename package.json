@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Angular Schematics to support ng-joint development",
   "scripts": {
-    "build:schemas": "ts-node build-schema.ts",
+    "build:schemas": "ts-node src/build-schemas.ts",
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js"
   },

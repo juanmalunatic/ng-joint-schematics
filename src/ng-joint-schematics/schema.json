@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "id": "ngJointShapeSchematics",
+    "id": "ngJointSchematicsShape",
     "title": "Creates a ng-joint schematic.",
     "type": "object",
     "properties": {

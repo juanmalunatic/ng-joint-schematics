@@ -7,10 +7,11 @@ const collection = 'ng-joint-schematics';
 const schematics = ['shape'];
 
 for (const schematic of schematics) {
-        const jsonSchemaFilePath = join(__dirname, collection, schematic, 'schema');
-        console.log('jsonSchemaFilePath', jsonSchemaFilePath);
-        compileFromFile(jsonSchemaFilePath + '.json')
+        const jsonSchemaPath = join(__dirname, collection, schematic);
+        const jsonSchemaFile = join(jsonSchemaPath, 'schema.json');
+        const tsSchemaFile = join(jsonSchemaPath, 'schema.d.ts');
+        compileFromFile(jsonSchemaFile)
                 .then(tsSchemaInterface => {
-                        writeFileSync(jsonSchemaFilePath + '.d.ts', tsSchemaInterface);
+                        writeFileSync(tsSchemaFile, tsSchemaInterface);
                 });
 }

@@ -18,12 +18,15 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
-import { Schema as ClassOptions } from '@schematics/angular/class/schema';
+import { NgJointShapeOptions } from './schema';
 
-export function ngJointShapeSchematics(options: ClassOptions): Rule {
+export function ngJointShapeSchematics(options: NgJointShapeOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
+    }
+    if (!options.name) {
+      throw new SchematicsException('Option (name) is required.');
     }
 
     const project = getProject(host, options.project);

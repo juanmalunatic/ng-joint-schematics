@@ -3,11 +3,6 @@
   "schematics": {
     "shape": {
       "description": "ng-joint shape plugin schematic",
-      "factory": "./ng-joint-schematics/index#ngJointShapeSchematics",
-      "schema": "./ng-joint-schematics/schema.json"
-    },
-    "shapev2": {
-      "description": "ng-joint shape v2 plugin schematic",
       "factory": "./ng-joint-schematics/shape/index#ngJointShapeSchematics",
       "schema": "./ng-joint-schematics/shape/schema.json"
     }

@@ -7,9 +7,9 @@ import {
 } from '@angular-devkit/schematics';
 // import { Schema as ClassOptions } from './schema.json';
  
-export default function (options: any /* ClassOptions */): Rule {
+export function ngJointSchematics(_options: any /* ClassOptions */): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    if (!options.name) {
+    if (!_options.name) {
       throw new SchematicsException('Option (name) is required.');
     }
  
@@ -18,11 +18,13 @@ export default function (options: any /* ClassOptions */): Rule {
       [
         template({
           ...strings,
-          ...options,
+          ..._options,
         }),
       ]
     );
  
+    const testing = tree;
+    console.log(testing);
     return branchAndMerge(mergeWith(templateSource));
   };
 }

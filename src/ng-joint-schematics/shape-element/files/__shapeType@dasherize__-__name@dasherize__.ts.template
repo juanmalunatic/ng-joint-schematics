@@ -9,7 +9,7 @@ import { <%= classify(shapeType) %>ElementShape } from '../shapes-<%= dasherize(
  */
 export class <%= classify(shapeType) %><%= classify(name) %> extends <%= classify(shapeType) %>ElementShape {
 
-    constructor(id: string, options?: dia.Element.GenericAttributes<shapes.standard.RectangleSelectors>) {
+    constructor(id: string, options?: dia.Element.GenericAttributes<shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>Selectors>) {
         super({ id: id, options });
         this._jointjsObject = new shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>(options);
     }

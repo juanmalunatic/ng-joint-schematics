@@ -1,2 +1,2 @@
-export class <%= classify(name) %> {
+export class <%= classify(shapeType) %><%= classify(name) %> {
 }

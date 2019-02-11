@@ -5,14 +5,23 @@
     "type": "object",
     "description": "Creates a new generic Shape definition in the given or default project.",
     "properties": {
-      "name": {
+      "shapes": {
         "type": "string",
-        "description": "The name of the new Shape.",
+        "description": "The Plugin Shapes.",
         "$default": {
           "$source": "argv",
           "index": 0
         },
-        "x-prompt": "What name would you like to use for the class?"
+        "x-prompt": "Plugin Shapes Name?"
+      },
+      "element": {
+        "type": "string",
+        "description": "The Shape Element.",
+        "$default": {
+          "$source": "argv",
+          "index": 1
+        },
+        "x-prompt": "Shape Element Name?"
       },
       "path": {
         "type": "string",

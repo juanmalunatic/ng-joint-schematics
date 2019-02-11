@@ -1,0 +1,7 @@
+import { <%= classify(shapes) %> } from './<%= dasherize(shapes) %><%= type %>';
+
+describe('<%= classify(shapes) %>', () => {
+  it('should create an instance', () => {
+    expect(new <%= classify(shapes) %>()).toBeTruthy();
+  });
+});

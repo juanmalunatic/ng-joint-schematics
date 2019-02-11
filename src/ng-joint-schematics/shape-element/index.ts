@@ -25,8 +25,11 @@ export function ngJointShapeElementSchematics(options: NgJointShapeElementOption
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
     }
-    if (!options.name) {
-      throw new SchematicsException('Option (name) is required.');
+    if (!options.shapes) {
+      throw new SchematicsException('Option (shape) is required.');
+    }
+    if (!options.element) {
+      throw new SchematicsException('Option (shape) is required.');
     }
 
     const project = getProject(host, options.project);
@@ -35,10 +38,8 @@ export function ngJointShapeElementSchematics(options: NgJointShapeElementOption
       options.path = buildDefaultPath(project);
     }
 
-    options.type = !!options.type ? `.${options.type}` : '';
-
-    const parsedPath = parseName(options.path, options.name);
-    options.name = parsedPath.name;
+    const shapesPath = parseName(options.path, options.shapes);
+    const parsedPath = parseName(shapesPath.path, options.element);
     options.path = parsedPath.path;
 
     // todo remove these when we remove the deprecations

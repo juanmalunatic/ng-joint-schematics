@@ -18,18 +18,12 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
-import { NgJointShapeElementOptions } from './schema';
+import { Schema as ShapeElemetOptions } from './schema';
 
-export function ngJointShapeElementSchematics(options: NgJointShapeElementOptions): Rule {
+export function ngJointShapeElementSchematics(options: ShapeElemetOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
-    }
-    if (!options.shapes) {
-      throw new SchematicsException('Option (shape) is required.');
-    }
-    if (!options.element) {
-      throw new SchematicsException('Option (shape) is required.');
     }
 
     const project = getProject(host, options.project);
@@ -38,9 +32,12 @@ export function ngJointShapeElementSchematics(options: NgJointShapeElementOption
       options.path = buildDefaultPath(project);
     }
 
-    const shapesPath = parseName(options.path, options.shapes);
-    const parsedPath = parseName(shapesPath.path, options.element);
+    options.type = !!options.type ? `.${options.type}` : '';
+
+    const parsedPath = parseName(options.path, options.name);
+    options.name = parsedPath.name;
     options.path = parsedPath.path;
+    console.log('parsedPath', parsedPath);
 
     // todo remove these when we remove the deprecations
     options.skipTests = options.skipTests || !options.spec;

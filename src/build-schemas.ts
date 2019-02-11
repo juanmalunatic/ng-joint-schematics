@@ -4,7 +4,7 @@ import { writeFileSync, readFileSync } from 'fs';
 import { join } from 'path';
 import * as Collection from '../node_modules/@angular-devkit/schematics/collection-schema';
 
-const schematics = 'ng-joint';
+const schematics = 'ng-joint-schematics';
 const jsonCollectionFile = join(__dirname, 'collection.json');
 const data = readFileSync(jsonCollectionFile, 'utf-8');
 const collection: Collection.Schema = JSON.parse(data);

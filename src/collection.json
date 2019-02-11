@@ -2,9 +2,9 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "shape-element": {
-      "description": "ng-joint schematic",
-      "factory": "./ng-joint/shape-element/index#ngJointShapeElement",
-      "schema": "./ng-joint/shape-element/schema.json"
+      "description": "ng-joint shape element schematics",
+      "factory": "./ng-joint-schematics/shape-element/index#ngJointShapeElementSchematics",
+      "schema": "./ng-joint-schematics/shape-element/schema.json"
     }
   }
 }

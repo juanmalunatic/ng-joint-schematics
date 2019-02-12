@@ -20,7 +20,7 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
 
-import { NgJointSchematicsData } from '../../ng-joint-schematics-data';
+import { getShapeProperties } from '../../ng-joint-schematics-data';
 import { Schema as ShapeElementOptions } from './schema';
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
@@ -41,8 +41,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
       options.path = buildDefaultPath(project);
     }
 
-    const schematicsData = new NgJointSchematicsData(options);
-    const shapeProperties = schematicsData.getElementProperties(options.shapeType, options.name);
+    const shapeProperties = getShapeProperties(options);
     options.shapeComponentInputs = '';
     if (shapeProperties) {
       for (const key in shapeProperties) {

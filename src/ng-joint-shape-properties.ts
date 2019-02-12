@@ -7,7 +7,7 @@ const attrsNamespace = 'attributes';
  * @param shapeProperties 
  */
 export function buildShapeComponentInputs(
-    shapeProperties: NgJointShapeProperties): string {
+    shapeProperties: NgJointShapeProperties | undefined): string {
 
     let inputs = '';
 

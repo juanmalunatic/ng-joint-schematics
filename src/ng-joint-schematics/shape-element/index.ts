@@ -43,10 +43,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     }
 
     const shapeProperties = getShapeProperties(options);
-    
-    if (shapeProperties) {
-      buildShapeComponentInputs(shapeProperties, options);
-    }
+    options.shapeComponentInputs = buildShapeComponentInputs(shapeProperties);
 
     options.type = !!options.type ? `.${options.type}` : '';
 

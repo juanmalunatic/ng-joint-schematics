@@ -17,9 +17,8 @@ export function buildShapeComponentInputs(
           switch (property) {
             case 'attrs': {
                 for (const attr in shapeProperties.attrs) {
-                    inputs =+ 
-                        '@Input() ' + attr + ': ' + 
-                            attrsNamespace + '.' + shapeProperties.attrs[attr] + '/n';
+                    inputs += '@Input() ' + attr + ': ' + 
+                        attrsNamespace + '.' + shapeProperties.attrs[attr] + '\n';
                 }  
                 break;
             }

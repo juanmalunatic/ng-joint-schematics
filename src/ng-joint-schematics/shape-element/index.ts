@@ -47,7 +47,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
       for (const key in shapeProperties) {
         switch (key) {
           case 'attrs': {
-            options.shapeComponentInputs = options.shapeComponentInputs + '@Input() ' + key + 'any';
+            options.shapeComponentInputs = options.shapeComponentInputs + '@Input() ' + key + ': any;';
             break;
           }
         }

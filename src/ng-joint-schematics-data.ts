@@ -70,34 +70,34 @@ export function getShapeProperties(
 }
 
 
-interface NgJointSchematicDataOptions { 
+export interface NgJointSchematicDataOptions { 
     path?: string,
     schematicsDataFile?: string
     name?: string;
     shapeType?: string;
 }
 
-interface NgJointSchematicData {
+export interface NgJointSchematicData {
     shapes: NgJointShapeTypes;
 }
 
-interface NgJointShapeTypes {
+export interface NgJointShapeTypes {
     [shapeType: string]: NgJointShapeType;
 }
 
-interface NgJointShapeType {
+export interface NgJointShapeType {
     generic?: NgJointShape;
     elements?: NgJointShape;
     links?: NgJointShape;
 }
 
-interface NgJointShape {
+export interface NgJointShape {
     [shapeName: string]: {
         properties: NgJointShapeProperties;
     };
 }
 
-interface NgJointShapeProperties {
+export interface NgJointShapeProperties {
     attrs: {
         [propName: string]: string;
     };

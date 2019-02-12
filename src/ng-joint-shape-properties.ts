@@ -1,5 +1,6 @@
 import { NgJointShapeProperties } from './ng-joint-schematics-data';
 
+const inputSpacing = '  ';
 const attrsNamespace = 'attributes';
 
 /**
@@ -17,7 +18,7 @@ export function buildShapeComponentInputs(
           switch (property) {
             case 'attrs': {
                 for (const attr in shapeProperties.attrs) {
-                    inputs += '@Input() ' + attr + ': ' + 
+                    inputs += inputSpacing + '@Input() ' + attr + ': ' + 
                         attrsNamespace + '.' + shapeProperties.attrs[attr] + ';\n';
                 }  
                 break;

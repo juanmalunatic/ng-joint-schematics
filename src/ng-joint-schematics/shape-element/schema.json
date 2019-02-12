@@ -57,6 +57,11 @@
       "description": "Path where schematics-data file is located.",
       "default": ""
     },
+    "shapeComponentInputs": {
+      "type": "string",
+      "description": "Shape Component Property Inputs Declarations.",
+      "default": ""
+    },
     "lintFix": {
       "type": "boolean",
       "default": false,
@@ -65,6 +70,7 @@
   },
   "required": [
     "name",
-    "project"
+    "project",
+    "shapeType"
   ]
 }

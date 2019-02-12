@@ -42,13 +42,16 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     }
 
     const schematicsData = new NgJointSchematicsData(options);
-    const shapeType = schematicsData.getShapeType(options.shapeType);
-    if (shapeType) {
-      if (shapeType.elements) {
-        if (shapeType.elements[options.name]) {
-          console.log(shapeType.elements[options.name]);
+    const shapeProperties = schematicsData.getElementProperties(options.shapeType, options.name);
+    options.shapeComponentInputs = '';
+    if (shapeProperties) {
+      for (const key in shapeProperties) {
+        switch (key) {
+          case 'attrs': {
+            options.shapeComponentInputs = options.shapeComponentInputs + '@Input() ' + key + 'any';
+            break;
+          }
         }
-
       }
     }
 

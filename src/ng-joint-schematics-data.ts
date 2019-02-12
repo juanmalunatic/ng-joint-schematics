@@ -29,6 +29,18 @@ export class NgJointSchematicsData {
     getShapeType(shapeType: string): NgJointShapeType {
         return this._jsonData.shapes[shapeType];
     }
+
+    getShapeTypeElements(shapeType: string): NgJointShape | undefined {
+        return this.getShapeType(shapeType).elements;
+    }
+
+    getElementProperties(shapeType: string, element: string): NgJointShapeProperties | undefined {
+        const shapeTypeElements = this.getShapeTypeElements(shapeType);
+        if (shapeTypeElements) {
+            return shapeTypeElements[element].properties;
+        } 
+        return undefined;
+    }
 }
 
 interface NgJointSchematicDataOptions { 

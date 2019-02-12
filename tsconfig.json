@@ -30,6 +30,6 @@
   ],
   "exclude": [
     "src/*/files/**/*",
-    "src/*.ts"
+    "src/build*.ts"
   ]
 }

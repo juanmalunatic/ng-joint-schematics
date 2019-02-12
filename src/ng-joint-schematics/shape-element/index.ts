@@ -19,9 +19,9 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
-import { Schema as ShapeElemetOptions } from './schema';
+import { Schema as ShapeElementOptions } from './schema';
 
-export function ngJointShapeElementSchematics(options: ShapeElemetOptions): Rule {
+export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
@@ -33,15 +33,18 @@ export function ngJointShapeElementSchematics(options: ShapeElemetOptions): Rule
       throw new SchematicsException('Option (shapePath) is required.');
     }
 
+    let projectPath = options.path;
     const project = getProject(host, options.project);
 
-    if (options.path === undefined) {
-      options.path = buildDefaultPath(project);
+    if (projectPath === undefined) {
+      projectPath = buildDefaultPath(project);
     }
+
+    console.log('projectPath', projectPath);
 
     options.type = !!options.type ? `.${options.type}` : '';
 
-    const elementPath = join(options.path, options.shapesPath, options.shapeType, options.name);
+    const elementPath = join(projectPath, options.shapesPath, options.shapeType, options.name);
     const parsedPath = parseName(elementPath, options.name);
     options.name = parsedPath.name;
     options.path = parsedPath.path;

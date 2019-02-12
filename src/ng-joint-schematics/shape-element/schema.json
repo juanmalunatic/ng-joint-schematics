@@ -52,6 +52,11 @@
       "description": "Path where shapes are located.",
       "default": "shapes"
     },
+    "schematicsDataFile": {
+      "type": "string",
+      "description": "Path where schematics-data file is located.",
+      "default": ""
+    },
     "lintFix": {
       "type": "boolean",
       "default": false,

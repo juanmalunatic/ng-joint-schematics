@@ -62,6 +62,11 @@
       "description": "Shape Component Property Inputs Declarations.",
       "default": ""
     },
+    "jointjsImports": {
+      "type": "string",
+      "default": "",
+      "description": "Additional required jointjs (namespace) imports."
+    },
     "lintFix": {
       "type": "boolean",
       "default": false,

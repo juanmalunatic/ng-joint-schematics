@@ -59,7 +59,12 @@
     },
     "shapeComponentInputs": {
       "type": "string",
-      "description": "Shape Component Property Inputs Declarations.",
+      "description": "Shape Component Input Properties ts-code.",
+      "default": ""
+    },
+    "shapeInterfaceProperties": {
+      "type": "string",
+      "description": "Shape Component Interface Properties ts-code.",
       "default": ""
     },
     "jointjsImports": {

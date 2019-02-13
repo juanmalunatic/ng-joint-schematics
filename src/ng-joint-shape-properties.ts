@@ -3,6 +3,12 @@ import { NgJointShapeProperties } from './ng-joint-schematics-data';
 const inputSpacing = '  ';
 const attrsNamespace = 'attributes';
 
+function buildShapeProperty(
+  shapeProperties: NgJointShapeProperties,
+  key: string): string {
+  return key + ': ' + attrsNamespace + '.' + shapeProperties.attrs[key] + ';\n';
+}
+
 /**
  * Build a string with parsed Shape Component Inputs from Shape Properties
  * @param shapeProperties 
@@ -17,9 +23,9 @@ export function buildShapeComponentInputs(
 
       switch (property) {
         case 'attrs': {
-          for (const attr in shapeProperties.attrs) {
-            inputs += inputSpacing + '@Input() ' + attr + ': ' + 
-              attrsNamespace + '.' + shapeProperties.attrs[attr] + ';\n';
+          for (const key in shapeProperties.attrs) {
+            inputs += inputSpacing + '@Input() ' + 
+              buildShapeProperty(shapeProperties, key);
           }  
           break;
         }
@@ -30,6 +36,33 @@ export function buildShapeComponentInputs(
   return inputs;
 }
 
+export function buildShapeInterfaceProperties(
+  shapeProperties: NgJointShapeProperties | undefined): string {
+
+  let properties = '';
+
+  if (shapeProperties) {
+    for (const property in shapeProperties) {
+
+      switch (property) {
+        case 'attrs': {
+          for (const key in shapeProperties.attrs) {
+            properties += inputSpacing + buildShapeProperty(shapeProperties, key);
+          }  
+          break;
+        }
+      }
+    }
+  }  
+
+  return properties;
+}
+
+/**
+ * Build a string with required jointjs imports (namespaces, ..)
+ * @param shapeProperties
+ * @param imports 
+ */
 export function buildJointjsImports(
   shapeProperties: NgJointShapeProperties | undefined,
   imports?: string): string {

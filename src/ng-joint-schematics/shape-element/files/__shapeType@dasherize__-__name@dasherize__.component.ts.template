@@ -3,7 +3,8 @@
  */
 import { Component, Input } from '@angular/core';
 
-// IF attributes LOGIC...
+// IF attributes LOGIC... jointjsImports
+<% if (jointjsImports !== '') { %>import { <%= jointjsImports %> } from 'jointjs';<% } else { %>// no jointjs imports<% } %>
 // import { attributes } from 'jointjs';
 
 import { Generic<%= classify(shapeType) %>ElementShapeComponent, NgJointGeneric<%= classify(shapeType) %>Element } from '../shapes-standard';

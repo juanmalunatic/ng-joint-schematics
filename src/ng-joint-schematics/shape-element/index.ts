@@ -21,7 +21,10 @@ import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
 
 import { getShapeProperties } from '../../ng-joint-schematics-data';
-import { buildShapeComponentInputs } from '../../ng-joint-shape-properties';
+import {
+  buildShapeComponentInputs,
+  buildJointjsImports
+} from '../../ng-joint-shape-properties';
 import { Schema as ShapeElementOptions } from './schema';
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
@@ -44,6 +47,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
 
     const shapeProperties = getShapeProperties(options);
     options.shapeComponentInputs = buildShapeComponentInputs(shapeProperties);
+    options.jointjsImports = buildJointjsImports(shapeProperties);
 
     options.type = !!options.type ? `.${options.type}` : '';
 

@@ -3,9 +3,7 @@
  */
 import { Component, Input } from '@angular/core';
 
-// IF attributes LOGIC... jointjsImports
 <% if (jointjsImports !== '') { %>import { <%= jointjsImports %> } from 'jointjs';<% } else { %>// no jointjs imports<% } %>
-// import { attributes } from 'jointjs';
 
 import { Generic<%= classify(shapeType) %>ElementShapeComponent, NgJointGeneric<%= classify(shapeType) %>Element } from '../shapes-standard';
 import { <%= classify(shapeType) %><%= classify(name) %>Service } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>.service';
@@ -14,7 +12,7 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
 @Component({
   selector: 'ng-joint-<%= dasherize(shapeType) %>-<%= dasherize(name) %>',
   template: `
-    <!-- joint.shapes.<%= dasherize(shapeType) %>.%= classify(name) %>  -->
+    <!-- joint.shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>  -->
     `,
 })
 export class <%= classify(shapeType) %><%= classify(name) %>Component extends GenericStandardElementShapeComponent {

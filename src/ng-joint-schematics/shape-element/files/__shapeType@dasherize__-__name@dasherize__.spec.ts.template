@@ -5,6 +5,6 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
 
 describe('<%= classify(shapeType) %><%= classify(name) %>', () => {
   it('should create an instance', () => {
-    expect(new <%= classify(shapeType) %><%= classify(name) %>()).toBeTruthy();
+    expect(new <%= classify(shapeType) %><%= classify(name) %>('test')).toBeTruthy();
   });
 });

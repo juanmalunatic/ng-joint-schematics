@@ -4,10 +4,10 @@
  */
 import { Injectable, SimpleChanges,  } from '@angular/core';
 
-import { DiaGraph } from '../../../../dia/graph';
-import { ElementShapeService } from '../../../shapes';
+import { DiaGraph } from '../../../dia/graph';
+import { ElementShapeService } from '../../../<%= dasherize(shapesPath) %>/shapes';
 
-import { Shapes<%= classify(shapeType) %>Service } from '../../../shapes-<%= dasherize(shapeType) %>.service';
+import { Shapes<%= classify(shapeType) %>Service } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/shapes-<%= dasherize(shapeType) %>.service';
 import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>';
 import { <%= classify(shapeType) %><%= classify(name) %>Component } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>.component';
 

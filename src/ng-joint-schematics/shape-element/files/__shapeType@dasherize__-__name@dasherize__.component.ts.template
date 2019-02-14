@@ -6,7 +6,7 @@ import { Component<% if (shapeComponentInputs !== '') { %>, Input<% } %> } from 
 
 <% if (jointjsImports !== '') { %>import { <%= jointjsImports %> } from 'jointjs';<% } else { %>// no jointjs imports<% } %>
 
-import { Generic<%= classify(shapeType) %>ElementShapeComponent, NgJointGeneric<%= classify(shapeType) %>Element } from '../../../shapes-standard';
+import { Generic<%= classify(shapeType) %>ElementShapeComponent, NgJointGeneric<%= classify(shapeType) %>Element } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/shapes-<%= dasherize(shapeType) %>';
 import { <%= classify(shapeType) %><%= classify(name) %>Service } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>.service';
 import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>';
 

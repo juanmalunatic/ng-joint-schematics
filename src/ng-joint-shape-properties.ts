@@ -3,6 +3,23 @@ import { NgJointShapeProperties } from './ng-joint-schematics-data';
 const inputSpacing = '  ';
 const attrsNamespace = 'attributes';
 
+/**
+ * Build a string with parsed Element Constructor Parameters
+ * @param shapeProperties 
+ */
+export function buildElementConstructorProperties(
+  genericProperties: NgJointShapeProperties | undefined,
+  shapeProperties: NgJointShapeProperties | undefined): string {
+
+  let constructorProperties = '';
+
+  if (shapeProperties) {
+    const attrs
+  }
+
+  return propertyParms;
+}
+
 function buildShapeProperty(
   shapeProperties: NgJointShapeProperties,
   key: string): string {
@@ -36,6 +53,10 @@ export function buildShapeComponentInputs(
   return inputs;
 }
 
+/**
+ * Build a string with parsed Shape Interface Properties
+ * @param shapeProperties
+ */
 export function buildShapeInterfaceProperties(
   shapeProperties: NgJointShapeProperties | undefined): string {
 

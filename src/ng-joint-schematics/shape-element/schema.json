@@ -52,6 +52,11 @@
       "description": "Path where shapes are located.",
       "default": "shapes"
     },
+    "generatePath": {
+      "type": "string",
+      "description": "subfolder where shape element and link code are generated.",
+      "default": "_gen_"
+    },
     "schematicsDataFile": {
       "type": "string",
       "description": "Path where schematics-data file is located.",
@@ -81,6 +86,7 @@
   "required": [
     "name",
     "project",
-    "shapeType"
+    "shapeType",
+    "generatePath"
   ]
 }

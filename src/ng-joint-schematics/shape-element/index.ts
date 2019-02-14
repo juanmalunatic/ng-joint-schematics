@@ -30,6 +30,7 @@ import { Schema as ShapeElementOptions } from './schema';
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
+    console.log(options);
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
     }
@@ -38,6 +39,9 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     }
     if (!options.shapesPath) {
       throw new SchematicsException('Option (shapePath) is required.');
+    }
+    if (!options.generatePath) {
+      throw new SchematicsException('Option (generatePath) is required.');
     }
 
     const project = getProject(host, options.project);
@@ -53,7 +57,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
 
     options.type = !!options.type ? `.${options.type}` : '';
 
-    const elementPath = join(options.path, options.shapesPath, options.generatePath, 
+    const elementPath = join(options.path, options.shapesPath, options.generatePath,
       options.shapeType, options.name);
     const parsedPath = parseName(elementPath, options.name);
     options.name = parsedPath.name;

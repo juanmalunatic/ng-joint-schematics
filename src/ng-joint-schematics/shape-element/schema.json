@@ -29,6 +29,12 @@
       "description": "The path at which to create the class, relative to the workspace root.",
       "visible": false
     },
+    "generatePath": {
+      "type": "string",
+      "description": "The path where shape modules are generated.",
+      "default": "_generate_",
+      "visible": false
+    },
     "project": {
       "type": "string",
       "description": "The name of the project.",
@@ -51,11 +57,6 @@
       "type": "string",
       "description": "Path where shapes are located.",
       "default": "shapes"
-    },
-    "generatePath": {
-      "type": "string",
-      "description": "subfolder where shape element and link code are generated.",
-      "default": "_gen_"
     },
     "schematicsDataFile": {
       "type": "string",
@@ -86,7 +87,6 @@
   "required": [
     "name",
     "project",
-    "shapeType",
-    "generatePath"
+    "shapeType"
   ]
 }

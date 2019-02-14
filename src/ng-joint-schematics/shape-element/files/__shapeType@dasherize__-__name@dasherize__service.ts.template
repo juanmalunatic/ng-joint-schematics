@@ -22,19 +22,19 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements E
     graphInstance: DiaGraph,
     component: <%= classify(shapeType) %><%= classify(name) %>Component
   ): <%= classify(shapeType) %><%= classify(name) %> {
-    const <%= dasherize(name) %>Shape = new %= classify(shapeType) %><%= classify(name) %>(
+    const <%= dasherize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
       component.id,
       this.service.buildElementOptions(component)
     );
-    graphInstance.addElement(rectangleShape);
-    return rectangleShape;
+    graphInstance.addElement(<%= dasherize(name) %>Shape);
+    return <%= dasherize(name) %>Shape;
   }
 
-  onEvents(component: StandardRectangleComponent) {
+  onEvents(component: <%= classify(shapeType) %><%= classify(name) %>Component) {
     this.service.onElementEvents(component);
   }
 
-  setChanges(changes: SimpleChanges, component: StandardRectangleComponent) {
+  setChanges(changes: SimpleChanges, component: <%= classify(shapeType) %><%= classify(name) %>) {
     this.service.setElementChanges(changes, component);
   }
 

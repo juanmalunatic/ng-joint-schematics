@@ -34,7 +34,7 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements E
     this.service.onElementEvents(component);
   }
 
-  setChanges(changes: SimpleChanges, component: <%= classify(shapeType) %><%= classify(name) %>) {
+  setChanges(changes: SimpleChanges, component: <%= classify(shapeType) %><%= classify(name) %>Component) {
     this.service.setElementChanges(changes, component);
   }
 

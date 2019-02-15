@@ -8,9 +8,10 @@ import {
   apply,
   applyTemplates,
   branchAndMerge,
+  forEach,
   chain,
   filter,
-  mergeWith,
+  mergeWith, 
   move,
   noop,
   url,
@@ -61,6 +62,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     const parsedPath = parseName(rootPath, options.name);
     options.name = parsedPath.name;
     options.path = parsedPath.path;
+    console.log('options.path', options.path);
     
     // todo remove these when we remove the deprecations
     options.skipTests = options.skipTests || !options.spec;
@@ -71,7 +73,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
         ...strings,
         ...options,
       }),
-      move(parsedPath.path),
+      move(options.path),
     ]);
 
     const rule = chain([

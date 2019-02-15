@@ -4,7 +4,7 @@
     "shape-element": {
       "description": "ng-joint shape element schematics",
       "factory": "./ng-joint-schematics/shape-element/index#ngJointShapeElementSchematics",
-      "schema": "./ng-joint-schematics/shape-element/schema.json"
+      "schema": "./schemas/shape-element-schema.json"
     }
   }
 }

@@ -4,11 +4,6 @@ src/**/*.js.map
 src/**/*.d.ts
 dist
 
-# IDEs
-.idea/
-jsconfig.json
-.vscode/
-
 # Misc
 node_modules/
 npm-debug.log*

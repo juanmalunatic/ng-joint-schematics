@@ -8,7 +8,6 @@ import {
   apply,
   applyTemplates,
   branchAndMerge,
-  forEach,
   chain,
   filter,
   mergeWith, 
@@ -27,7 +26,7 @@ import {
   buildShapeInterfaceProperties,
   buildJointjsImports
 } from '../../ng-joint-shape-properties';
-import { Schema as ShapeElementOptions } from './schema';
+import { Schema as ShapeElementOptions } from '../../schemas/shape-element-schema';
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
   return (host: Tree, context: SchematicContext) => {

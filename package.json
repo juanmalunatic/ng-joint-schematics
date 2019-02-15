@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "description": "Angular Schematics to support ng-joint development",
   "scripts": {
+    "start": "nodemon",
+    "build": "npm run build:schemas && npm run build:schematics",
     "build:schemas": "ts-node src/build-schemas.ts",
-    "build": "tsc -p tsconfig.json -w",
+    "build:schematics": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js"
   },
   "keywords": [
@@ -25,7 +27,7 @@
     "@types/node": "^8.10.40",
     "@types/npm": "^2.0.29",
     "json-schema-to-typescript": "^6.1.1",
-    "ts-node": "^8.0.2",
-    "watch": "^1.0.2"
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.0.2"
   }
 }

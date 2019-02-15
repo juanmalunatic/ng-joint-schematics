@@ -57,9 +57,8 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
 
     options.type = !!options.type ? `.${options.type}` : '';
 
-    const elementPath = join(options.path, options.generatePath,
-      options.shapeType /*, options.name */);
-    const parsedPath = parseName(elementPath, options.name);
+    const rootPath = join(options.path, options.generatePath);
+    const parsedPath = parseName(rootPath, options.name);
     options.name = parsedPath.name;
     options.path = parsedPath.path;
     

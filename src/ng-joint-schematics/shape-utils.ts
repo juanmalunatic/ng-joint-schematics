@@ -24,15 +24,15 @@ export function buildShapeTypePath(options: ShapeOptions): string | undefined {
     return join(options.path, strings.dasherize(options.shapeType));
   }
   
-  export function buildShapeTypeComponentName(options: ShapeOptions): string | undefined {
+export function buildShapeTypeComponentName(options: ShapeOptions): string | undefined {
     if (!options.shapeType) {
       return undefined;
     }
 
     return 'shape-' + strings.dasherize(options.shapeType) + '.component.ts';
-  }
+}
   
-  export function buildShapeTypeComponentPath(options: ShapeOptions): string | undefined {
+export function buildShapeTypeComponentPath(options: ShapeOptions): string | undefined {
     const shapeTypePath = buildShapeTypePath(options);
     const componentName = buildShapeTypeComponentName(options)
   
@@ -41,9 +41,9 @@ export function buildShapeTypePath(options: ShapeOptions): string | undefined {
     }
   
     return join(shapeTypePath, componentName);
-  }
+}
   
-  export function updateShapeReferences(options: ShapeOptions): Rule {
+export function updateShapeReferences(options: ShapeOptions): Rule {
     return (host: Tree) => {
   
       const shapeTypeComponentPath = buildShapeTypeComponentPath(options);
@@ -71,5 +71,5 @@ export function buildShapeTypePath(options: ShapeOptions): string | undefined {
         host.commitUpdate(recorder);
       }
     }
-  }
+}
   

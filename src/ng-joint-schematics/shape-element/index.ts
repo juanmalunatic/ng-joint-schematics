@@ -13,12 +13,13 @@ import {
   mergeWith, 
   move,
   noop,
-  url,
+  url
 } from '@angular-devkit/schematics';
 import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
+import { /* buildRelativePath, */ findModuleFromOptions } from '@schematics/angular/utility/find-module';
 
 import { getShapeProperties } from '../../ng-joint-schematics-data';
 import {
@@ -50,6 +51,9 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
       options.path = buildDefaultPath(project);
     }
 
+    options.module = findModuleFromOptions(host, options);
+    console.log('options.module', options.module);
+
     const shapeProperties = getShapeProperties(options);
     options.shapeComponentInputs = buildShapeComponentInputs(shapeProperties);
     options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
@@ -61,11 +65,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     const parsedPath = parseName(rootPath, options.name);
     options.name = parsedPath.name;
     options.path = parsedPath.path;
-    console.log('options.path', options.path);
     
-    // todo remove these when we remove the deprecations
-    options.skipTests = options.skipTests || !options.spec;
-
     const templateSource = apply(url('./files'), [
       options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
       applyTemplates({

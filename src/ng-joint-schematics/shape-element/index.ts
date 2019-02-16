@@ -67,7 +67,12 @@ export function addShapes(options: ShapeElementOptions): Rule {
 
       const sourceText = text.toString('utf-8');
       const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
-      const change = insertImport(source, shapeTypeComponentPath, 'TestImport', '../testimport');
+      const change = insertImport(
+        source, 
+        shapeTypeComponentPath, 
+        strings.classify(options.shapeType) + strings.classify(options.name), 
+        './' + strings.dasherize(options.name) + '/' +
+        strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name));
 
       const recorder = host.beginUpdate(shapeTypeComponentPath);
       if (change instanceof InsertChange) {

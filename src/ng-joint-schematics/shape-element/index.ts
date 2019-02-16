@@ -1,5 +1,4 @@
 import { join } from 'path';
-import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
 import {
   Rule,
@@ -20,8 +19,6 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
-import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
 
 import { getShapeProperties } from '../../ng-joint-schematics-data';
 import {
@@ -30,58 +27,11 @@ import {
   buildJointjsImports
 } from '../../ng-joint-shape-properties';
 import { Schema as ShapeElementOptions } from '../../schemas/shape-element-schema';
-
-export function buildShapeTypePath(options: ShapeElementOptions): string | undefined {
-  if (!options.path) {
-    return undefined;
-  }
-
-  return join(options.path, strings.dasherize(options.shapeType));
-}
-
-export function buildShapeTypeComponentName(options: ShapeElementOptions): string {
-  return 'shape-' + strings.dasherize(options.shapeType) + '.component.ts';
-}
-
-export function buildShapeTypeComponentPath(options: ShapeElementOptions): string | undefined {
-  const shapeTypePath = buildShapeTypePath(options);
-
-  if (!shapeTypePath) {
-    return undefined;
-  }
-
-  return join(shapeTypePath, buildShapeTypeComponentName(options));
-}
-
-export function addShapes(options: ShapeElementOptions): Rule {
-  return (host: Tree) => {
-
-    const shapeTypeComponentPath = buildShapeTypeComponentPath(options);
-
-    if (shapeTypeComponentPath) {
-      const text = host.read(shapeTypeComponentPath);
-
-      if (text === null) {
-        throw new SchematicsException(`File ${shapeTypeComponentPath} does not exist.`);
-      }
-
-      const sourceText = text.toString('utf-8');
-      const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
-      const change = insertImport(
-        source, 
-        shapeTypeComponentPath, 
-        strings.classify(options.shapeType) + strings.classify(options.name), 
-        './' + strings.dasherize(options.name) + '/' +
-        strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name));
-
-      const recorder = host.beginUpdate(shapeTypeComponentPath);
-      if (change instanceof InsertChange) {
-        recorder.insertLeft(change.pos, change.toAdd);
-      }
-      host.commitUpdate(recorder);
-    }
-  }
-}
+import { 
+  buildShapeTypeComponentPath,
+  buildShapeTypeComponentName,
+  updateShapeReferences
+} from '../shape-utils';
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -131,7 +81,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
 
     const rule = chain([
       mergeWith(templateSource, MergeStrategy.Default),
-      addShapes(options),
+      updateShapeReferences(options),
       options.lintFix ? applyLintFix(options.path) : noop(),
     ]);
     return rule(host, context);

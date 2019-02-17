@@ -87,7 +87,7 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
         const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
         const shapeComponent = shapeClass + 'Component';
         const shapeComponentFilePath = shapeClassFilePath + '.component';
-        const changes = [
+        let changes = [
           insertImport(
             source, 
             shapeTypeComponentPath, 
@@ -102,15 +102,6 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
           )
         ];
 
-        const recorder = host.beginUpdate(shapeTypeComponentPath);
-        for (const change of changes) {
-          if (change instanceof InsertChange) {
-            recorder.insertLeft(change.pos, change.toAdd);
-          }
-        }
-        host.commitUpdate(recorder);
-
-
         const atNodes = findNodes(source, ts.SyntaxKind.AtToken);
         const shapeContentChildrenNode = atNodes.find(
           node => node.parent.getText() === '@ContentChildren(' + shapeComponent + ')');
@@ -118,11 +109,23 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
         if (!shapeContentChildrenNode) {
           console.log('ContentChildren Not Found')
           const classNodes = findNodes(source, ts.SyntaxKind.Constructor);
-          console.log(classNodes[0].getStart());
-          const changeContent = insertAfterLastOccurrence(imports, '// TEST INSERT', fileToEdit, fallbackPos);
+          const fallbackPos = classNodes[0].getStart() - classNodes[0].getFullWidth();
+          changes.push(insertAfterLastOccurrence(
+            classNodes, 
+            '// TEST INSERT', 
+            shapeTypeComponentPath, 
+            fallbackPos)
+          );
     
-
         }
+
+        const recorder = host.beginUpdate(shapeTypeComponentPath);
+        for (const change of changes) {
+          if (change instanceof InsertChange) {
+            recorder.insertLeft(change.pos, change.toAdd);
+          }
+        }
+        host.commitUpdate(recorder);
 
       }
 

@@ -21,7 +21,7 @@ export class Shapes<%= classify(shapeType) %>Component implements ShapePlugin {
   graphInstance: DiaGraph;
 
   set graphInstance(graphInstance: DiaGraph) {
-    this._graphInstance = graphInstance;
+    this.graphInstance = graphInstance;
     this.service.createShapes(
       [/* elements */],
       [/* links */],

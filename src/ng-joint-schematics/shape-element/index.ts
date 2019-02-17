@@ -68,11 +68,10 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     options.path = parsedPath.path;
 
     const shapeTypeComponentPath = buildShapeTypeComponentPath(options) || '';
-    const shapeTypeComponentExists = host.exists(shapeTypeComponentPath);
-    
+        
     const templateSource = apply(url('./files'), [
       options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
-      shapeTypeComponentExists ? filter(path => path === buildShapeTypeComponentName(options)) : noop(),
+      host.exists(shapeTypeComponentPath) ? filter(path => path === buildShapeTypeComponentName(options)) : noop(),
       applyTemplates({
         ...strings,
         ...options,

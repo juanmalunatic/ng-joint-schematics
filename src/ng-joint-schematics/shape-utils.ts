@@ -10,12 +10,19 @@ import {
 import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 
+/**
+ * Sshape type options Interface
+ */
 interface ShapeOptions {
     name: string;
     shapeType?: string;
     path?: string;
 }
 
+/**
+ * Build path where the shape type files are located
+ * @param options 
+ */
 export function buildShapeTypePath(options: ShapeOptions): string | undefined {
     if (!options.path || !options.shapeType) {
       return undefined;
@@ -23,7 +30,11 @@ export function buildShapeTypePath(options: ShapeOptions): string | undefined {
 
     return join(options.path, strings.dasherize(options.shapeType));
   }
-  
+
+/**
+ * Build shape type component file name
+ * @param options
+ */  
 export function buildShapeTypeComponentName(options: ShapeOptions): string | undefined {
     if (!options.shapeType) {
       return undefined;
@@ -31,7 +42,11 @@ export function buildShapeTypeComponentName(options: ShapeOptions): string | und
 
     return 'shape-' + strings.dasherize(options.shapeType) + '.component.ts';
 }
-  
+
+/**
+ * Build file path to shape type component
+ * @param options 
+ */
 export function buildShapeTypeComponentPath(options: ShapeOptions): string | undefined {
     const shapeTypePath = buildShapeTypePath(options);
     const componentName = buildShapeTypeComponentName(options)
@@ -42,7 +57,11 @@ export function buildShapeTypeComponentPath(options: ShapeOptions): string | und
   
     return join(shapeTypePath, componentName);
 }
-  
+
+/**
+ * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
+ * @param options 
+ */
 export function updateShapeReferences(options: ShapeOptions): Rule {
     return (host: Tree) => {
   

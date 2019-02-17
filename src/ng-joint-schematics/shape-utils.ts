@@ -91,12 +91,6 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
           insertImport(
             source, 
             shapeTypeComponentPath, 
-            shapeClass, 
-            shapeClassFilePath
-          ),
-          insertImport(
-            source, 
-            shapeTypeComponentPath, 
             shapeComponent, 
             shapeComponentFilePath
           )
@@ -107,12 +101,22 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
           node => node.parent.getText() === '@ContentChildren(' + shapeComponent + ')');
         
         if (!shapeContentChildrenNode) {
-          console.log('ContentChildren Not Found')
-          const classNodes = findNodes(source, ts.SyntaxKind.Constructor);
-          const fallbackPos = classNodes[0].getStart() - classNodes[0].getFullWidth();
+          const commentNodes = findNodes(source, ts.SyntaxKind.JSDocComment);
+
+          for (const commentNode of commentNodes) { console.log(commentNode.getText(), commentNode.getStart()); }
+          const contentChildsNode = commentNodes.find(
+            commentNode => commentNode.getText() === '/** Generetated ContentChildrens */');
+
+          if (!contentChildsNode) {
+            throw new SchematicsException(`Comment to  position ContentChildrens is not found in ${shapeTypeComponentPath}.`);
+          }
+
+          const fallbackPos = 554;
           changes.push(insertAfterLastOccurrence(
-            classNodes, 
-            '// TEST INSERT', 
+            commentNodes, 
+            '\n  @ContentChildren(' + shapeComponent + ')' + 
+              strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
+              ': QueryList<ElementShapeComponent>;', 
             shapeTypeComponentPath, 
             fallbackPos)
           );

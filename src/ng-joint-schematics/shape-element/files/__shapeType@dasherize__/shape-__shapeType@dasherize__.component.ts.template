@@ -14,23 +14,18 @@ import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(sha
     `,
 })
 export class Shapes<%= classify(shapeType) %>Component implements ShapePlugin {
-  // @ContentChildren(StandardRectangleComponent) standardRectangles: QueryList<ElementShapeComponent>;
-  // @ContentChildren(StandardLinkComponent) standardLinks: QueryList<LinkShapeComponent>;
+  /** Generetated ContentChildrens */
 
   constructor(private service: Shapes<%= classify(shapeType) %>Service) { }
 
-  /** @ignore */
-  private _graphInstance: DiaGraph;
+  graphInstance: DiaGraph;
 
-  /**
-   * Set Parent DiaGraphElement (ng-joint-dia-graph) and create Plugin Shapes
-   */
   set graphInstance(graphInstance: DiaGraph) {
     this._graphInstance = graphInstance;
     this.service.createShapes(
       [/* elements */],
       [/* links */],
-      this._graphInstance
+      this.graphInstance
       );
   }
 

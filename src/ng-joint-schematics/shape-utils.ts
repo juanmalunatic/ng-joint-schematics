@@ -1,5 +1,5 @@
 /**
- * @ddwnu/ngschematics shape utils to create and update shape dependencies
+ * @dgwnu/ngschematics shape utils to create and update shape dependencies
  * 
  * based on exmaple: https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
  */

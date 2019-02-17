@@ -1,7 +1,9 @@
 /**
  * @dgwnu/ngschematics shape utils to create and update shape dependencies
  * 
- * based on exmaple: https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
+ * Based on @angular/cli/schematics/angular/component:
+ * 
+ * https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
  */
 import { join } from 'path';
 import * as ts from 'typescript';
@@ -105,8 +107,8 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
           if (change instanceof InsertChange) {
             recorder.insertLeft(change.pos, change.toAdd);
           }
-          host.commitUpdate(recorder);
         }
+        host.commitUpdate(recorder);
       }
     }
 }

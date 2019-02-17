@@ -68,10 +68,11 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     options.path = parsedPath.path;
 
     const shapeTypeComponentPath = buildShapeTypeComponentPath(options) || '';
+    const shapeTypeComponentExists = host.exists(shapeTypeComponentPath);
     
     const templateSource = apply(url('./files'), [
       options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
-      host.exists(shapeTypeComponentPath) ? filter(path => path === buildShapeTypeComponentName(options)) : noop(),
+      shapeTypeComponentExists ? filter(path => path === buildShapeTypeComponentName(options)) : noop(),
       applyTemplates({
         ...strings,
         ...options,
@@ -81,8 +82,8 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
 
     const rule = chain([
       mergeWith(templateSource, MergeStrategy.Default),
-      updateShapeReferences(options),
       options.lintFix ? applyLintFix(options.path) : noop(),
+      updateShapeReferences(options),
     ]);
     return rule(host, context);
   };

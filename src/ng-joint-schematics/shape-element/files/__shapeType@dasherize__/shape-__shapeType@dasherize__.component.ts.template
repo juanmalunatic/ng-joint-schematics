@@ -18,14 +18,14 @@ export class Shapes<%= classify(shapeType) %>Component implements ShapePlugin {
 
   constructor(private service: Shapes<%= classify(shapeType) %>Service) { }
 
-  graphInstance: DiaGraph;
+  private _graphInstance: DiaGraph;
 
   set graphInstance(graphInstance: DiaGraph) {
-    this.graphInstance = graphInstance;
+    this._graphInstance = graphInstance;
     this.service.createShapes(
       [/* elements */],
       [/* links */],
-      this.graphInstance
+      this._graphInstance
       );
   }
 

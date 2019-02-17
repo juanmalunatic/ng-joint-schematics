@@ -81,14 +81,24 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
   
         const sourceText = text.toString('utf-8');
         const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
-        const classToImport = strings.classify(options.shapeType) + strings.classify(options.name);
-        const importFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
-        const changes = [insertImport(
-          source, 
-          shapeTypeComponentPath, 
-          classToImport, 
-          importFilePath
-        )];
+        const shapeClassToImport = strings.classify(options.shapeType) + strings.classify(options.name);
+        const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
+        const shapeComponentToImport = shapeClassToImport + 'Component';
+        const shapeComponentFilePath = shapeClassFilePath + '.component';
+        const changes = [
+          insertImport(
+            source, 
+            shapeTypeComponentPath, 
+            shapeClassToImport, 
+            shapeClassFilePath
+          ),
+          insertImport(
+            source, 
+            shapeTypeComponentPath, 
+            shapeComponentToImport, 
+            shapeComponentFilePath
+          )
+        ];
 
         const recorder = host.beginUpdate(shapeTypeComponentPath);
         for (const change of changes) {

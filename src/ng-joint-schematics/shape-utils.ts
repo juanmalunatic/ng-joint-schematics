@@ -14,7 +14,7 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 
-import { insertImport } from '@schematics/angular/utility/ast-utils';
+import { insertImport, findNodes, insertAfterLastOccurrence } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 
 /**
@@ -83,21 +83,21 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
   
         const sourceText = text.toString('utf-8');
         const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
-        const shapeClassToImport = strings.classify(options.shapeType) + strings.classify(options.name);
+        const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
         const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
-        const shapeComponentToImport = shapeClassToImport + 'Component';
+        const shapeComponent = shapeClass + 'Component';
         const shapeComponentFilePath = shapeClassFilePath + '.component';
         const changes = [
           insertImport(
             source, 
             shapeTypeComponentPath, 
-            shapeClassToImport, 
+            shapeClass, 
             shapeClassFilePath
           ),
           insertImport(
             source, 
             shapeTypeComponentPath, 
-            shapeComponentToImport, 
+            shapeComponent, 
             shapeComponentFilePath
           )
         ];
@@ -109,7 +109,24 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
           }
         }
         host.commitUpdate(recorder);
+
+
+        const atNodes = findNodes(source, ts.SyntaxKind.AtToken);
+        const shapeContentChildrenNode = atNodes.find(
+          node => node.parent.getText() === '@ContentChildren(' + shapeComponent + ')');
+        
+        if (!shapeContentChildrenNode) {
+          console.log('ContentChildren Not Found')
+          const classNodes = findNodes(source, ts.SyntaxKind.Constructor);
+          console.log(classNodes[0].getStart());
+          const changeContent = insertAfterLastOccurrence(imports, '// TEST INSERT', fileToEdit, fallbackPos);
+    
+
+        }
+
       }
+
     }
+
 }
   

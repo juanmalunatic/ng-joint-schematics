@@ -35,7 +35,6 @@ import {
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
-    console.log(options);
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
     }

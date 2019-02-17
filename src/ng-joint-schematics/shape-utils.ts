@@ -1,3 +1,8 @@
+/**
+ * @ddwnu/ngschematics shape utils to create and update shape dependencies
+ * 
+ * based on exmaple: https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
+ */
 import { join } from 'path';
 import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
@@ -8,7 +13,7 @@ import {
 } from '@angular-devkit/schematics';
 
 import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { InsertChange, Change } from '@schematics/angular/utility/change';
+import { InsertChange } from '@schematics/angular/utility/change';
 
 /**
  * Sshape type options Interface
@@ -58,17 +63,6 @@ export function buildShapeTypeComponentPath(options: ShapeOptions): string | und
     return join(shapeTypePath, componentName);
 }
 
-function insertShapeClassImport(
-  source: ts.SourceFile, 
-  shapeTypeComponentPath: string,
-  shapeClassToImport: string, shapeImportFilePath: string): Change {
-
-return insertImport(
-      source, 
-      shapeTypeComponentPath, 
-      shapeClassToImport, shapeImportFilePath);
-}
-
 /**
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
@@ -86,14 +80,23 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
         }
   
         const sourceText = text.toString('utf-8');
-        let changes: Change[] = [];
-        
-  
+        const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
+        const classToImport = strings.classify(options.shapeType) + strings.classify(options.name);
+        const importFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
+        const changes = [insertImport(
+          source, 
+          shapeTypeComponentPath, 
+          classToImport, 
+          importFilePath
+        )];
+
         const recorder = host.beginUpdate(shapeTypeComponentPath);
-        if (change instanceof InsertChange) {
-          recorder.insertLeft(change.pos, change.toAdd);
+        for (const change of changes) {
+          if (change instanceof InsertChange) {
+            recorder.insertLeft(change.pos, change.toAdd);
+          }
+          host.commitUpdate(recorder);
         }
-        host.commitUpdate(recorder);
       }
     }
 }

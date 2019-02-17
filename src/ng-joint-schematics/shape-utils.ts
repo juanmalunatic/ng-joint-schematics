@@ -8,7 +8,7 @@ import {
 } from '@angular-devkit/schematics';
 
 import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
+import { InsertChange, Change } from '@schematics/angular/utility/change';
 
 /**
  * Sshape type options Interface
@@ -58,6 +58,17 @@ export function buildShapeTypeComponentPath(options: ShapeOptions): string | und
     return join(shapeTypePath, componentName);
 }
 
+function insertShapeClassImport(
+  source: ts.SourceFile, 
+  shapeTypeComponentPath: string,
+  shapeClassToImport: string, shapeImportFilePath: string): Change {
+
+return insertImport(
+      source, 
+      shapeTypeComponentPath, 
+      shapeClassToImport, shapeImportFilePath);
+}
+
 /**
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
@@ -75,13 +86,8 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
         }
   
         const sourceText = text.toString('utf-8');
-        const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
-        const change = insertImport(
-          source, 
-          shapeTypeComponentPath, 
-          strings.classify(options.shapeType) + strings.classify(options.name), 
-          './' + strings.dasherize(options.name) + '/' +
-          strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name));
+        let changes: Change[] = [];
+        
   
         const recorder = host.beginUpdate(shapeTypeComponentPath);
         if (change instanceof InsertChange) {

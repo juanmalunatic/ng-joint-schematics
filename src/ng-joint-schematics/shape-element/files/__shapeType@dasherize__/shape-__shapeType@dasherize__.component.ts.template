@@ -3,8 +3,8 @@
  */
 import { Component, ContentChildren, QueryList } from '@angular/core';
 
-import { DiaGraph } from '../../dia/graph';
-import { ShapePlugin, ElementShapeComponent, LinkShapeComponent } from '../../<%= dasherize(shapesPath) %>/shapes';
+import { GenericShapePluginComponent } from '../../<%= dasherize(shapesPath) %>/shapes';
+import { GenericStandardElementShapeComponent, GenericStandardLinkShapeComponent } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/shapes-<%= dasherize(shapeType) %>';
 import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/shapes-<%= dasherize(shapeType) %>.service';
 
 @Component({
@@ -13,20 +13,11 @@ import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(sha
     <ng-content></ng-content>
     `,
 })
-export class Shapes<%= classify(shapeType) %>Component implements ShapePlugin {
+export class Shapes<%= classify(shapeType) %>Component extends GenericShapePluginComponent {
   /** Generetated ContentChildrens */
 
-  constructor(private service: Shapes<%= classify(shapeType) %>Service) { }
-
-  private _graphInstance: DiaGraph;
-
-  set graphInstance(graphInstance: DiaGraph) {
-    this._graphInstance = graphInstance;
-    this.service.createShapes(
-      [/* elements */],
-      [/* links */],
-      this._graphInstance
-      );
+  constructor(private shapes<%= classify(shapeType) %>Service: Shapes<%= classify(shapeType) %>Service) {
+    super(shapes<%= classify(shapeType) %>Service);
   }
 
 }

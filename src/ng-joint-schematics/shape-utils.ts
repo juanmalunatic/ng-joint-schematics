@@ -24,6 +24,7 @@ interface ShapeOptions {
     name: string;
     shapeType?: string;
     path?: string;
+    shapeImplementation?: 'element' | 'link'
 }
 
 /**
@@ -111,12 +112,12 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
             throw new SchematicsException(`Comment to  position ContentChildrens is not found in ${shapeTypeComponentPath}.`);
           }
 
-          const fallbackPos = 554;
+          const fallbackPos = contentChildsNode.getStart();
           changes.push(insertAfterLastOccurrence(
             commentNodes, 
             '\n  @ContentChildren(' + shapeComponent + ')' + 
               strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
-              ': QueryList<ElementShapeComponent>;', 
+              ': QueryList<GenericStandardElementShapeComponent>;', 
             shapeTypeComponentPath, 
             fallbackPos)
           );

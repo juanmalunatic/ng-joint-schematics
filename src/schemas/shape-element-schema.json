@@ -23,6 +23,13 @@
       },
       "x-prompt": "What name would you like to use for the shape type?"
     },
+    "shapeImplementation": {
+      "type": "string",
+      "description": "The implementation of the generated shape (link or element).",
+      "enum": ["element", "link"],
+      "default": "element",
+      "visible": false
+    },
     "path": {
       "type": "string",
       "format": "path",

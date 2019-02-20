@@ -14,8 +14,13 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 
-import { insertImport, findNodes, insertAfterLastOccurrence } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
+import {
+  insertImport,
+  findNodes,
+  insertAfterLastOccurrence,
+  addImportToModule
+} from '@schematics/angular/utility/ast-utils';
+import { InsertChange, Change } from '@schematics/angular/utility/change';
 
 /**
  * Shape type options Interface
@@ -109,6 +114,16 @@ export function buildShapeTypeModuleFilePath(options: ShapeOptions): string | un
   return join(shapeTypePath, moduleName);
 }
 
+function commitChanges(host: Tree, changes: Change[], path: string) {
+  const recorder = host.beginUpdate(path);
+  for (const change of changes) {
+    if (change instanceof InsertChange) {
+      recorder.insertLeft(change.pos, change.toAdd);
+    }
+  }
+  host.commitUpdate(recorder);  
+}
+
 /**
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
@@ -125,22 +140,22 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
       throw new SchematicsException(`File ${shapeTypeComponentPath} does not exist.`);
     }
   
-        const sourceText = text.toString('utf-8');
-        const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
-        const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
-        const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
+    const sourceText = text.toString('utf-8');
+    const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
+    const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
+    const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
 
-        // Shape Import Changes
-        const shapeComponent = shapeClass + 'Component';
-        const shapeComponentFilePath = shapeClassFilePath + '.component';
-        let changes = [
-          insertImport(
-            source, 
-            shapeTypeComponentPath, 
-            shapeComponent, 
-            shapeComponentFilePath
-          )
-        ];
+    // Shape Import Changes
+    const shapeComponent = shapeClass + 'Component';
+    const shapeComponentFilePath = shapeClassFilePath + '.component';
+    let changes = [
+      insertImport(
+        source, 
+        shapeTypeComponentPath, 
+        shapeComponent, 
+        shapeComponentFilePath
+      )
+    ];
 
         // Shape (at)ContentChildren Decorator Changes
         const atNodes = findNodes(source, ts.SyntaxKind.AtToken);
@@ -169,22 +184,9 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
     
         }
 
-        // Shape Interface Export changes
-        const exportNode = findNodes(source, ts.SyntaxKind.ExportDeclaration)[0];
-        if (exportNode) {
-          
-        }
+    commitChanges(host, changes, shapeTypeComponentPath);
 
-        // Commit Shape Update Changes
-        const recorder = host.beginUpdate(shapeTypeComponentPath);
-        for (const change of changes) {
-          if (change instanceof InsertChange) {
-            recorder.insertLeft(change.pos, change.toAdd);
-          }
-        }
-        host.commitUpdate(recorder);
-
-      }
+  }
 
 }
 
@@ -204,7 +206,23 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
       throw new SchematicsException(`File ${shapeTypeModuleFilePath} does not exist.`);
     }
 
+    const sourceText = text.toString('utf-8');
+    const source = ts.createSourceFile(shapeTypeModuleFilePath, sourceText, ts.ScriptTarget.Latest, true);
+    const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
+    const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
 
+    // Shape Import Changes
+    const shapeModule = shapeClass + 'Module';
+    const shapeModuleFilePath = shapeClassFilePath + '.module';
+    let changes = 
+      addImportToModule(
+        source,
+        shapeTypeModuleFilePath,
+        shapeModule,
+        shapeModuleFilePath
+      );
+
+    commitChanges(host, changes, shapeTypeModuleFilePath);
 
   }
 

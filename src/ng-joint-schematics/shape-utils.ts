@@ -42,7 +42,7 @@ export function buildShapeTypePath(options: ShapeOptions): string | undefined {
  * Build shape type component file name
  * @param options
  */  
-export function buildShapeTypeComponentName(options: ShapeOptions): string | undefined {
+export function buildShapeTypeComponentFileName(options: ShapeOptions): string | undefined {
     if (!options.shapeType) {
       return undefined;
     }
@@ -51,12 +51,24 @@ export function buildShapeTypeComponentName(options: ShapeOptions): string | und
 }
 
 /**
+ * Build shape type module file name
+ * @param options
+ */  
+export function buildShapeTypeModuleFileName(options: ShapeOptions): string | undefined {
+  if (!options.shapeType) {
+    return undefined;
+  }
+
+  return 'shape-' + strings.dasherize(options.shapeType) + '.module.ts';
+}
+
+/**
  * Build file path to shape type component
  * @param options 
  */
-export function buildShapeTypeComponentPath(options: ShapeOptions): string | undefined {
+export function buildShapeTypeComponentFilePath(options: ShapeOptions): string | undefined {
     const shapeTypePath = buildShapeTypePath(options);
-    const componentName = buildShapeTypeComponentName(options)
+    const componentName = buildShapeTypeComponentFileName(options)
   
     if (!shapeTypePath || !componentName) {
       return undefined;
@@ -66,12 +78,27 @@ export function buildShapeTypeComponentPath(options: ShapeOptions): string | und
 }
 
 /**
+ * Build file path to shape type module
+ * @param options 
+ */
+export function buildShapeTypeModuleFilePath(options: ShapeOptions): string | undefined {
+  const shapeTypePath = buildShapeTypePath(options);
+  const moduleName = buildShapeTypeModuleFileName(options)
+
+  if (!shapeTypePath || !moduleName) {
+    return undefined;
+  }
+
+  return join(shapeTypePath, moduleName);
+}
+
+/**
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
 function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
   
-  const shapeTypeComponentPath = buildShapeTypeComponentPath(options);
+  const shapeTypeComponentPath = buildShapeTypeComponentFilePath(options);
   
   if (shapeTypeComponentPath && options.shapeType) {
     // Initialize Update (shapeType).component file
@@ -148,9 +175,18 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
-// function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
+function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
 
-// }
+  const shapeTypeModuleFilePath = buildShapeTypeModuleFilePath(options);
+  
+  if (shapeTypeModuleFilePath && options.shapeType) {
+    // Initialize Update (shapeType).module file
+
+
+    
+  }
+
+}
 
 /**
  * Update Element references (imports, exports, @ContentChildren) in shared shape type code
@@ -161,4 +197,3 @@ export function updateElementType(options: ShapeOptions): Rule {
     updateShapeTypeComponent(options, host);
   }
 }
-  

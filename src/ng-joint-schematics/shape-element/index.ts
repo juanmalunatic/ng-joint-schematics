@@ -28,8 +28,8 @@ import {
 } from '../../ng-joint-shape-properties';
 import { Schema as ShapeElementOptions } from '../../schemas/shape-element-schema';
 import { 
-  buildShapeTypeComponentPath,
-  buildShapeTypeComponentName,
+  buildShapeTypeComponentFilePath,
+  buildShapeTypeComponentFileName,
   updateElementType
 } from '../shape-utils';
 
@@ -66,11 +66,11 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     options.name = parsedPath.name;
     options.path = parsedPath.path;
 
-    const shapeTypeComponentPath = buildShapeTypeComponentPath(options) || '';
+    const shapeTypeComponentFilePath = buildShapeTypeComponentFilePath(options) || '';
         
     const templateSource = apply(url('./files'), [
       options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
-      host.exists(shapeTypeComponentPath) ? filter(path => path === buildShapeTypeComponentName(options)) : noop(),
+      host.exists(shapeTypeComponentFilePath) ? filter(path => path === buildShapeTypeComponentFileName(options)) : noop(),
       applyTemplates({
         ...strings,
         ...options,

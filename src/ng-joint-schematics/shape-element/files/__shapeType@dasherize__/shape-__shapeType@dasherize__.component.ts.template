@@ -21,8 +21,3 @@ export class Shapes<%= classify(shapeType) %>Component extends GenericShapePlugi
   }
 
 }
-
-export {
-//  StandardRectangleComponent, NgJointStandardRectangle,
-//  StandardLinkComponent, NgJointStandardLink
-};

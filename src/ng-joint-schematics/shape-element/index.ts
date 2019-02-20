@@ -30,14 +30,11 @@ import { Schema as ShapeElementOptions } from '../../schemas/shape-element-schem
 import { 
   buildShapeTypeComponentPath,
   buildShapeTypeComponentName,
-  updateShapeReferences
+  updateElementType
 } from '../shape-utils';
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
-    if (!options.shapeImplementation) {
-      throw new SchematicsException('Option (shapeImplementation) is required.');
-    }
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
     }
@@ -84,7 +81,7 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
     const rule = chain([
       mergeWith(templateSource, MergeStrategy.Default),
       options.lintFix ? applyLintFix(options.path) : noop(),
-      updateShapeReferences(options),
+      updateElementType(options),
     ]);
     return rule(host, context);
   };

@@ -24,7 +24,6 @@ interface ShapeOptions {
     name: string;
     shapeType?: string;
     path?: string;
-    shapeImplementation?: 'element' | 'link'
 }
 
 /**
@@ -70,22 +69,24 @@ export function buildShapeTypeComponentPath(options: ShapeOptions): string | und
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
-export function updateShapeReferences(options: ShapeOptions): Rule {
-    return (host: Tree) => {
+function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
   
-      const shapeTypeComponentPath = buildShapeTypeComponentPath(options);
+  const shapeTypeComponentPath = buildShapeTypeComponentPath(options);
   
-      if (shapeTypeComponentPath && options.shapeType) {
-        const text = host.read(shapeTypeComponentPath);
+  if (shapeTypeComponentPath && options.shapeType) {
+    // Initialize Update (shapeType).component file
+    const text = host.read(shapeTypeComponentPath);
   
-        if (text === null) {
-          throw new SchematicsException(`File ${shapeTypeComponentPath} does not exist.`);
-        }
+    if (text === null) {
+      throw new SchematicsException(`File ${shapeTypeComponentPath} does not exist.`);
+    }
   
         const sourceText = text.toString('utf-8');
         const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
         const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
         const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
+
+        // Shape Import Changes
         const shapeComponent = shapeClass + 'Component';
         const shapeComponentFilePath = shapeClassFilePath + '.component';
         let changes = [
@@ -97,6 +98,7 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
           )
         ];
 
+        // Shape (at)ContentChildren Decorator Changes
         const atNodes = findNodes(source, ts.SyntaxKind.AtToken);
         const shapeContentChildrenNode = atNodes.find(
           node => node.parent.getText() === '@ContentChildren(' + shapeComponent + ')');
@@ -104,7 +106,6 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
         if (!shapeContentChildrenNode) {
           const commentNodes = findNodes(source, ts.SyntaxKind.JSDocComment);
 
-          for (const commentNode of commentNodes) { console.log(commentNode.getText(), commentNode.getStart()); }
           const contentChildsNode = commentNodes.find(
             commentNode => commentNode.getText() === '/** Generetated ContentChildrens */');
 
@@ -124,6 +125,13 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
     
         }
 
+        // Shape Interface Export changes
+        const exportNode = findNodes(source, ts.SyntaxKind.ExportDeclaration)[0];
+        if (exportNode) {
+          
+        }
+
+        // Commit Shape Update Changes
         const recorder = host.beginUpdate(shapeTypeComponentPath);
         for (const change of changes) {
           if (change instanceof InsertChange) {
@@ -134,7 +142,23 @@ export function updateShapeReferences(options: ShapeOptions): Rule {
 
       }
 
-    }
+}
 
+/**
+ * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
+ * @param options 
+ */
+// function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
+
+// }
+
+/**
+ * Update Element references (imports, exports, @ContentChildren) in shared shape type code
+ * @param options 
+ */
+export function updateElementType(options: ShapeOptions): Rule {
+  return (host: Tree) => {
+    updateShapeTypeComponent(options, host);
+  }
 }
   

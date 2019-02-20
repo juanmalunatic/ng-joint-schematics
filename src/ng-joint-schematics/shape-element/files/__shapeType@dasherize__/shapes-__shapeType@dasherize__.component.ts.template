@@ -3,21 +3,21 @@
  */
 import { Component, ContentChildren, QueryList } from '@angular/core';
 
-import { GenericShapePluginComponent } from '../../<%= dasherize(shapesPath) %>/shapes';
-import { GenericStandardElementShapeComponent, GenericStandardLinkShapeComponent } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/shapes-<%= dasherize(shapeType) %>';
-import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/shapes-<%= dasherize(shapeType) %>.service';
+import { GenericShapePluginComponent } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapesPath) %>';
+import { GenericStandardElementShapeComponent, GenericStandardLinkShapeComponent } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>';
+import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>.service';
 
 @Component({
-  selector: 'ng-joint-shapes-<%= dasherize(shapeType) %>',
+  selector: 'ng-joint-<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>',
   template: `
     <ng-content></ng-content>
     `,
 })
-export class Shapes<%= classify(shapeType) %>Component extends GenericShapePluginComponent {
+export class <%= classify(shapesPath) %><%= classify(shapeType) %>Component extends GenericShapePluginComponent {
   /** Generetated ContentChildrens */
 
-  constructor(private shapes<%= classify(shapeType) %>Service: Shapes<%= classify(shapeType) %>Service) {
-    super(shapes<%= classify(shapeType) %>Service);
+  constructor(private <%= dasherize(shapesPath) %><%= classify(shapeType) %>Service: Shapes<%= classify(shapeType) %>Service) {
+    super(<%= dasherize(shapesPath) %><%= classify(shapeType) %>Service);
   }
 
 }

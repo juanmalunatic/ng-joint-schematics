@@ -1,2 +1,2 @@
-export * from './shapes-<%= dasherize(shapeType) %>.component';
-export * from './shapes-<%= dasherize(shapeType) %>.module';
+export * from './<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>.component';
+export * from './<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>.module';

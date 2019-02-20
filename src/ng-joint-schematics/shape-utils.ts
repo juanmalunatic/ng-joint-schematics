@@ -18,12 +18,13 @@ import { insertImport, findNodes, insertAfterLastOccurrence } from '@schematics/
 import { InsertChange } from '@schematics/angular/utility/change';
 
 /**
- * Sshape type options Interface
+ * Shape type options Interface
  */
 interface ShapeOptions {
-    name: string;
-    shapeType?: string;
     path?: string;
+    shapesPath?: string;
+    shapeType?: string;
+    name: string;
 }
 
 /**
@@ -39,15 +40,29 @@ export function buildShapeTypePath(options: ShapeOptions): string | undefined {
   }
 
 /**
+ * Build shape type file name prefix
+ * @param options
+ */  
+function buildShapeTypeFileNamePrefix(options: ShapeOptions): string | undefined {
+  if (!options.shapesPath || !options.shapeType) {
+    return undefined;
+  }
+
+  return strings.dasherize(options.shapeType)  + '-' + strings.dasherize(options.shapeType);
+}
+
+/**
  * Build shape type component file name
  * @param options
  */  
 export function buildShapeTypeComponentFileName(options: ShapeOptions): string | undefined {
-    if (!options.shapeType) {
+    const shapeFileNamePrefix = buildShapeTypeFileNamePrefix(options);
+
+    if (!shapeFileNamePrefix) {
       return undefined;
     }
 
-    return 'shape-' + strings.dasherize(options.shapeType) + '.component.ts';
+    return shapeFileNamePrefix + '.component.ts';
 }
 
 /**
@@ -55,11 +70,13 @@ export function buildShapeTypeComponentFileName(options: ShapeOptions): string |
  * @param options
  */  
 export function buildShapeTypeModuleFileName(options: ShapeOptions): string | undefined {
-  if (!options.shapeType) {
+  const shapeFileNamePrefix = buildShapeTypeFileNamePrefix(options);
+
+  if (!shapeFileNamePrefix) {
     return undefined;
   }
 
-  return 'shape-' + strings.dasherize(options.shapeType) + '.module.ts';
+  return shapeFileNamePrefix + '.module.ts';
 }
 
 /**

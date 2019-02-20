@@ -4,12 +4,8 @@ import { <%= classify(shapesPath) %><%= classify(shapeType) %>Service } from '..
 import { <%= classify(shapesPath) %><%= classify(shapeType) %>Component } from './<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>.component';
 
 @NgModule({
-  providers: [ <%= classify(shapesPath) %><%= classify(shapeType) %>Service ],
-  declarations: [ <%= classify(shapesPath) %><%= classify(shapeType) %>Component ],
-  imports: [
-  ],
-  exports: [
-    <%= classify(shapesPath) %><%= classify(shapeType) %>Component
-  ]
+  providers: [<%= classify(shapesPath) %><%= classify(shapeType) %>Service],
+  declarations: [<%= classify(shapesPath) %><%= classify(shapeType) %>Component],
+  exports: [<%= classify(shapesPath) %><%= classify(shapeType) %>Component]
 })
 export class <%= classify(shapesPath) %><%= classify(shapeType) %>Module { }

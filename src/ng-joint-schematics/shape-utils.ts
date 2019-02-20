@@ -18,7 +18,8 @@ import {
   insertImport,
   findNodes,
   insertAfterLastOccurrence,
-  addImportToModule
+  addImportToModule,
+  addExportToModule
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange, Change } from '@schematics/angular/utility/change';
 
@@ -221,6 +222,14 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
         shapeModule,
         shapeModuleFilePath
       );
+    addExportToModule(
+      source,
+      shapeTypeModuleFilePath,
+      shapeModule,
+      shapeModuleFilePath
+    ).forEach(change => changes.push(change));
+
+    console.log(changes);
 
     commitChanges(host, changes, shapeTypeModuleFilePath);
 

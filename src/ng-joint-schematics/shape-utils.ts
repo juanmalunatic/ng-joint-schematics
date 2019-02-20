@@ -48,7 +48,7 @@ function buildShapeTypeFileNamePrefix(options: ShapeOptions): string | undefined
     return undefined;
   }
 
-  return strings.dasherize(options.shapeType)  + '-' + strings.dasherize(options.shapeType);
+  return strings.dasherize(options.shapesPath)  + '-' + strings.dasherize(options.shapeType);
 }
 
 /**

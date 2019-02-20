@@ -228,7 +228,7 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
       shapeModule,
       shapeModuleFilePath
     ).forEach(newChange => {
-      if (changes.find(change => change.order !== newChange.order)) {
+      if (!changes.find(change => change.order === newChange.order)) {
         changes.push(newChange);
       }
     });

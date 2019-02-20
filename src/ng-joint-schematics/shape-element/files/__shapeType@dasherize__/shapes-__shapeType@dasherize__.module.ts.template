@@ -1,0 +1,15 @@
+import { NgModule } from '@angular/core';
+
+import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/shapes-<%= dasherize(shapeType) %>.service';
+import { Shapes<%= classify(shapeType) %>Component } from './shapes-<%= dasherize(shapeType) %>.component';
+
+@NgModule({
+  providers: [ Shapes<%= classify(shapeType) %>Service ],
+  declarations: [ Shapes<%= classify(shapeType) %>Component ],
+  imports: [
+  ],
+  exports: [
+    Shapes<%= classify(shapeType) %>Component
+  ]
+})
+export class Shapes<%= classify(shapeType) %>Module { }

@@ -181,9 +181,14 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
   
   if (shapeTypeModuleFilePath && options.shapeType) {
     // Initialize Update (shapeType).module file
+    const text = host.read(shapeTypeModuleFilePath);
+  
+    if (text === null) {
+      throw new SchematicsException(`File ${shapeTypeModuleFilePath} does not exist.`);
+    }
 
 
-    
+
   }
 
 }
@@ -195,5 +200,6 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
 export function updateElementType(options: ShapeOptions): Rule {
   return (host: Tree) => {
     updateShapeTypeComponent(options, host);
+    updateShapeTypeModule(options, host);
   }
 }

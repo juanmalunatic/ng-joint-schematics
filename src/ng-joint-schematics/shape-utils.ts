@@ -158,23 +158,39 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
     ];
 
     // Shape (at)ContentChildren Decorator Changes
-    const atNodes = findNodes(source, ts.SyntaxKind.AtToken);
-    const shapeContentChildrenNode = atNodes.find(
-      node => node.parent.getText() === '@ContentChildren(' + shapeComponent + ')');
-        
-    if (!shapeContentChildrenNode) {
-      const classNodes = findNodes(source, ts.SyntaxKind.ClassDeclaration);
-      classNodes.forEach(node => console.log('pos =', node));
+    const classNodes = findNodes(source, ts.SyntaxKind.ClassDeclaration);
+    let contentChildrenPos: number = 0;
+    let isNewDecoratorString = false;
+    let decoratorString = '@ContentChildren(' + shapeComponent + ')' + 
+    strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
+    ': QueryList<GenericStandardElementShapeComponent>;'
 
-      const decoratorLineString = '\n  @ContentChildren(' + shapeComponent + ')' + 
-      strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
-      ': QueryList<GenericStandardElementShapeComponent>;'
-      const fallbackPos = classNodes[0].getStart();
+    classNodes.forEach(node => node.forEachChild(child => { 
+      // console.log(child.kind);
+      // console.log(child.getText());
+      switch (child.kind) {
+        case ts.SyntaxKind.PropertyDeclaration: {
+          isNewDecoratorString = (child.getText() !== decoratorString);
+          if (!isNewDecoratorString) {
+            contentChildrenPos = child.getStart();
+          }
+          break;
+        }
+        case ts.SyntaxKind.Constructor: {
+          if (contentChildrenPos === 0) {
+            contentChildrenPos = child.getStart();
+          }
+          break;
+        }
+      }
+    }));
+        
+    if (isNewDecoratorString) {
       changes.push(
         new InsertChange(
           shapeTypeComponentPath,
-          fallbackPos,
-          decoratorLineString
+          contentChildrenPos,
+          '  ' + decoratorString + '\n\n'
         )
       );
 
@@ -207,7 +223,7 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
     const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
     const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
 
-    // Shape Import Changes
+    // Shape NgModule Import and Export Changes
     const shapeModule = shapeClass + 'Module';
     const shapeModuleFilePath = shapeClassFilePath + '.module';
     let changes = 
@@ -223,7 +239,7 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
       shapeModule,
       shapeModuleFilePath
     ).forEach(newChange => {
-      // prevent double Import statement
+      // prevent double TS-Import statement
       if (!changes.find(change => change.order === newChange.order)) {
         changes.push(newChange);
       }

@@ -17,7 +17,6 @@ import {
 import {
   insertImport,
   findNodes,
-  insertAfterLastOccurrence,
   addImportToModule,
   addExportToModule
 } from '@schematics/angular/utility/ast-utils';
@@ -158,32 +157,28 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
       )
     ];
 
-        // Shape (at)ContentChildren Decorator Changes
-        const atNodes = findNodes(source, ts.SyntaxKind.AtToken);
-        const shapeContentChildrenNode = atNodes.find(
-          node => node.parent.getText() === '@ContentChildren(' + shapeComponent + ')');
+    // Shape (at)ContentChildren Decorator Changes
+    const atNodes = findNodes(source, ts.SyntaxKind.AtToken);
+    const shapeContentChildrenNode = atNodes.find(
+      node => node.parent.getText() === '@ContentChildren(' + shapeComponent + ')');
         
-        if (!shapeContentChildrenNode) {
-          const commentNodes = findNodes(source, ts.SyntaxKind.JSDocComment);
+    if (!shapeContentChildrenNode) {
+      const classNodes = findNodes(source, ts.SyntaxKind.ClassDeclaration);
+      classNodes.forEach(node => console.log('pos =', node));
 
-          const contentChildsNode = commentNodes.find(
-            commentNode => commentNode.getText() === '/** Generetated ContentChildrens */');
+      const decoratorLineString = '\n  @ContentChildren(' + shapeComponent + ')' + 
+      strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
+      ': QueryList<GenericStandardElementShapeComponent>;'
+      const fallbackPos = classNodes[0].getStart();
+      changes.push(
+        new InsertChange(
+          shapeTypeComponentPath,
+          fallbackPos,
+          decoratorLineString
+        )
+      );
 
-          if (!contentChildsNode) {
-            throw new SchematicsException(`Comment to  position ContentChildrens is not found in ${shapeTypeComponentPath}.`);
-          }
-
-          const fallbackPos = contentChildsNode.getStart();
-          changes.push(insertAfterLastOccurrence(
-            commentNodes, 
-            '\n  @ContentChildren(' + shapeComponent + ')' + 
-              strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
-              ': QueryList<GenericStandardElementShapeComponent>;', 
-            shapeTypeComponentPath, 
-            fallbackPos)
-          );
-    
-        }
+    }
 
     commitChanges(host, changes, shapeTypeComponentPath);
 

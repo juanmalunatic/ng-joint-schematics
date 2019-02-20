@@ -227,9 +227,11 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
       shapeTypeModuleFilePath,
       shapeModule,
       shapeModuleFilePath
-    ).forEach(change => changes.push(change));
-
-    console.log(changes);
+    ).forEach(newChange => {
+      if (changes.find(change => change.order !== newChange.order)) {
+        changes.push(newChange);
+      }
+    });
 
     commitChanges(host, changes, shapeTypeModuleFilePath);
 

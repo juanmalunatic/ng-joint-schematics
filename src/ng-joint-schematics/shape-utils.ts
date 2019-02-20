@@ -228,6 +228,7 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
       shapeModule,
       shapeModuleFilePath
     ).forEach(newChange => {
+      // prevent double Import statement
       if (!changes.find(change => change.order === newChange.order)) {
         changes.push(newChange);
       }

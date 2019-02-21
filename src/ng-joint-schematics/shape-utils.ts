@@ -184,12 +184,14 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
           isNewDecoratorString = (child.getText() !== decoratorString);
           if (!isNewDecoratorString) {
             contentChildrenPos = child.getStart();
+            decoratorString += '\n';
           }
           break;
         }
         case ts.SyntaxKind.Constructor: {
           if (contentChildrenPos === 0) {
             contentChildrenPos = child.getStart();
+            decoratorString += '\n\n';
           }
           break;
         }
@@ -201,7 +203,7 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
         new InsertChange(
           shapeTypeComponentPath,
           contentChildrenPos,
-          _TAB_ + decoratorString + '\n'
+          decoratorString
         )
       );
 

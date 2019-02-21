@@ -33,6 +33,17 @@ interface ShapeOptions {
 }
 
 /**
+ * Constants to build Angular TS-statements
+ */
+const _TAB_ = '  ';
+const _DASH_ = '-';
+const _TS_SUFFIX_ = '.ts';
+const _COMPONENT_IMPORT_SUFFIX_ = '.component';
+const _COMPONENT_CLASS_SUFFIX_ = 'Component';
+const _MODULE_IMPORT_SUFFIX_ = '.module';
+const _MODULE_CLASS_SUFFIX_ = 'Module';
+
+/**
  * Build path where the shape type files are located
  * @param options 
  */
@@ -53,7 +64,7 @@ function buildShapeTypeFileNamePrefix(options: ShapeOptions): string | undefined
     return undefined;
   }
 
-  return strings.dasherize(options.shapesPath)  + '-' + strings.dasherize(options.shapeType);
+  return strings.dasherize(options.shapesPath)  + _DASH_ + strings.dasherize(options.shapeType);
 }
 
 /**
@@ -67,7 +78,7 @@ export function buildShapeTypeComponentFileName(options: ShapeOptions): string |
       return undefined;
     }
 
-    return shapeFileNamePrefix + '.component.ts';
+    return shapeFileNamePrefix + _COMPONENT_IMPORT_SUFFIX_ + _TS_SUFFIX_;
 }
 
 /**
@@ -146,8 +157,8 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
     const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
 
     // Shape Import Changes
-    const shapeComponent = shapeClass + 'Component';
-    const shapeComponentFilePath = shapeClassFilePath + '.component';
+    const shapeComponent = shapeClass + _COMPONENT_CLASS_SUFFIX_;
+    const shapeComponentFilePath = shapeClassFilePath + _COMPONENT_IMPORT_SUFFIX_;
     let changes = [
       insertImport(
         source, 
@@ -160,7 +171,7 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
     // Shape (at)ContentChildren Decorator Changes
     const classNodes = findNodes(source, ts.SyntaxKind.ClassDeclaration);
     let contentChildrenPos: number = 0;
-    let isNewDecoratorString = false;
+    let isNewDecoratorString = true;
     let decoratorString = '@ContentChildren(' + shapeComponent + ')' + 
     strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
     ': QueryList<GenericStandardElementShapeComponent>;'
@@ -190,14 +201,13 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
         new InsertChange(
           shapeTypeComponentPath,
           contentChildrenPos,
-          '  ' + decoratorString + '\n\n'
+          _TAB_ + decoratorString + '\n'
         )
       );
 
     }
 
     commitChanges(host, changes, shapeTypeComponentPath);
-
   }
 
 }
@@ -224,8 +234,8 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
     const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
 
     // Shape NgModule Import and Export Changes
-    const shapeModule = shapeClass + 'Module';
-    const shapeModuleFilePath = shapeClassFilePath + '.module';
+    const shapeModule = shapeClass + _MODULE_CLASS_SUFFIX_;
+    const shapeModuleFilePath = shapeClassFilePath + _MODULE_IMPORT_SUFFIX_;
     let changes = 
       addImportToModule(
         source,

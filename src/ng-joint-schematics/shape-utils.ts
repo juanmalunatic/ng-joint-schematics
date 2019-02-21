@@ -35,7 +35,6 @@ interface ShapeOptions {
 /**
  * Constants to build Angular TS-statements
  */
-const _TAB_ = '  ';
 const _DASH_ = '-';
 const _TS_SUFFIX_ = '.ts';
 const _COMPONENT_IMPORT_SUFFIX_ = '.component';

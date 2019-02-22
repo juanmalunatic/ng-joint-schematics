@@ -305,7 +305,6 @@ export function updateShapeTypeIndex(options: Schema, host: Tree) {
       './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType)  + 
       _DASH_ + strings.dasherize(options.name) + _COMPONENT_IMPORT_SUFFIX_ + "';";
     const exportExists = exportNodes.find(node => node.getText() === shapeComponentExport);
-    console.log('shapeComponentExport = ', shapeComponentExport);
 
     if (!exportExists) {
       let changes = [

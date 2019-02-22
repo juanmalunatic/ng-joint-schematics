@@ -81,6 +81,15 @@ export function getShapeTypeElements(
 }
 
 /**
+ * Get the Elements for the Shape Type (standard, uml, angular, ...)
+ * @param options 
+ */
+export function getShapeTypeLinks(
+    options: NgJointSchematicDataOptions): NgJointShape | undefined {
+    return getShapeType(options).links;
+}
+
+/**
  * Get Input Properties for a specific Element (Reactangle, ....)
  * @param options 
  */
@@ -88,7 +97,7 @@ export function getElementProperties(
     options: NgJointSchematicDataOptions): NgJointShapeProperties | undefined {
         
     if (!options.name) {
-        throw new SchematicsException('getShapeProperties() Option (name) is required.');
+        throw new SchematicsException('getElementProperties() Option (name) is required.');
     }
 
     const shapeTypeElements = getShapeTypeElements(options);
@@ -98,6 +107,31 @@ export function getElementProperties(
         if (shapeTypeElements[options.name]) {
             // element has properties
             return shapeTypeElements[options.name].properties;
+        }
+    }
+
+    // no elements or properties defined
+    return undefined;
+}
+
+/**
+ * Get Input Properties for a specific Link (Link, DoubleLink, ....)
+ * @param options 
+ */
+export function getLinkProperties(
+    options: NgJointSchematicDataOptions): NgJointShapeProperties | undefined {
+        
+    if (!options.name) {
+        throw new SchematicsException('getLinkProperties() Option (name) is required.');
+    }
+
+    const shapeTypeLinks = getShapeTypeLinks(options);
+
+    if (shapeTypeLinks) {
+        // shapetype has elements
+        if (shapeTypeLinks[options.name]) {
+            // element has properties
+            return shapeTypeLinks[options.name].properties;
         }
     }
 

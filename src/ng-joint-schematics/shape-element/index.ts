@@ -29,7 +29,7 @@ import {
   buildShapeInterfaceProperties,
   buildJointjsImports
 } from '../../ng-joint-shape-properties';
-import { Schema as ShapeElementOptions } from '../../schemas/shape-element-schema';
+import { Schema } from '../../schemas/ng-joint-shape-schema';
 import { 
   buildShapeTypeComponentFilePath,
   buildShapeTypeComponentFileName,
@@ -42,7 +42,7 @@ import {
  * Update Element references (imports, exports, @ContentChildren) in shared shape type code
  * @param options 
  */
-function updateElementType(options: ShapeElementOptions): Rule {
+function updateElementType(options: Schema): Rule {
   return (host: Tree) => {
     updateShapeTypeComponent(options, host);
     updateShapeTypeModule(options, host);
@@ -50,7 +50,7 @@ function updateElementType(options: ShapeElementOptions): Rule {
   }
 }
 
-export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
+export function ngJointShapeElementSchematics(options: Schema): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');

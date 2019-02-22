@@ -21,15 +21,7 @@ import {
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange, Change } from '@schematics/angular/utility/change';
 
-/**
- * Shape type options Interface
- */
-interface ShapeOptions {
-    path?: string;
-    shapesPath?: string;
-    shapeType?: string;
-    name: string;
-}
+import { Schema } from '../schemas/ng-joint-shape-schema';
 
 /**
  * Constants to build Angular TS-statements
@@ -46,7 +38,7 @@ const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
  * Build path where the shape type files are located
  * @param options 
  */
-export function buildShapeTypePath(options: ShapeOptions): string | undefined {
+export function buildShapeTypePath(options: Schema): string | undefined {
     if (!options.path || !options.shapeType) {
       return undefined;
     }
@@ -58,7 +50,7 @@ export function buildShapeTypePath(options: ShapeOptions): string | undefined {
  * Build shape type file name prefix
  * @param options
  */  
-function buildShapeTypeFileNamePrefix(options: ShapeOptions): string | undefined {
+function buildShapeTypeFileNamePrefix(options: Schema): string | undefined {
   if (!options.shapesPath || !options.shapeType) {
     return undefined;
   }
@@ -70,7 +62,7 @@ function buildShapeTypeFileNamePrefix(options: ShapeOptions): string | undefined
  * Build shape type component file name
  * @param options
  */  
-export function buildShapeTypeComponentFileName(options: ShapeOptions): string | undefined {
+export function buildShapeTypeComponentFileName(options: Schema): string | undefined {
     const shapeFileNamePrefix = buildShapeTypeFileNamePrefix(options);
 
     if (!shapeFileNamePrefix) {
@@ -84,7 +76,7 @@ export function buildShapeTypeComponentFileName(options: ShapeOptions): string |
  * Build shape type module file name
  * @param options
  */  
-export function buildShapeTypeModuleFileName(options: ShapeOptions): string | undefined {
+export function buildShapeTypeModuleFileName(options: Schema): string | undefined {
   const shapeFileNamePrefix = buildShapeTypeFileNamePrefix(options);
 
   if (!shapeFileNamePrefix) {
@@ -98,7 +90,7 @@ export function buildShapeTypeModuleFileName(options: ShapeOptions): string | un
  * Build file path to shape type component
  * @param options 
  */
-export function buildShapeTypeComponentFilePath(options: ShapeOptions): string | undefined {
+export function buildShapeTypeComponentFilePath(options: Schema): string | undefined {
     const shapeTypePath = buildShapeTypePath(options);
     const componentName = buildShapeTypeComponentFileName(options)
   
@@ -113,7 +105,7 @@ export function buildShapeTypeComponentFilePath(options: ShapeOptions): string |
  * Build file path to shape type module
  * @param options 
  */
-export function buildShapeTypeModuleFilePath(options: ShapeOptions): string | undefined {
+export function buildShapeTypeModuleFilePath(options: Schema): string | undefined {
   const shapeTypePath = buildShapeTypePath(options);
   const moduleName = buildShapeTypeModuleFileName(options)
 
@@ -128,7 +120,7 @@ export function buildShapeTypeModuleFilePath(options: ShapeOptions): string | un
  * Build file path to shape type index
  * @param options 
  */
-export function buildShapeTypeIndexFilePath(options: ShapeOptions): string | undefined {
+export function buildShapeTypeIndexFilePath(options: Schema): string | undefined {
   const shapeTypePath = buildShapeTypePath(options);
 
   if (!shapeTypePath) {
@@ -152,7 +144,7 @@ function commitChanges(host: Tree, changes: Change[], path: string) {
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
-export function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
+export function updateShapeTypeComponent(options: Schema, host: Tree) {
   
   const shapeTypeComponentPath = buildShapeTypeComponentFilePath(options);
   
@@ -231,7 +223,7 @@ export function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
-export function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
+export function updateShapeTypeModule(options: Schema, host: Tree) {
 
   const shapeTypeModuleFilePath = buildShapeTypeModuleFilePath(options);
   
@@ -279,7 +271,7 @@ export function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
-export function updateShapeTypeIndex(options: ShapeOptions, host: Tree) {
+export function updateShapeTypeIndex(options: Schema, host: Tree) {
 
   const shapeTypeIndexFilePath = buildShapeTypeIndexFilePath(options);
 

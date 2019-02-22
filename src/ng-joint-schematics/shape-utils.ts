@@ -271,7 +271,14 @@ export function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
     });
 
     commitChanges(host, changes, shapeTypeModuleFilePath);
-
   }
+
+}
+
+/**
+ * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
+ * @param options 
+ */
+export function updateShapeTypeIndex(options: ShapeOptions, host: Tree) {
 
 }

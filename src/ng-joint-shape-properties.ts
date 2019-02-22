@@ -1,13 +1,13 @@
 import { NgJointShapeProperties } from './ng-joint-schematics-data';
 
-const inputSpacing = '  ';
-const attrsNamespace = 'attributes';
+const _INPUT_SPACING_ = '  ';
+const _ATTRS_NAME_SPACE_ = 'attributes';
 
 
 function buildShapeProperty(
   shapeProperties: NgJointShapeProperties,
   key: string): string {
-  return key + ': ' + attrsNamespace + '.' + shapeProperties.attrs[key] + ';\n';
+  return key + ': ' + _ATTRS_NAME_SPACE_ + '.' + shapeProperties.attrs[key] + ';\n';
 }
 
 /**
@@ -25,7 +25,7 @@ export function buildShapeComponentInputs(
       switch (property) {
         case 'attrs': {
           for (const key in shapeProperties.attrs) {
-            inputs += inputSpacing + '@Input() ' + 
+            inputs += _INPUT_SPACING_ + '@Input() ' + 
               buildShapeProperty(shapeProperties, key);
           }  
           break;
@@ -52,7 +52,7 @@ export function buildShapeInterfaceProperties(
       switch (property) {
         case 'attrs': {
           for (const key in shapeProperties.attrs) {
-            properties += inputSpacing + buildShapeProperty(shapeProperties, key);
+            properties += _INPUT_SPACING_ + buildShapeProperty(shapeProperties, key);
           }  
           break;
         }
@@ -78,7 +78,7 @@ export function buildJointjsImports(
     const attrs = Object.keys(shapeProperties).find(property => property === 'attrs');
     if (attrs) {
       if (imports !=='') { imports += ', '; }
-      imports += attrsNamespace;
+      imports += _ATTRS_NAME_SPACE_;
     }
   }
   

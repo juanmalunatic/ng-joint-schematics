@@ -6,7 +6,7 @@ import { Component<% if (shapeComponentInputs !== '') { %>, Input<% } %> } from 
 
 <% if (jointjsImports !== '') { %>import { <%= jointjsImports %> } from 'jointjs';<% } else { %>// no jointjs imports<% } %>
 
-import { Generic<%= classify(shapeType) %>ElementShapeComponent, NgJointGeneric<%= classify(shapeType) %>Element } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>';
+import { Generic<%= classify(shapeType) %>LinkShapeComponent, NgJointGeneric<%= classify(shapeType) %>Link } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>';
 import { <%= classify(shapeType) %><%= classify(name) %>Service } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>.service';
 import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>';
 
@@ -16,7 +16,7 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
     <!-- joint.shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>  -->
     `,
 })
-export class <%= classify(shapeType) %><%= classify(name) %>Component extends GenericStandardElementShapeComponent {
+export class <%= classify(shapeType) %><%= classify(name) %>Component extends Generic<%= classify(shapeType) %>LinkShapeComponent {
 <% if (shapeComponentInputs !== '') { %><%= shapeComponentInputs %><% } else { %>// no additional inputs
 <% } %>
   constructor(private <%= dasherize(name) %>Service: <%= classify(shapeType) %><%= classify(name) %>Service) {
@@ -30,6 +30,6 @@ export class <%= classify(shapeType) %><%= classify(name) %>Component extends Ge
 /**
  * Ng Joint <%= classify(shapeType) %> <%= classify(name) %> Interface (use this with arrays and structural directives *ngFor, ..)
  */
-export interface NgJoint<%= classify(shapeType) %><%= classify(name) %> extends NgJointGeneric<%= classify(shapeType) %>Element {
+export interface NgJoint<%= classify(shapeType) %><%= classify(name) %> extends NgJointGeneric<%= classify(shapeType) %>Link {
 <% if (shapeInterfaceProperties !== '') { %><%= shapeInterfaceProperties %><% } else { %>// no additional properties
 <% } %>}

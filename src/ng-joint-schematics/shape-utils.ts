@@ -63,13 +63,13 @@ function buildShapeTypeFileNamePrefix(options: Schema): string | undefined {
  * @param options
  */  
 export function buildShapeTypeComponentFileName(options: Schema): string | undefined {
-    const shapeFileNamePrefix = buildShapeTypeFileNamePrefix(options);
+    const shapeTypeFileNamePrefix = buildShapeTypeFileNamePrefix(options);
 
-    if (!shapeFileNamePrefix) {
+    if (!shapeTypeFileNamePrefix) {
       return undefined;
     }
 
-    return shapeFileNamePrefix + _COMPONENT_IMPORT_SUFFIX_ + _TS_SUFFIX_;
+    return shapeTypeFileNamePrefix + _COMPONENT_IMPORT_SUFFIX_ + _TS_SUFFIX_;
 }
 
 /**
@@ -99,6 +99,21 @@ export function buildShapeTypeComponentFilePath(options: Schema): string | undef
     }
   
     return join(shapeTypePath, componentName);
+}
+
+/**
+ * Build file path to shape type component
+ * @param options 
+ */
+export function buildShapeComponentFilePath(options: Schema): string | undefined {
+  const shapeTypePath = buildShapeTypePath(options);
+  const componentName = buildShapeTypeComponentFileName(options)
+
+  if (!shapeTypePath || !componentName) {
+    return undefined;
+  }
+
+  return join(shapeTypePath, componentName);
 }
 
 /**
@@ -275,7 +290,7 @@ export function updateShapeTypeIndex(options: Schema, host: Tree) {
 
   const shapeTypeIndexFilePath = buildShapeTypeIndexFilePath(options);
 
-  if (shapeTypeIndexFilePath && options.shapeType && options.shapeInterfaceProperties) {
+  if (shapeTypeIndexFilePath && options.shapeType) {
     // Initialize Update (shapeType).index file
     const text = host.read(shapeTypeIndexFilePath);
   
@@ -285,7 +300,21 @@ export function updateShapeTypeIndex(options: Schema, host: Tree) {
 
     const sourceText = text.toString('utf-8');
     const source = ts.createSourceFile(shapeTypeIndexFilePath, sourceText, ts.ScriptTarget.Latest, true);
-    console.log(source);
+    const exportNodes = findNodes(source, ts.SyntaxKind.ExportDeclaration);
+    const shapeComponentExport = 'export * from ' + "'" +
+      './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType)  + 
+      _DASH_ + strings.dasherize(options.name) + _COMPONENT_IMPORT_SUFFIX_ + "';";
+    const exportExists = exportNodes.find(node => node.getText() === shapeComponentExport);
+    console.log('shapeComponentExport = ', shapeComponentExport);
+
+    if (!exportExists) {
+      let changes = [
+        new InsertChange(
+          shapeTypeIndexFilePath, 0, shapeComponentExport + '\n'
+        )
+      ];
+      commitChanges(host, changes, shapeTypeIndexFilePath);
+    }
 
   }
 

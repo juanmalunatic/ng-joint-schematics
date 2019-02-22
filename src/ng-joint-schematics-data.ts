@@ -3,6 +3,39 @@ import { readFileSync } from 'fs';
 
 import { SchematicsException } from '@angular-devkit/schematics';
 
+export interface NgJointSchematicDataOptions { 
+    path?: string,
+    schematicsDataFile?: string
+    name?: string;
+    shapeType?: string;
+}
+
+export interface NgJointSchematicData {
+    shapes: NgJointShapeTypes;
+}
+
+export interface NgJointShapeTypes {
+    [shapeType: string]: NgJointShapeType;
+}
+
+export interface NgJointShapeType {
+    generic?: NgJointShape;
+    elements?: NgJointShape;
+    links?: NgJointShape;
+}
+
+export interface NgJointShape {
+    [shapeName: string]: {
+        properties: NgJointShapeProperties;
+    };
+}
+
+export interface NgJointShapeProperties {
+    attrs: {
+        [propName: string]: string;
+    };
+}
+
 /**
  * Read Ng Joint Schematics File defined in options and return JSON Data 
  * @param options 
@@ -48,12 +81,10 @@ export function getShapeTypeElements(
 }
 
 /**
- * Get Input Properties for Element (Reactangle, ....)
+ * Get Input Properties for a specific Element (Reactangle, ....)
  * @param options 
- * @param shapeType 
- * @param element 
  */
-export function getShapeProperties(
+export function getElementProperties(
     options: NgJointSchematicDataOptions): NgJointShapeProperties | undefined {
         
     if (!options.name) {
@@ -63,42 +94,13 @@ export function getShapeProperties(
     const shapeTypeElements = getShapeTypeElements(options);
 
     if (shapeTypeElements) {
-        return shapeTypeElements[options.name].properties;
+        // shapetype has elements
+        if (shapeTypeElements[options.name]) {
+            // element has properties
+            return shapeTypeElements[options.name].properties;
+        }
     }
 
+    // no elements or properties defined
     return undefined;
-}
-
-
-export interface NgJointSchematicDataOptions { 
-    path?: string,
-    schematicsDataFile?: string
-    name?: string;
-    shapeType?: string;
-}
-
-export interface NgJointSchematicData {
-    shapes: NgJointShapeTypes;
-}
-
-export interface NgJointShapeTypes {
-    [shapeType: string]: NgJointShapeType;
-}
-
-export interface NgJointShapeType {
-    generic?: NgJointShape;
-    elements?: NgJointShape;
-    links?: NgJointShape;
-}
-
-export interface NgJointShape {
-    [shapeName: string]: {
-        properties: NgJointShapeProperties;
-    };
-}
-
-export interface NgJointShapeProperties {
-    attrs: {
-        [propName: string]: string;
-    };
 }

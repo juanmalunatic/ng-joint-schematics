@@ -23,7 +23,7 @@ import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
 
 // Dgwnu Imports
-import { getShapeProperties } from '../../ng-joint-schematics-data';
+import { getElementProperties } from '../../ng-joint-schematics-data';
 import {
   buildShapeComponentInputs,
   buildShapeInterfaceProperties,
@@ -34,7 +34,8 @@ import {
   buildShapeTypeComponentFilePath,
   buildShapeTypeComponentFileName,
   updateShapeTypeComponent,
-  updateShapeTypeModule
+  updateShapeTypeModule,
+  updateShapeTypeIndex
 } from '../shape-utils';
 
 /**
@@ -45,6 +46,7 @@ function updateElementType(options: ShapeElementOptions): Rule {
   return (host: Tree) => {
     updateShapeTypeComponent(options, host);
     updateShapeTypeModule(options, host);
+    updateShapeTypeIndex(options, host);
   }
 }
 
@@ -69,10 +71,10 @@ export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rul
       options.path = buildDefaultPath(project);
     }
 
-    const shapeProperties = getShapeProperties(options);
-    options.shapeComponentInputs = buildShapeComponentInputs(shapeProperties);
-    options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
-    options.jointjsImports = buildJointjsImports(shapeProperties);
+    const elementProperties = getElementProperties(options);
+    options.shapeComponentInputs = buildShapeComponentInputs(elementProperties);
+    options.shapeInterfaceProperties = buildShapeInterfaceProperties(elementProperties);
+    options.jointjsImports = buildJointjsImports(elementProperties);
 
     options.type = !!options.type ? `.${options.type}` : '';
 

@@ -281,4 +281,20 @@ export function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
  */
 export function updateShapeTypeIndex(options: ShapeOptions, host: Tree) {
 
+  const shapeTypeIndexFilePath = buildShapeTypeIndexFilePath(options);
+
+  if (shapeTypeIndexFilePath && options.shapeType) {
+    // Initialize Update (shapeType).index file
+    const text = host.read(shapeTypeIndexFilePath);
+  
+    if (text === null) {
+      throw new SchematicsException(`File ${shapeTypeIndexFilePath} does not exist.`);
+    }
+
+    const sourceText = text.toString('utf-8');
+    const source = ts.createSourceFile(shapeTypeIndexFilePath, sourceText, ts.ScriptTarget.Latest, true);
+    console.log(source);
+
+  }
+
 }

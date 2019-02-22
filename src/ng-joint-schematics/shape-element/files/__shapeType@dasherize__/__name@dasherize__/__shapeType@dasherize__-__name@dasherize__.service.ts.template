@@ -24,9 +24,9 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements E
   ): <%= classify(shapeType) %><%= classify(name) %> {
     const <%= dasherize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
       component.id,
-      this.service.buildElementOptions(component)
+      this.service.elementShapeOptions(component)
     );
-    graphInstance.addElement(<%= dasherize(name) %>Shape);
+    this.service.configElementShape(component);
     return <%= dasherize(name) %>Shape;
   }
 

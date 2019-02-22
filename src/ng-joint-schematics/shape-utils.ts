@@ -9,7 +9,6 @@ import { join } from 'path';
 import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
 import {
-  Rule,
   SchematicsException,
   Tree,
 } from '@angular-devkit/schematics';
@@ -41,6 +40,7 @@ const _COMPONENT_IMPORT_SUFFIX_ = '.component';
 const _COMPONENT_CLASS_SUFFIX_ = 'Component';
 const _MODULE_IMPORT_SUFFIX_ = '.module';
 const _MODULE_CLASS_SUFFIX_ = 'Module';
+const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
 
 /**
  * Build path where the shape type files are located
@@ -91,7 +91,7 @@ export function buildShapeTypeModuleFileName(options: ShapeOptions): string | un
     return undefined;
   }
 
-  return shapeFileNamePrefix + '.module.ts';
+  return shapeFileNamePrefix + _MODULE_IMPORT_SUFFIX_ + _TS_SUFFIX_;
 }
 
 /**
@@ -124,6 +124,20 @@ export function buildShapeTypeModuleFilePath(options: ShapeOptions): string | un
   return join(shapeTypePath, moduleName);
 }
 
+/**
+ * Build file path to shape type index
+ * @param options 
+ */
+export function buildShapeTypeIndexFilePath(options: ShapeOptions): string | undefined {
+  const shapeTypePath = buildShapeTypePath(options);
+
+  if (!shapeTypePath) {
+    return undefined;
+  }
+
+  return join(shapeTypePath, _TS_INDEX_FILE);
+}
+
 function commitChanges(host: Tree, changes: Change[], path: string) {
   const recorder = host.beginUpdate(path);
   for (const change of changes) {
@@ -138,7 +152,7 @@ function commitChanges(host: Tree, changes: Change[], path: string) {
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
-function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
+export function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
   
   const shapeTypeComponentPath = buildShapeTypeComponentFilePath(options);
   
@@ -153,7 +167,7 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
     const sourceText = text.toString('utf-8');
     const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
     const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
-    const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
+    const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + _DASH_ + strings.dasherize(options.name);
 
     // Shape Import Changes
     const shapeComponent = shapeClass + _COMPONENT_CLASS_SUFFIX_;
@@ -217,7 +231,7 @@ function updateShapeTypeComponent(options: ShapeOptions, host: Tree) {
  * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
  * @param options 
  */
-function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
+export function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
 
   const shapeTypeModuleFilePath = buildShapeTypeModuleFilePath(options);
   
@@ -232,7 +246,7 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
     const sourceText = text.toString('utf-8');
     const source = ts.createSourceFile(shapeTypeModuleFilePath, sourceText, ts.ScriptTarget.Latest, true);
     const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
-    const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + '-' + strings.dasherize(options.name);
+    const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + _DASH_ + strings.dasherize(options.name);
 
     // Shape NgModule Import and Export Changes
     const shapeModule = shapeClass + _MODULE_CLASS_SUFFIX_;
@@ -260,15 +274,4 @@ function updateShapeTypeModule(options: ShapeOptions, host: Tree) {
 
   }
 
-}
-
-/**
- * Update Element references (imports, exports, @ContentChildren) in shared shape type code
- * @param options 
- */
-export function updateElementType(options: ShapeOptions): Rule {
-  return (host: Tree) => {
-    updateShapeTypeComponent(options, host);
-    updateShapeTypeModule(options, host);
-  }
 }

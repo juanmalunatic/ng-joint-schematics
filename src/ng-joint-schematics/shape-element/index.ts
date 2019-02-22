@@ -1,4 +1,7 @@
+// Node Imports
 import { join } from 'path';
+
+// Angular Imports
 import { strings } from '@angular-devkit/core';
 import {
   Rule,
@@ -16,10 +19,10 @@ import {
   url
 } from '@angular-devkit/schematics';
 import { applyLintFix } from '@schematics/angular/utility/lint-fix';
-
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
 
+// Dgwnu Imports
 import { getShapeProperties } from '../../ng-joint-schematics-data';
 import {
   buildShapeComponentInputs,
@@ -30,8 +33,20 @@ import { Schema as ShapeElementOptions } from '../../schemas/shape-element-schem
 import { 
   buildShapeTypeComponentFilePath,
   buildShapeTypeComponentFileName,
-  updateElementType
+  updateShapeTypeComponent,
+  updateShapeTypeModule
 } from '../shape-utils';
+
+/**
+ * Update Element references (imports, exports, @ContentChildren) in shared shape type code
+ * @param options 
+ */
+function updateElementType(options: ShapeElementOptions): Rule {
+  return (host: Tree) => {
+    updateShapeTypeComponent(options, host);
+    updateShapeTypeModule(options, host);
+  }
+}
 
 export function ngJointShapeElementSchematics(options: ShapeElementOptions): Rule {
   return (host: Tree, context: SchematicContext) => {

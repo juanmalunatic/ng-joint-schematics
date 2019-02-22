@@ -14,7 +14,7 @@ import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(sha
     `,
 })
 export class <%= classify(shapesPath) %><%= classify(shapeType) %>Component extends GenericShapePluginComponent {
-  /** Generetated ContentChildrens */
+  /** Generetated ContentChildren(s) */
   constructor(private <%= dasherize(shapesPath) %><%= classify(shapeType) %>Service: Shapes<%= classify(shapeType) %>Service) {
     super(<%= dasherize(shapesPath) %><%= classify(shapeType) %>Service);
   }

@@ -283,7 +283,7 @@ export function updateShapeTypeIndex(options: ShapeOptions, host: Tree) {
 
   const shapeTypeIndexFilePath = buildShapeTypeIndexFilePath(options);
 
-  if (shapeTypeIndexFilePath && options.shapeType) {
+  if (shapeTypeIndexFilePath && options.shapeType && options.shapeInterfaceProperties) {
     // Initialize Update (shapeType).index file
     const text = host.read(shapeTypeIndexFilePath);
   

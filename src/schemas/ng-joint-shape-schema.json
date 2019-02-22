@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsNgJointShapeElement",
+  "id": "SchematicsNgJointShape",
   "title": "Schema",
   "type": "object",
-  "description": "Creates a new generic class definition in the given or default project.",
+  "description": "Creates a new shape in the given or default project.",
   "properties": {
     "shapeType": {
       "type": "string",
@@ -16,12 +16,12 @@
     },
     "name": {
       "type": "string",
-      "description": "The name of the new shape element.",
+      "description": "The name of the new shape.",
       "$default": {
         "$source": "argv",
         "index": 1
       },
-      "x-prompt": "What name would you like to use for the shape element?"
+      "x-prompt": "What name would you like to use for the shape?"
     },
     "path": {
       "type": "string",

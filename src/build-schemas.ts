@@ -7,14 +7,16 @@ import * as Collection from '@angular-devkit/schematics/collection-schema';
 const jsonCollectionFile = join(__dirname, 'collection.json');
 const data = readFileSync(jsonCollectionFile, 'utf-8');
 const collection: Collection.Schema = JSON.parse(data);
-console.log(collection);
 
 for (const schematic in collection.schematics) {
-        const jsonSchemaPath = join(__dirname, 'schemas');
-        const jsonSchemaFile = join(jsonSchemaPath, schematic + '-schema.json');
-        const srcSchemaFile = join(jsonSchemaPath, schematic + '-schema.d.ts');
-        compileFromFile(jsonSchemaFile)
-                .then(tsSchemaInterface => {
-                        writeFileSync(srcSchemaFile, tsSchemaInterface);
-                });
+        if (collection.schematics[schematic].schema) {
+                // schema exists
+                const jsonSchemaFile = join(__dirname, collection.schematics[schematic].schema || '');
+                const tsDefSchemaFile = jsonSchemaFile.split('.json')[0] + '.d.ts';
+
+                compileFromFile(jsonSchemaFile)
+                        .then(tsSchemaInterface => {
+                                writeFileSync(tsDefSchemaFile, tsSchemaInterface);
+                        });
+        }
 }

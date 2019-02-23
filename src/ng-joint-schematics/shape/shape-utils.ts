@@ -205,7 +205,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
           isNewDecoratorString = (child.getText() !== decoratorString);
           if (!isNewDecoratorString) {
             contentChildrenPos = child.getStart();
-            decoratorString = '  ' + decoratorString;
+            decoratorString = '  ' + decoratorString + '\n';
           }
           break;
         }

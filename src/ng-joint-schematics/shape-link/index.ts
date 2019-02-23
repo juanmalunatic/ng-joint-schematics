@@ -52,6 +52,7 @@ function updateLinkType(options: Schema): Rule {
 
 export function ngJointShapeLinkSchematics(options: Schema): Rule {
   return (host: Tree, context: SchematicContext) => {
+    options.implementation = 'link';
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
     }

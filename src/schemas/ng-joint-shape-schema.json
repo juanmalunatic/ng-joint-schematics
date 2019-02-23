@@ -23,6 +23,11 @@
       },
       "x-prompt": "What name would you like to use for the shape?"
     },
+    "implementation": {
+      "type": "string",
+      "description": "The implementation of  the new shape.",
+      "enum": ["element", "link"]
+    },
     "path": {
       "type": "string",
       "format": "path",
@@ -81,6 +86,7 @@
   "required": [
     "name",
     "project",
-    "shapeType"
+    "shapeType",
+    "implementation"
   ]
 }

@@ -52,6 +52,7 @@ function updateElementType(options: Schema): Rule {
 
 export function ngJointShapeElementSchematics(options: Schema): Rule {
   return (host: Tree, context: SchematicContext) => {
+    options.implementation = 'element';
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
     }

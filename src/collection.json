@@ -5,6 +5,11 @@
       "description": "ng-joint shape element schematics",
       "factory": "./ng-joint-schematics/shape-element/index#ngJointShapeElementSchematics",
       "schema": "./schemas/ng-joint-shape-schema.json"
+    },
+    "shape-link": {
+      "description": "ng-joint shape link schematics",
+      "factory": "./ng-joint-schematics/shape-link/index#ngJointShapeLinkSchematics",
+      "schema": "./schemas/ng-joint-shape-schema.json"
     }
   }
 }

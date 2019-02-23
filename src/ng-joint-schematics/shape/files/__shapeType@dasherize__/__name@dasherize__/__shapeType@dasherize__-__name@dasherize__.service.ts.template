@@ -4,7 +4,6 @@
  */
 import { Injectable, SimpleChanges,  } from '@angular/core';
 
-import { DiaGraph } from '../../../dia/graph';
 import { <%= classify(implementation) %>ShapeService } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapesPath) %>';
 
 import { Shapes<%= classify(shapeType) %>Service } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>.service';
@@ -18,10 +17,7 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements <
 
   constructor(private service: Shapes<%= classify(shapeType) %>Service) {}
 
-  create<%= classify(implementation) %>Shape(
-    graphInstance: DiaGraph,
-    component: <%= classify(shapeType) %><%= classify(name) %>Component
-  ): <%= classify(shapeType) %><%= classify(name) %> {
+  create<%= classify(implementation) %>Shape(component: <%= classify(shapeType) %><%= classify(name) %>Component): <%= classify(shapeType) %><%= classify(name) %> {
     const <%= camelize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
       component.id,<% if (implementation === 'link') { %> component.sourceId, component.targetId,<% } %>
       this.service.<%= dasherize(implementation) %>ShapeOptions(component)

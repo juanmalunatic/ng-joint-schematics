@@ -212,7 +212,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
         case ts.SyntaxKind.Constructor: {
           if (contentChildrenPos === 0) {
             contentChildrenPos = child.getStart();
-            decoratorString += '\n';
+            decoratorString += '\n\n';
           }
           break;
         }

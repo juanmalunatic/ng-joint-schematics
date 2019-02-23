@@ -202,17 +202,15 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
       // console.log(child.getText());
       switch (child.kind) {
         case ts.SyntaxKind.PropertyDeclaration: {
-          isNewDecoratorString = (child.getText() !== decoratorString);
-          if (!isNewDecoratorString) {
+          if (isNewDecoratorString) {
+            isNewDecoratorString = (child.getText() !== decoratorString);
             contentChildrenPos = child.getStart();
-            decoratorString = '  ' + decoratorString + '\n';
           }
           break;
         }
         case ts.SyntaxKind.Constructor: {
-          if (contentChildrenPos === 0) {
+          if (contentChildrenPos < child.getStart()) {
             contentChildrenPos = child.getStart();
-            decoratorString += '\n\n';
           }
           break;
         }

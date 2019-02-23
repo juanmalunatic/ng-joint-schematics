@@ -59,10 +59,6 @@ function updateShapeType(options: Schema): Rule {
  */
 export function ngJointElementSchematics(options: Schema): Rule {
     options.implementation = 'element';
-    const elementProperties = getElementProperties(options);
-    options.shapeComponentInputs = buildShapeComponentInputs(elementProperties);
-    options.shapeInterfaceProperties = buildShapeInterfaceProperties(elementProperties);
-    options.jointjsImports = buildJointjsImports(elementProperties);
     return ngJointShapeSchematics(options);
 }
 
@@ -72,10 +68,6 @@ export function ngJointElementSchematics(options: Schema): Rule {
  */
 export function ngJointLinkSchematics(options: Schema): Rule {
     options.implementation = 'link';
-    const linkProperties = getLinkProperties(options);
-    options.shapeComponentInputs = buildShapeComponentInputs(linkProperties);
-    options.shapeInterfaceProperties = buildShapeInterfaceProperties(linkProperties);
-    options.jointjsImports = buildJointjsImports(linkProperties);
     return ngJointShapeSchematics(options);
 }
 
@@ -103,6 +95,26 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     if (options.path === undefined) {
       options.path = buildDefaultPath(project);
     }
+
+    let shapeProperties = undefined;
+
+    switch (options.implementation) {
+      case 'element': {
+        shapeProperties = getElementProperties(options);
+        break;
+      }
+      case 'link': {
+        shapeProperties = getLinkProperties(options);
+        break;
+      }
+      default: {
+        throw new SchematicsException('Option.implementation ${options.implementation} is not defined here.');
+      }
+    }
+
+    options.shapeComponentInputs = buildShapeComponentInputs(shapeProperties);
+    options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
+    options.jointjsImports = buildJointjsImports(shapeProperties);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);

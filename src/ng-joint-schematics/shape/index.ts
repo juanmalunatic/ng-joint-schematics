@@ -123,7 +123,7 @@ export function ngJointShapeSchematics(options: Schema): Rule {
 
     const shapeTypeComponentFilePath = buildShapeTypeComponentFilePath(options) || '';
         
-    const templateSource = apply(url('./files'), [
+    const templateShapeTypeSource = apply(url('./files/shape-type'), [
       options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
       host.exists(shapeTypeComponentFilePath) ? filter(path => path === buildShapeTypeComponentFileName(options)) : noop(),
       applyTemplates({
@@ -133,8 +133,18 @@ export function ngJointShapeSchematics(options: Schema): Rule {
       move(options.path)
     ]);
 
+    const templateShapeImplementationSource = apply(url('./files/shape-implementation'), [
+      options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
+      applyTemplates({
+        ...strings,
+        ...options,
+      }),
+      move(options.path)
+    ]);
+
     const rule = chain([
-      mergeWith(templateSource, MergeStrategy.AllowCreationConflict),
+      mergeWith(templateShapeTypeSource, MergeStrategy.Default),
+      mergeWith(templateShapeImplementationSource, MergeStrategy.AllowOverwriteConflict),
       options.lintFix ? applyLintFix(options.path) : noop(),
       updateShapeType(options),
     ]);

@@ -134,7 +134,7 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     ]);
 
     const rule = chain([
-      mergeWith(templateSource, MergeStrategy.Default),
+      mergeWith(templateSource, MergeStrategy.AllowCreationConflict),
       options.lintFix ? applyLintFix(options.path) : noop(),
       updateShapeType(options),
     ]);

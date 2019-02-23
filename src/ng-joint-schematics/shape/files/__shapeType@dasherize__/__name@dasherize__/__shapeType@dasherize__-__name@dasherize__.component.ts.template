@@ -19,8 +19,8 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
 export class <%= classify(shapeType) %><%= classify(name) %>Component extends Generic<%= classify(shapeType) %><%= classify(implementation) %>ShapeComponent {
 <% if (shapeComponentInputs !== '') { %><%= shapeComponentInputs %><% } else { %>// no additional inputs
 <% } %>
-  constructor(private <%= dasherize(name) %>Service: <%= classify(shapeType) %><%= classify(name) %>Service) {
-    super(<%= dasherize(name) %>Service);
+  constructor(private <%= camelize(name) %>Service: <%= classify(shapeType) %><%= classify(name) %>Service) {
+    super(<%= camelize(name) %>Service);
   }
 
   shapeInstance: <%= classify(shapeType) %><%= classify(name) %>;

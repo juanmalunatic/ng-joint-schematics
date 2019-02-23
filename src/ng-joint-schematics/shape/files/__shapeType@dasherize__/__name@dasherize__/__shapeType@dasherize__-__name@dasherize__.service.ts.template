@@ -22,12 +22,12 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements <
     graphInstance: DiaGraph,
     component: <%= classify(shapeType) %><%= classify(name) %>Component
   ): <%= classify(shapeType) %><%= classify(name) %> {
-    const <%= dasherize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
+    const <%= camelize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
       component.id,<% if (implementation === 'link') { %> component.sourceId, component.targetId,<% } %>
       this.service.<%= dasherize(implementation) %>ShapeOptions(component)
     );
     this.service.config<%= classify(implementation) %>Shape(component);
-    return <%= dasherize(name) %>Shape;
+    return <%= camelize(name) %>Shape;
   }
 
   onEvents(component: <%= classify(shapeType) %><%= classify(name) %>Component) {

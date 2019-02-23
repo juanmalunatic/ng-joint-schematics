@@ -10,8 +10,8 @@ import { <%= classify(shapeType) %><%= classify(implementation) %>Shape } from '
  */
 export class <%= classify(shapeType) %><%= classify(name) %> extends <%= classify(shapeType) %><%= classify(implementation) %>Shape {
 
-    constructor(id: string, options?: dia.<%= classify(implementation) %>.GenericAttributes<shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>Selectors>) {
-        super({ id: id, options });
+    constructor(id: string,<% if (implementation === 'link') { %> sourceId: string, targetId: string,<% } %> options?: dia.<%= classify(implementation) %>.GenericAttributes<shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>Selectors>) {
+        super({ id: id,<% if (implementation === 'link') { %> sourceId: sourceId, targetId: targetId,<% } %> options });
         this._jointjsObject = new shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>(options);
     }
 

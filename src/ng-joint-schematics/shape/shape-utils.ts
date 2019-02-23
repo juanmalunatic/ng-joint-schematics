@@ -190,11 +190,12 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
 
     // Shape (at)ContentChildren Decorator Changes
     const classNodes = findNodes(source, ts.SyntaxKind.ClassDeclaration);
+    const implementation = options.implementation || '';
     let contentChildrenPos: number = 0;
     let isNewDecoratorString = true;
     let decoratorString = '@ContentChildren(' + shapeComponent + ')' + 
     strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
-    ': QueryList<GenericStandardElementShapeComponent>;'
+    ': QueryList<GenericStandard' + strings.classify(implementation) + 'ShapeComponent>;'
 
     classNodes.forEach(node => node.forEachChild(child => { 
       // console.log(child.kind);
@@ -204,14 +205,14 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
           isNewDecoratorString = (child.getText() !== decoratorString);
           if (!isNewDecoratorString) {
             contentChildrenPos = child.getStart();
-            decoratorString += '\n';
+            decoratorString = '  ' + decoratorString;
           }
           break;
         }
         case ts.SyntaxKind.Constructor: {
           if (contentChildrenPos === 0) {
             contentChildrenPos = child.getStart();
-            decoratorString += '\n\n';
+            decoratorString += '\n';
           }
           break;
         }

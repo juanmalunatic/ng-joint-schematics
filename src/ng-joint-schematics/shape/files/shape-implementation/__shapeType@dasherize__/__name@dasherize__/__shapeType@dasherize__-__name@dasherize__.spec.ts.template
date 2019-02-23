@@ -6,6 +6,6 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
 
 describe('<%= classify(shapeType) %><%= classify(name) %>', () => {
   it('should create an instance', () => {
-    expect(new <%= classify(shapeType) %><%= classify(name) %>('test')).toBeTruthy();
+    expect(new <%= classify(shapeType) %><%= classify(name) %>('testId'<% if (implementation === 'link') { %>, 'testSourceId', 'testTragetId'<% } %>)).toBeTruthy();
   });
 });

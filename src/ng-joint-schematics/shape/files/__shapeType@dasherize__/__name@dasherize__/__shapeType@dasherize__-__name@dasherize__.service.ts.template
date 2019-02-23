@@ -5,7 +5,7 @@
 import { Injectable, SimpleChanges,  } from '@angular/core';
 
 import { DiaGraph } from '../../../dia/graph';
-import { ElementShapeService } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapesPath) %>';
+import { <%= classify(implementation) %>ShapeService } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapesPath) %>';
 
 import { Shapes<%= classify(shapeType) %>Service } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>.service';
 import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>';
@@ -14,28 +14,28 @@ import { <%= classify(shapeType) %><%= classify(name) %>Component } from './<%= 
 @Injectable({
   providedIn: 'root'
 })
-export class <%= classify(shapeType) %><%= classify(name) %>Service implements ElementShapeService {
+export class <%= classify(shapeType) %><%= classify(name) %>Service implements <%= classify(implementation) %>ShapeService {
 
   constructor(private service: Shapes<%= classify(shapeType) %>Service) {}
 
-  createElementShape(
+  create<%= classify(implementation) %>Shape(
     graphInstance: DiaGraph,
     component: <%= classify(shapeType) %><%= classify(name) %>Component
   ): <%= classify(shapeType) %><%= classify(name) %> {
     const <%= dasherize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
       component.id,
-      this.service.elementShapeOptions(component)
+      this.service.<%= dasherize(implementation) %>ShapeOptions(component)
     );
-    this.service.configElementShape(component);
+    this.service.config<%= classify(implementation) %>Shape(component);
     return <%= dasherize(name) %>Shape;
   }
 
   onEvents(component: <%= classify(shapeType) %><%= classify(name) %>Component) {
-    this.service.onElementEvents(component);
+    this.service.on<%= classify(implementation) %>Events(component);
   }
 
   setChanges(changes: SimpleChanges, component: <%= classify(shapeType) %><%= classify(name) %>Component) {
-    this.service.setElementChanges(changes, component);
+    this.service.set<%= classify(implementation) %>Changes(changes, component);
   }
 
 }

@@ -21,7 +21,7 @@ import {
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange, Change } from '@schematics/angular/utility/change';
 
-import { Schema } from '../schemas/ng-joint-shape-schema';
+import { Schema } from '../../schemas/ng-joint-shape-schema';
 
 /**
  * Constants to build Angular TS-statements

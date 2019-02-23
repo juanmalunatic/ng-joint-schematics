@@ -23,7 +23,10 @@ import { parseName } from '@schematics/angular/utility/parse-name';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
 
 // Dgwnu Imports
-import { getElementProperties } from '../../ng-joint-schematics-data';
+import {
+    getElementProperties,
+    getLinkProperties
+} from '../../ng-joint-schematics-data';
 import {
   buildShapeComponentInputs,
   buildShapeInterfaceProperties,
@@ -36,13 +39,13 @@ import {
   updateShapeTypeComponent,
   updateShapeTypeModule,
   updateShapeTypeIndex
-} from '../shape-utils';
+} from '../shape/shape-utils';
 
 /**
- * Update Element references (imports, exports, @ContentChildren) in shared shape type code
+ * Update Shape Type References (imports, exports, @ContentChildren)
  * @param options 
  */
-function updateElementType(options: Schema): Rule {
+function updateShapeType(options: Schema): Rule {
   return (host: Tree) => {
     updateShapeTypeComponent(options, host);
     updateShapeTypeModule(options, host);
@@ -50,9 +53,38 @@ function updateElementType(options: Schema): Rule {
   }
 }
 
-export function ngJointShapeElementSchematics(options: Schema): Rule {
-  return (host: Tree, context: SchematicContext) => {
+/**
+ * Joint Js Element Generation Schematics
+ * @param options
+ */
+export function ngJointElementSchematics(options: Schema): Rule {
     options.implementation = 'element';
+    const elementProperties = getElementProperties(options);
+    options.shapeComponentInputs = buildShapeComponentInputs(elementProperties);
+    options.shapeInterfaceProperties = buildShapeInterfaceProperties(elementProperties);
+    options.jointjsImports = buildJointjsImports(elementProperties);
+    return ngJointShapeSchematics(options);
+}
+
+/**
+ * Joint Js Link Generation Schematics
+ * @param options
+ */
+export function ngJointLinkSchematics(options: Schema): Rule {
+    options.implementation = 'link';
+    const linkProperties = getLinkProperties(options);
+    options.shapeComponentInputs = buildShapeComponentInputs(linkProperties);
+    options.shapeInterfaceProperties = buildShapeInterfaceProperties(linkProperties);
+    options.jointjsImports = buildJointjsImports(linkProperties);
+    return ngJointShapeSchematics(options);
+}
+
+/**
+ * Generic Joint Js Shape Generation Schematics
+ * @param options
+ */
+export function ngJointShapeSchematics(options: Schema): Rule {
+  return (host: Tree, context: SchematicContext) => {
     if (!options.project) {
       throw new SchematicsException('Option (project) is required.');
     }
@@ -71,11 +103,6 @@ export function ngJointShapeElementSchematics(options: Schema): Rule {
     if (options.path === undefined) {
       options.path = buildDefaultPath(project);
     }
-
-    const elementProperties = getElementProperties(options);
-    options.shapeComponentInputs = buildShapeComponentInputs(elementProperties);
-    options.shapeInterfaceProperties = buildShapeInterfaceProperties(elementProperties);
-    options.jointjsImports = buildJointjsImports(elementProperties);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);
@@ -97,7 +124,7 @@ export function ngJointShapeElementSchematics(options: Schema): Rule {
     const rule = chain([
       mergeWith(templateSource, MergeStrategy.Default),
       options.lintFix ? applyLintFix(options.path) : noop(),
-      updateElementType(options),
+      updateShapeType(options),
     ]);
     return rule(host, context);
   };

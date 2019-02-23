@@ -36,7 +36,7 @@ import {
   updateShapeTypeComponent,
   updateShapeTypeModule,
   updateShapeTypeIndex
-} from '../shape-utils';
+} from '../shape/shape-utils';
 
 /**
  * Update Element references (imports, exports, @ContentChildren) in shared shape type code

@@ -23,7 +23,7 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements <
     component: <%= classify(shapeType) %><%= classify(name) %>Component
   ): <%= classify(shapeType) %><%= classify(name) %> {
     const <%= dasherize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
-      component.id,
+      component.id,<% if (implementation === 'link') { %> component.sourceId, component.targetId,<% } %>
       this.service.<%= dasherize(implementation) %>ShapeOptions(component)
     );
     this.service.config<%= classify(implementation) %>Shape(component);

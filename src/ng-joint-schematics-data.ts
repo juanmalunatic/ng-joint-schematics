@@ -11,7 +11,17 @@ export interface NgJointSchematicDataOptions {
 }
 
 export interface NgJointSchematicData {
+    defaults: NgJointDefaults;
     shapes: NgJointShapeTypes;
+}
+
+export interface NgJointDefaults {
+    nameSpaceImports: [
+        {
+            nameSpace: string;
+            importPath: string;
+        }
+    ];
 }
 
 export interface NgJointShapeTypes {
@@ -19,7 +29,7 @@ export interface NgJointShapeTypes {
 }
 
 export interface NgJointShapeType {
-    generic?: NgJointShape;
+    defaults?: NgJointShape;
     elements?: NgJointShape;
     links?: NgJointShape;
 }

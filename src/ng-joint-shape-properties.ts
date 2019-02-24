@@ -22,18 +22,11 @@ export function buildShapeComponentInputDecorators(
   let inputs = '';
 
   if (shapeProperties) {
-    for (const property in shapeProperties) {
 
-      switch (property) {
-        case 'attrs': {
-          for (const key in shapeProperties.attrs) {
-            inputs += _INPUT_SPACING_ + '@Input() ' + 
-              buildShapeProperty(shapeProperties, key);
-          }  
-          break;
-        }
-      }
+    for (const key in shapeProperties.attrs) {
+      inputs += _INPUT_SPACING_ + '@Input() ' + buildShapeProperty(shapeProperties, key);
     }
+
   }
 
   return inputs;

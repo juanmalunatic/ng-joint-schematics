@@ -4,7 +4,7 @@
  */
 import { Component<% if (shapeComponentInputs !== '') { %>, Input<% } %> } from '@angular/core';
 
-<% if (jointjsImports !== '') { %>import { <%= jointjsImports %> } from 'jointjs';<% } else { %>// no jointjs imports<% } %>
+<% if (shapeInterfacePropertiesImportStatements !== '') { %>{ <%= shapeInterfacePropertiesImportStatements %> }<% } %>
 
 import { Generic<%= classify(shapeType) %><%= classify(implementation) %>ShapeComponent, NgJointGeneric<%= classify(shapeType) %><%= classify(implementation) %> } from '../../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>';
 import { <%= classify(shapeType) %><%= classify(name) %>Service } from './<%= dasherize(shapeType) %>-<%= dasherize(name) %>.service';

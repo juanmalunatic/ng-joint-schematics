@@ -16,10 +16,10 @@ export interface NgJointSchematicData {
 }
 
 export interface NgJointDefaults {
-    nameSpaceImports: [
+    importMapping: [
         {
-            nameSpace: string;
-            importPath: string;
+            importSymbols: string[];
+            fromPath: string;
         }
     ];
 }
@@ -65,6 +65,16 @@ export function getSchematicsData(
     const data = readFileSync(options.schematicsDataFile, 'utf-8');
     return JSON.parse(data);
 
+}
+
+/**
+ * Get the Data for the Ng Joint Defaults (imports-mapping etc.)
+ * @param options
+ */
+export function getDefaults( 
+    options: NgJointSchematicDataOptions): NgJointDefaults {
+
+    return getSchematicsData(options).defaults;
 }
 
 /**

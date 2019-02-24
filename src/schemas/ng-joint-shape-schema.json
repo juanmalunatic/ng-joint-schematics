@@ -75,10 +75,10 @@
       "default": "",
       "visible": false
     },
-    "shapeInterfacePropertiesImports": {
+    "shapeInterfacePropertiesImportStatements": {
       "type": "string",
       "default": "",
-      "description": "Required Shape Properties (namespace) imports.",
+      "description": "Required Shape Properties (namespace) Importstatements.",
       "visible": false
     },
     "lintFix": {

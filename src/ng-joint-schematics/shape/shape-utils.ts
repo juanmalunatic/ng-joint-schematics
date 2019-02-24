@@ -22,6 +22,7 @@ import {
 import { InsertChange, Change } from '@schematics/angular/utility/change';
 
 import { Schema } from '../../schemas/ng-joint-shape-schema';
+import { NgJointImportMapping } from '../../ng-joint-schematics-data';
 
 /**
  * Constants to build Angular TS-statements
@@ -316,4 +317,42 @@ export function updateShapeTypeIndex(options: Schema, host: Tree) {
 
   }
 
+}
+
+/**
+ * Build string with Import Statements based on Symbols to Import and Import Mappings (symbols -> path)
+ * @param symbols 
+ * @param importMapping 
+ */
+export function buildImportStatements(symbols: string[], importMappings: NgJointImportMapping[]): string {
+  let statementMappings: NgJointImportMapping[] = [];
+  let statementsString = '';
+
+  for (const symbol of symbols) {
+
+      for (const importMapping of importMappings) {
+
+        if (importMapping.importSymbols.find(importSymbol => importSymbol === symbol)) {
+
+          const existingStatementMapping = 
+            statementMappings.find(statementMapping => statementMapping.fromPath === importMapping.fromPath);
+
+          if (existingStatementMapping) {
+            existingStatementMapping.importSymbols.push(symbol);
+          } else {
+            statementMappings.push(
+              {
+                importSymbols: [symbol],
+                fromPath: importMapping.fromPath
+              }
+            );
+          }
+
+        }
+
+      }
+
+  }
+
+  return statementsString;
 }

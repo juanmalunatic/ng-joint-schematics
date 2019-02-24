@@ -2,6 +2,7 @@ import {
   NgJointShapeProperties,
   NgJointDefaults
 } from './ng-joint-schematics-data';
+import { buildImportStatements } from './ng-joint-schematics/shape/shape-utils';
 
 const _INPUT_SPACING_ = '  ';
 
@@ -69,7 +70,7 @@ export function buildShapeInterfaceProperties(
  * @param shapeProperties
  * @param imports 
  */
-export function buildShapeInterfacePropertiesImports(
+export function buildShapeInterfacePropertiesImportStatements(
   shapeProperties: NgJointShapeProperties | undefined,
   defaults: NgJointDefaults
 ): string {
@@ -88,7 +89,7 @@ export function buildShapeInterfacePropertiesImports(
 
     }
 
-    
+    imports = buildImportStatements(importSymbols, defaults.importMappings);
   }
 
   return imports;

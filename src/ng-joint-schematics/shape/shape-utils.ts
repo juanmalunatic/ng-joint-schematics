@@ -27,6 +27,7 @@ import { NgJointImportMapping } from '../../ng-joint-schematics-data';
 /**
  * Constants to build Angular TS-statements
  */
+const _QUOTE_ = "'";
 const _DASH_ = '-';
 const _TS_SUFFIX_ = '.ts';
 const _COMPONENT_IMPORT_SUFFIX_ = '.component';
@@ -352,6 +353,17 @@ export function buildImportStatements(symbols: string[], importMappings: NgJoint
 
       }
 
+  }
+
+  for (const statementMapping of statementMappings) {
+    let symbolString = '';
+
+    for (const symbol of statementMapping.importSymbols) {
+      if (symbolString !== '') { statementsString += ', '; }
+      symbolString += symbol
+    }
+
+    statementsString += 'import { ' + symbolString + ' } from ' + _QUOTE_ + statementMapping.fromPath + _QUOTE_ + ';\n'; 
   }
 
   return statementsString;

@@ -1,6 +1,6 @@
 import {
   NgJointShapeProperties,
-  NgJointDefaults
+  NgJointImportMapping
 } from './ng-joint-schematics-data';
 import { buildImportStatements } from './ng-joint-schematics/shape/shape-utils';
 
@@ -72,7 +72,7 @@ export function buildShapeInterfaceProperties(
  */
 export function buildShapeInterfacePropertiesImportStatements(
   shapeProperties: NgJointShapeProperties | undefined,
-  defaults: NgJointDefaults
+  importMappings: NgJointImportMapping[]
 ): string {
 
   let imports = '';
@@ -89,7 +89,7 @@ export function buildShapeInterfacePropertiesImportStatements(
 
     }
 
-    imports = buildImportStatements(importSymbols, defaults.importMappings);
+    imports = buildImportStatements(importSymbols, importMappings);
   }
 
   return imports;

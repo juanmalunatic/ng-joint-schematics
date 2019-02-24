@@ -92,11 +92,12 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     }
 
     const project = getProject(host, options.project);
-    const defaults = getDefaults(options);
 
     if (options.path === undefined) {
       options.path = buildDefaultPath(project);
     }
+
+    const defaults = getDefaults(options);
 
     let shapeProperties = undefined;
 

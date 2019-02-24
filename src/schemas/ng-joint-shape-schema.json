@@ -26,7 +26,8 @@
     "implementation": {
       "type": "string",
       "description": "The implementation of  the new shape.",
-      "enum": ["element", "link"]
+      "enum": ["element", "link"],
+      "visible": false
     },
     "path": {
       "type": "string",
@@ -65,17 +66,20 @@
     "shapeComponentInputs": {
       "type": "string",
       "description": "Shape Component Input Properties ts-code.",
-      "default": ""
+      "default": "",
+      "visible": false
     },
     "shapeInterfaceProperties": {
       "type": "string",
       "description": "Shape Component Interface Properties ts-code.",
-      "default": ""
+      "default": "",
+      "visible": false
     },
-    "jointjsImports": {
+    "shapePropertiesImports": {
       "type": "string",
       "default": "",
-      "description": "Additional required jointjs (namespace) imports."
+      "description": "Required Shape Properties (namespace) imports.",
+      "visible": false
     },
     "lintFix": {
       "type": "boolean",

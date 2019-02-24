@@ -225,10 +225,10 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
           decoratorString
         )
       );
-
+      commitChanges(host, changes, shapeTypeComponentPath);
     }
 
-    commitChanges(host, changes, shapeTypeComponentPath);
+    
   }
 
 }

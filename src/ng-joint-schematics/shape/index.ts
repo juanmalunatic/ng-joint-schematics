@@ -30,7 +30,7 @@ import {
 import {
   buildShapeComponentInputs,
   buildShapeInterfaceProperties,
-  buildJointjsImports
+  buildShapePropertiesImports
 } from '../../ng-joint-shape-properties';
 import { Schema } from '../../schemas/ng-joint-shape-schema';
 import { 
@@ -114,7 +114,7 @@ export function ngJointShapeSchematics(options: Schema): Rule {
 
     options.shapeComponentInputs = buildShapeComponentInputs(shapeProperties);
     options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
-    options.jointjsImports = buildJointjsImports(shapeProperties);
+    options.shapePropertiesImports = buildShapePropertiesImports(shapeProperties);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);

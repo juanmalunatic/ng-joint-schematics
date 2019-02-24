@@ -1,13 +1,15 @@
+import { SchematicsException } from '@angular-devkit/schematics';
+
 import { NgJointShapeProperties } from './ng-joint-schematics-data';
 
 const _INPUT_SPACING_ = '  ';
-const _ATTRS_NAME_SPACE_ = 'attributes';
+const _JOINTJS_ATTRIBUTES_NAME_SPACE_ = 'attributes';
 
 
 function buildShapeProperty(
   shapeProperties: NgJointShapeProperties,
   key: string): string {
-  return key + ': ' + _ATTRS_NAME_SPACE_ + '.' + shapeProperties.attrs[key] + ';\n';
+  return key + ': ' + shapeProperties.attrs[key] + ';\n';
 }
 
 /**
@@ -64,21 +66,22 @@ export function buildShapeInterfaceProperties(
 }
 
 /**
- * Build a string with required jointjs imports (namespaces, ..)
+ * Build a string with required imports (namespaces, ..) fpr used properties
  * @param shapeProperties
  * @param imports 
  */
-export function buildJointjsImports(
-  shapeProperties: NgJointShapeProperties | undefined,
-  imports?: string): string {
-
-  if (!imports) { imports = ''; };
+export function buildShapesPropertiesImports(
+shapeProperties: NgJointShapeProperties | undefined): string {
+  let imports = '';
 
   if (shapeProperties) {
-    const attrs = Object.keys(shapeProperties).find(property => property === 'attrs');
-    if (attrs) {
-      if (imports !=='') { imports += ', '; }
-      imports += _ATTRS_NAME_SPACE_;
+    for (const propKey in  shapeProperties) {
+      const nameSpace = propKey.split('.')[0];
+
+      if (nameSpace) {
+        
+      }
+
     }
   }
   

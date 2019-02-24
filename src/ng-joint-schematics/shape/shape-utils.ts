@@ -195,7 +195,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
     const implementation = options.implementation || '';
     let contentChildrenPos: number = 0;
     let isNewDecoratorString = true;
-    let decoratorString = '\n  @ContentChildren(' + shapeComponent + ')' + 
+    let decoratorString = '@ContentChildren(' + shapeComponent + ') ' + 
     strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
     ': QueryList<GenericStandard' + strings.classify(implementation) + 'ShapeComponent>;'
 
@@ -225,7 +225,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
         new InsertChange(
           shapeTypeComponentPath,
           contentChildrenPos,
-          decoratorString
+          decoratorString + '\n\n'
         )
       );
       commitChanges(host, changes, shapeTypeComponentPath);

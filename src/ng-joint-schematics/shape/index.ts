@@ -25,7 +25,8 @@ import { buildDefaultPath, getProject } from '@schematics/angular/utility/projec
 // Dgwnu Imports
 import {
     getElementProperties,
-    getLinkProperties
+    getLinkProperties,
+    getDefaults
 } from '../../ng-joint-schematics-data';
 import {
   buildShapeComponentInputDecorators,
@@ -91,6 +92,7 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     }
 
     const project = getProject(host, options.project);
+    const defaults = getDefaults(options);
 
     if (options.path === undefined) {
       options.path = buildDefaultPath(project);

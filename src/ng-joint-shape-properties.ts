@@ -1,4 +1,7 @@
-import { NgJointShapeProperties } from './ng-joint-schematics-data';
+import {
+  NgJointShapeProperties,
+  NgJointDefaults
+} from './ng-joint-schematics-data';
 
 const _INPUT_SPACING_ = '  ';
 
@@ -67,25 +70,26 @@ export function buildShapeInterfaceProperties(
  * @param imports 
  */
 export function buildShapeInterfacePropertiesImports(
-shapeProperties: NgJointShapeProperties | undefined): string {
+  shapeProperties: NgJointShapeProperties | undefined,
+  defaults: NgJointDefaults
+): string {
+
   let imports = '';
 
   if (shapeProperties) {
-    let nameSpaces: string[] = [];
+    let importSymbols: string[] = [];
 
-    for (const propKey in  shapeProperties) {
-      const nextNameSpace = propKey.split('.')[0];
+    for (const propKey in shapeProperties) {
+      const nameSpace = propKey.split('.')[0];
 
-      if (nextNameSpace) {
-        if (!nameSpaces.find(nameSpace => nameSpace === nextNameSpace)) {
-          nameSpaces.push(nextNameSpace);
-        }
+      if (nameSpace !== propKey && !importSymbols.find(importSymbol => importSymbol === nameSpace)) {
+        importSymbols.push(nameSpace);
       }
 
     }
 
     
   }
-  
+
   return imports;
 }

@@ -16,12 +16,12 @@ export interface NgJointSchematicData {
 }
 
 export interface NgJointDefaults {
-    importMapping: [
-        {
-            importSymbols: string[];
-            fromPath: string;
-        }
-    ];
+    importMappings: NgJointImportMapping[];
+}
+
+export interface NgJointImportMapping {
+    importSymbols: string[];
+    fromPath: string;
 }
 
 export interface NgJointShapeTypes {

@@ -9,7 +9,15 @@ const _INPUT_SPACING_ = '  ';
 function buildShapeProperty(
   shapeProperties: NgJointShapeProperties,
   key: string): string {
-  return key + ': ' + shapeProperties.attrs[key] + ';\n';
+  
+  const attr = shapeProperties.attrs[key];
+  let attrClass = attr.class;
+
+  if (attr.nameSpace) {
+    attrClass = attr.nameSpace + '.' + attrClass;
+  }
+
+  return key + ': ' + attrClass + ';\n';
 }
 
 /**

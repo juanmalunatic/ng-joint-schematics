@@ -63,9 +63,9 @@
       "description": "Path where schematics-data file is located.",
       "default": ""
     },
-    "shapeComponentInputs": {
+    "shapeComponentInputDecorators": {
       "type": "string",
-      "description": "Shape Component Input Properties ts-code.",
+      "description": "Shape Component Input Decorators.",
       "default": "",
       "visible": false
     },
@@ -75,7 +75,7 @@
       "default": "",
       "visible": false
     },
-    "shapePropertiesImports": {
+    "shapeInterfacePropertiesImports": {
       "type": "string",
       "default": "",
       "description": "Required Shape Properties (namespace) imports.",

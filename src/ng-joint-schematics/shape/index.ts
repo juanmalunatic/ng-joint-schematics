@@ -28,9 +28,9 @@ import {
     getLinkProperties
 } from '../../ng-joint-schematics-data';
 import {
-  buildShapeComponentInputs,
+  buildShapeComponentInputDecorators,
   buildShapeInterfaceProperties,
-  buildShapePropertiesImports
+  buildShapeInterfacePropertiesImports
 } from '../../ng-joint-shape-properties';
 import { Schema } from '../../schemas/ng-joint-shape-schema';
 import { 
@@ -112,9 +112,9 @@ export function ngJointShapeSchematics(options: Schema): Rule {
       }
     }
 
-    options.shapeComponentInputs = buildShapeComponentInputs(shapeProperties);
+    options.shapeComponentInputDecorators = buildShapeComponentInputDecorators(shapeProperties);
     options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
-    options.shapePropertiesImports = buildShapePropertiesImports(shapeProperties);
+    options.shapeInterfacePropertiesImports = buildShapeInterfacePropertiesImports(shapeProperties);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);

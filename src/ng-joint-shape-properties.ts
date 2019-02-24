@@ -1,10 +1,6 @@
-import { SchematicsException } from '@angular-devkit/schematics';
-
 import { NgJointShapeProperties } from './ng-joint-schematics-data';
 
 const _INPUT_SPACING_ = '  ';
-const _JOINTJS_ATTRIBUTES_NAME_SPACE_ = 'attributes';
-
 
 function buildShapeProperty(
   shapeProperties: NgJointShapeProperties,
@@ -16,7 +12,7 @@ function buildShapeProperty(
  * Build a string with parsed Shape Component Inputs from Shape Properties
  * @param shapeProperties 
  */
-export function buildShapeComponentInputs(
+export function buildShapeComponentInputDecorators(
   shapeProperties: NgJointShapeProperties | undefined): string {
 
   let inputs = '';
@@ -70,7 +66,7 @@ export function buildShapeInterfaceProperties(
  * @param shapeProperties
  * @param imports 
  */
-export function buildShapesPropertiesImports(
+export function buildShapeInterfacePropertiesImports(
 shapeProperties: NgJointShapeProperties | undefined): string {
   let imports = '';
 
@@ -79,7 +75,7 @@ shapeProperties: NgJointShapeProperties | undefined): string {
       const nameSpace = propKey.split('.')[0];
 
       if (nameSpace) {
-        
+
       }
 
     }

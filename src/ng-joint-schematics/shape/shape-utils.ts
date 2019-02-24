@@ -195,7 +195,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
     const implementation = options.implementation || '';
     let contentChildrenPos: number = 0;
     let isNewDecoratorString = true;
-    let decoratorString = '@ContentChildren(' + shapeComponent + ')' + 
+    let decoratorString = '\n  @ContentChildren(' + shapeComponent + ')' + 
     strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
     ': QueryList<GenericStandard' + strings.classify(implementation) + 'ShapeComponent>;'
 
@@ -213,6 +213,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
         case ts.SyntaxKind.Constructor: {
           if (contentChildrenPos < child.getStart()) {
             contentChildrenPos = child.getStart();
+            decoratorString
           }
           break;
         }
@@ -236,7 +237,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
 }
 
 /**
- * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
+ * update shape type module (angular imports and exports)
  * @param options 
  */
 export function updateShapeTypeModule(options: Schema, host: Tree) {
@@ -284,7 +285,7 @@ export function updateShapeTypeModule(options: Schema, host: Tree) {
 }
 
 /**
- * update shape references (imports, exports, @ContentChildren) in shape type files (odule and component)
+ * update shape type index (exports)
  * @param options 
  */
 export function updateShapeTypeIndex(options: Schema, host: Tree) {

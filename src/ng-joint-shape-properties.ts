@@ -42,17 +42,11 @@ export function buildShapeInterfaceProperties(
   let properties = '';
 
   if (shapeProperties) {
-    for (const property in shapeProperties) {
 
-      switch (property) {
-        case 'attrs': {
-          for (const key in shapeProperties.attrs) {
-            properties += _INPUT_SPACING_ + buildShapeProperty(shapeProperties, key);
-          }  
-          break;
-        }
-      }
+    for (const key in shapeProperties.attrs) {
+      properties += _INPUT_SPACING_ + buildShapeProperty(shapeProperties, key);
     }
+
   }  
 
   return properties;
@@ -73,10 +67,10 @@ export function buildShapeInterfacePropertiesImportStatements(
   if (shapeProperties) {
     let importSymbols: string[] = [];
 
-    for (const propKey in shapeProperties) {
-      const nameSpace = propKey.split('.')[0];
+    for (const key in shapeProperties.attrs) {
+      const nameSpace = key.split('.')[0];
 
-      if (nameSpace !== propKey && !importSymbols.find(importSymbol => importSymbol === nameSpace)) {
+      if (nameSpace !== key && !importSymbols.find(importSymbol => importSymbol === nameSpace)) {
         importSymbols.push(nameSpace);
       }
 

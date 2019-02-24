@@ -68,12 +68,15 @@ export function buildShapeInterfacePropertiesImportStatements(
     let importSymbols: string[] = [];
 
     for (const key in shapeProperties.attrs) {
-      const attrClass = shapeProperties.attrs[key];
-      console.log('attrClass = ', attrClass);
-      const nameSpace = attrClass.split('.')[0];
-      console.log('nameSpace = ', nameSpace);
-      if (nameSpace !== attrClass && !importSymbols.find(importSymbol => importSymbol === nameSpace)) {
-        importSymbols.push(nameSpace);
+      const attr = shapeProperties.attrs[key];
+      let attrSymbol = attr.class;
+
+      if (attr.nameSpace) {
+        attrSymbol = attr.nameSpace;
+      }
+
+      if (!importSymbols.find(importSymbol => importSymbol === attrSymbol)) {
+        importSymbols.push(attrSymbol);
       }
 
     }

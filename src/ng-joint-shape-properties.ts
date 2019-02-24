@@ -71,14 +71,20 @@ shapeProperties: NgJointShapeProperties | undefined): string {
   let imports = '';
 
   if (shapeProperties) {
+    let nameSpaces: string[] = [];
+
     for (const propKey in  shapeProperties) {
-      const nameSpace = propKey.split('.')[0];
+      const nextNameSpace = propKey.split('.')[0];
 
-      if (nameSpace) {
-
+      if (nextNameSpace) {
+        if (!nameSpaces.find(nameSpace => nameSpace === nextNameSpace)) {
+          nameSpaces.push(nextNameSpace);
+        }
       }
 
     }
+
+    
   }
   
   return imports;

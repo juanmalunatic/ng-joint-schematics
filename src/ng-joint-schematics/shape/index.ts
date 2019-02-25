@@ -41,7 +41,8 @@ import {
   buildShapeTypeComponentFileName,
   updateShapeTypeComponent,
   updateShapeTypeModule,
-  updateShapeTypeIndex
+  updateShapeTypeIndex,
+  parseOptions
 } from '../shape/shape-utils';
 import { buildShapeClass } from '../../ng-joint-shape-classes';
 
@@ -132,7 +133,8 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeComponentInputDecorators = buildShapeComponentInputDecorators(shapeProperties);
     options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
     options.shapeInterfacePropertiesImportStatements = buildShapeInterfacePropertiesImportStatements(shapeProperties, defaults.importMappings);
-    options.shapeObjectClass = buildShapeClass(shapeObjectClass);
+    options.shapeObjectClass = parseOptions(buildShapeClass(shapeObjectClass), options);
+    console.log('shapeObjectClass = ', shapeObjectClass);
     options.shapeOptionsClass = buildShapeClass(shapeOptionsClass);
 
     const rootPath = join(options.path, options.generatePath);

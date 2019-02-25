@@ -40,6 +40,7 @@ const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
  * Parse Options into Input-String
  * @param input
  * @param options 
+ * @returns parsed string
  */
 export function parseOptions(input: string, options: Schema): string {
   let output = '';

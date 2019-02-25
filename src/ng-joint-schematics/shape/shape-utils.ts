@@ -5,7 +5,7 @@
  * 
  * https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
  */
-import { join, sep, resolve } from 'path';
+import { join, resolve } from 'path';
 import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
 import {
@@ -60,7 +60,7 @@ export function resolveOptionPaths(host: Tree, options: Schema) {
   }
 
   if (options.schematicsDataFile === '' || options.schematicsDataFile === undefined) {
-    options.schematicsDataFile = '.' + sep + resolve(buildPath, '..', 'ng-joint-schematics-data.json');
+    options.schematicsDataFile = '.' + resolve(buildPath, '..', 'ng-joint-schematics-data.json');
     console.log('options.schematicsDataFile ', options.schematicsDataFile);
   }
 

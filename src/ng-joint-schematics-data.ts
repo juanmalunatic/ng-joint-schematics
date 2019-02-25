@@ -1,4 +1,3 @@
-import { resolve, sep } from 'path';
 import { readFileSync } from 'fs';
 
 import { SchematicsException } from '@angular-devkit/schematics';

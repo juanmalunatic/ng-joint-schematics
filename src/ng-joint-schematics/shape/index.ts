@@ -60,8 +60,13 @@ function updateShapeType(options: Schema): Rule {
  * @param options
  */
 export function ngJointElementSchematics(options: Schema): Rule {
+  return (host: Tree, context: SchematicContext) => {
+
+    resolvePath(host, options);
     options.implementation = 'element';
-    return ngJointShapeSchematics(options);
+    const rule = ngJointShapeSchematics(options);
+    return rule(host, context);
+  };
 }
 
 /**
@@ -69,8 +74,13 @@ export function ngJointElementSchematics(options: Schema): Rule {
  * @param options
  */
 export function ngJointLinkSchematics(options: Schema): Rule {
-    options.implementation = 'link';
-    return ngJointShapeSchematics(options);
+  return (host: Tree, context: SchematicContext) => {
+
+  resolvePath(host, options);
+  options.implementation = 'link';
+  const rule = ngJointShapeSchematics(options);
+  return rule(host, context);
+  };
 }
 
 /**
@@ -79,7 +89,6 @@ export function ngJointLinkSchematics(options: Schema): Rule {
  */
 export function ngJointShapeSchematics(options: Schema): Rule {
   return (host: Tree, context: SchematicContext) => {
-    resolvePath(host, options);
 
     if (!options.path) {
       throw new SchematicsException('Option (path) is not resolved and required.');

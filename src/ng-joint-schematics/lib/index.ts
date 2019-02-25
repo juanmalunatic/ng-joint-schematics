@@ -3,6 +3,9 @@ import {
     chain
 } from '@angular-devkit/schematics';
 // import { getSchematicsData } from '../../ng-joint-schematics-data';
+// import {
+//    resolvePath
+//} from '../shape/shape-utils';
 import { Schema } from '../../schemas/ng-joint-lib-schema';
 
 /**

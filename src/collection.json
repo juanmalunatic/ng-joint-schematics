@@ -10,6 +10,11 @@
       "description": "ng-joint shape link schematics",
       "factory": "./ng-joint-schematics/shape/index#ngJointLinkSchematics",
       "schema": "./schemas/ng-joint-shape-schema.json"
+    },
+    "lib": {
+      "description": "ng-joint shape library schematics",
+      "factory": "./ng-joint-schematics/lib/index#ngJointLibSchematics",
+      "schema": "./schemas/ng-joint-lib-schema.json"
     }
   }
 }

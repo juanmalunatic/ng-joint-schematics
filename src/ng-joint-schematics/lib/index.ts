@@ -2,6 +2,7 @@ import {
     Rule,
     chain
 } from '@angular-devkit/schematics';
+// import { getSchematicsData } from '../../ng-joint-schematics-data';
 import { Schema } from '../../schemas/ng-joint-lib-schema';
 
 /**
@@ -10,5 +11,6 @@ import { Schema } from '../../schemas/ng-joint-lib-schema';
  */
 export function ngJointLibSchematics(options: Schema): Rule {
     console.log('ngJointLibSchematics(options) = ', options);
+
     return chain([]);
 }

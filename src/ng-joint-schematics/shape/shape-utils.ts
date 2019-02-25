@@ -12,7 +12,8 @@ import {
   SchematicsException,
   Tree,
 } from '@angular-devkit/schematics';
-
+import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
+import { parseName } from '@schematics/angular/utility/parse-name';
 import {
   insertImport,
   findNodes,
@@ -35,6 +36,29 @@ const _COMPONENT_CLASS_SUFFIX_ = 'Component';
 const _MODULE_IMPORT_SUFFIX_ = '.module';
 const _MODULE_CLASS_SUFFIX_ = 'Module';
 const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
+
+export function resolvePath(host: Tree, options: Schema) {
+
+  if (!options.project) {
+    throw new SchematicsException('Option (project) is required.');
+  }
+
+  if (!options.generatePath) {
+    throw new SchematicsException('Option (generatePath) is required.');
+  }
+
+  const project = getProject(host, options.project);
+
+  if (options.path === undefined) {
+    options.path = buildDefaultPath(project);
+  }
+
+  const rootPath = join(options.path, options.generatePath);
+  const parsedPath = parseName(rootPath, options.name);
+  options.name = parsedPath.name;
+  options.path = parsedPath.path;
+
+}
 
 /**
  * Parse Options into Input-String

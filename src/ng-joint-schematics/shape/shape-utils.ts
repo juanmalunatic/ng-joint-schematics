@@ -38,6 +38,11 @@ const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
 
 /**
  * Parse Options into Input-String
+ * 
+ * Current supported format:
+ * 
+ * (underscore 2 x)option-key@classify(underscore)
+ * 
  * @param input
  * @param options 
  * @returns parsed string

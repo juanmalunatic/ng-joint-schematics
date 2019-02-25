@@ -110,11 +110,9 @@ export function getSchematicsData(
         throw new SchematicsException('Option (schematicsDataFile) is required.');
     }
 
-    console.log('options.schematicsDataFile ', options.schematicsDataFile);
-
     const data = readFileSync(options.schematicsDataFile, 'utf-8');
+    
     return JSON.parse(data);
-
 }
 
 /**

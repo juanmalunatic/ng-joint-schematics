@@ -42,10 +42,16 @@ const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
  * @param options 
  */
 export function parseOptions(input: string, options: Schema): string {
-  let output = input;
+  let output = '';
 
   for (const key in options) {
-    output = input.replace('__' + key + '@classify__', strings.classify(options[key]));
+    const optionValue = options[key];
+
+    if (typeof optionValue === 'string') {
+      const classifySymbol = '__' + key + '@classify__';
+      const classifyValue = strings.classify(optionValue);
+      output = input.replace(classifySymbol, classifyValue);
+    }
   }
 
   return output;

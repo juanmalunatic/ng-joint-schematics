@@ -109,20 +109,20 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     }
 
     let shapeProperties = undefined;
-    let shapeObjectClass: NgJointClassDefinition;
-    let shapeOptionsClass: NgJointClassDefinition;
+    let shapeObjectClassDef: NgJointClassDefinition;
+    let shapeOptionsClassDef: NgJointClassDefinition;
 
     switch (options.implementation) {
       case 'element': {
         shapeProperties = getElementProperties(options);
-        shapeObjectClass = shapeTypeDefaults.elements.shapeObjectClass;
-        shapeOptionsClass = shapeTypeDefaults.elements.shapeOptionsClass;
+        shapeObjectClassDef = shapeTypeDefaults.elements.shapeObjectClass;
+        shapeOptionsClassDef = shapeTypeDefaults.elements.shapeOptionsClass;
         break;
       }
       case 'link': {
         shapeProperties = getLinkProperties(options);
-        shapeObjectClass = shapeTypeDefaults.links.shapeObjectClass;
-        shapeOptionsClass = shapeTypeDefaults.links.shapeOptionsClass;
+        shapeObjectClassDef = shapeTypeDefaults.links.shapeObjectClass;
+        shapeOptionsClassDef = shapeTypeDefaults.links.shapeOptionsClass;
         break;
       }
       default: {
@@ -133,9 +133,9 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeComponentInputDecorators = buildShapeComponentInputDecorators(shapeProperties);
     options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
     options.shapeInterfacePropertiesImportStatements = buildShapeInterfacePropertiesImportStatements(shapeProperties, defaults.importMappings);
-    options.shapeObjectClass = parseOptions(buildShapeClass(shapeObjectClass), options);
-    console.log('shapeObjectClass = ', shapeObjectClass);
-    options.shapeOptionsClass = buildShapeClass(shapeOptionsClass);
+    let shapeObjectClass = buildShapeClass(shapeObjectClassDef);
+    console.log('shapeObjectClass = ', parseOptions(shapeObjectClass, options));
+    options.shapeOptionsClass = buildShapeClass(shapeOptionsClassDef);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);

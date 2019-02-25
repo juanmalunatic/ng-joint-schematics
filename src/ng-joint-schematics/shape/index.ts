@@ -134,6 +134,8 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeInterfacePropertiesImportStatements = buildShapeInterfacePropertiesImportStatements(shapeProperties, defaults.importMappings);
     options.shapeObjectClass = buildShapeClass(shapeObjectClass);
     options.shapeOptionsClass = buildShapeClass(shapeOptionsClass);
+    console.log(options.shapeObjectClass);
+    console.log(options.shapeOptionsClass);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);

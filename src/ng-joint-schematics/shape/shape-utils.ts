@@ -390,7 +390,7 @@ export function buildImportStatements(symbols: string[], importMappings: NgJoint
     let symbolString = '';
 
     for (const symbol of statementMapping.importSymbols) {
-      if (symbolString !== '') { statementsString += ', '; }
+      if (symbolString !== '') { symbolString += ', '; }
       symbolString += symbol
     }
 

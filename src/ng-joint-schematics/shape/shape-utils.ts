@@ -13,7 +13,6 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
-import { parseName } from '@schematics/angular/utility/parse-name';
 import {
   insertImport,
   findNodes,
@@ -43,20 +42,11 @@ export function resolvePath(host: Tree, options: Schema) {
     throw new SchematicsException('Option (project) is required.');
   }
 
-  if (!options.generatePath) {
-    throw new SchematicsException('Option (generatePath) is required.');
-  }
-
   const project = getProject(host, options.project);
 
   if (options.path === undefined) {
     options.path = buildDefaultPath(project);
   }
-
-  const rootPath = join(options.path, options.generatePath);
-  const parsedPath = parseName(rootPath, options.name);
-  options.name = parsedPath.name;
-  options.path = parsedPath.path;
 
 }
 

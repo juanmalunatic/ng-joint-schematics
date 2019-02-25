@@ -113,6 +113,7 @@ export function getSchematicsData(
 
     if (options.schematicsDataFile === '' || options.schematicsDataFile === undefined) {
         options.schematicsDataFile = '.' + sep + resolve(options.path, '..', 'ng-joint-schematics-data.json');
+        console.log('options.schematicsDataFile ', options.schematicsDataFile);
     }
 
     const data = readFileSync(options.schematicsDataFile, 'utf-8');

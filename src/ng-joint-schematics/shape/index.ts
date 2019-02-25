@@ -1,3 +1,6 @@
+// Node Imports
+import { join } from 'path';
+
 // Angular Imports
 import { strings } from '@angular-devkit/core';
 import {
@@ -15,6 +18,7 @@ import {
   noop,
   url
 } from '@angular-devkit/schematics';
+import { parseName } from '@schematics/angular/utility/parse-name';
 import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 // Dgwnu Imports
@@ -62,7 +66,6 @@ function updateShapeType(options: Schema): Rule {
 export function ngJointElementSchematics(options: Schema): Rule {
   return (host: Tree, context: SchematicContext) => {
 
-    resolvePath(host, options);
     options.implementation = 'element';
     const rule = ngJointShapeSchematics(options);
     return rule(host, context);
@@ -76,7 +79,6 @@ export function ngJointElementSchematics(options: Schema): Rule {
 export function ngJointLinkSchematics(options: Schema): Rule {
   return (host: Tree, context: SchematicContext) => {
 
-  resolvePath(host, options);
   options.implementation = 'link';
   const rule = ngJointShapeSchematics(options);
   return rule(host, context);
@@ -89,10 +91,15 @@ export function ngJointLinkSchematics(options: Schema): Rule {
  */
 export function ngJointShapeSchematics(options: Schema): Rule {
   return (host: Tree, context: SchematicContext) => {
+    resolvePath(host, options);
 
     if (!options.path) {
       throw new SchematicsException('Option (path) is not resolved and required.');
     }
+
+    if (!options.generatePath) {
+      throw new SchematicsException('Option (generatePath) is required.');
+    }  
 
     if (!options.shapeType) {
       throw new SchematicsException('Option (shapeType) is required.');
@@ -140,6 +147,11 @@ export function ngJointShapeSchematics(options: Schema): Rule {
       [shapeObjectClassDef.nameSpace || '', shapeOptionsClassDef.nameSpace || ''], 
       defaults.importMappings
     );
+
+    const rootPath = join(options.path, options.generatePath);
+    const parsedPath = parseName(rootPath, options.name);
+    options.name = parsedPath.name;
+    options.path = parsedPath.path;
 
     const shapeTypeComponentFilePath = buildShapeTypeComponentFilePath(options) || '';
         

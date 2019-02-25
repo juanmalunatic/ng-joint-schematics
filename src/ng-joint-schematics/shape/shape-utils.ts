@@ -37,6 +37,21 @@ const _MODULE_CLASS_SUFFIX_ = 'Module';
 const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
 
 /**
+ * Parse Options into Input-String
+ * @param input
+ * @param options 
+ */
+export function parseOptions(input: string, options: Schema): string {
+  let output = input;
+
+  for (const key in options) {
+    output = input.replace('__' + key + '@classify__', strings.classify(options[key]));
+  }
+
+  return output;
+}
+
+/**
  * Build path where the shape type files are located
  * @param options 
  */

@@ -17,4 +17,3 @@ export function buildShapeClass(shapeClass: NgJointClassDefinition): string {
     
     return classString
 }
-

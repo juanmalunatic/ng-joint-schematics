@@ -17,6 +17,8 @@ function buildShapeOptions(options: Schema): ShapeSchema {
     return {
         shapeType: '',
         project: options.project,
+        generatePath: options.generatePath,
+        shapesPath: options.shapesPath,
         name: ''
     }
 }
@@ -44,7 +46,7 @@ export function ngJointLibSchematics(options: Schema): Rule {
                 shapeOptions.name = name;
                 rules.push(ngJointElementSchematics(shapeOptions));
             }
-
+/*
             options.implementation = 'link';
             const links = shapes[shapeType].links;
 
@@ -53,7 +55,7 @@ export function ngJointLibSchematics(options: Schema): Rule {
                 rules.push(ngJointLinkSchematics(shapeOptions));
             }
         }
-
+*/
         
         const rule = chain(rules);
         return rule(host, context);

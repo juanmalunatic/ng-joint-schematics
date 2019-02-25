@@ -61,7 +61,6 @@ export function resolveOptionPaths(host: Tree, options: Schema) {
 
   if (options.schematicsDataFile === '' || options.schematicsDataFile === undefined) {
     options.schematicsDataFile = '.' + resolve(buildPath, '..', 'ng-joint-schematics-data.json');
-    console.log('options.schematicsDataFile ', options.schematicsDataFile);
   }
 
   const rootPath = join(buildPath, options.generatePath);

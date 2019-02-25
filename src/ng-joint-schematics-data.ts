@@ -10,46 +10,93 @@ export interface NgJointSchematicDataOptions {
     shapeType?: string;
 }
 
-export interface NgJointSchematicData {
-    defaults: NgJointDefaults;
-    shapes: NgJointShapeTypes;
+/**
+ * "nameSpace"."class"<"type">
+ */
+export interface NgJointClassDefinition {
+    nameSpace?: string;
+    class: string;
+    type?: string;
 }
 
-export interface NgJointDefaults {
-    importMappings: NgJointImportMapping[];
+export interface NgJointShapeTypeDefaults {
+    elements: {
+        shapeObjectClass: NgJointClassDefinition;
+        shapeOptionsClass: NgJointClassDefinition;
+    },
+    links: {
+        shapeObjectClass: NgJointClassDefinition;
+        shapeOptionsClass: NgJointClassDefinition;
+    }
 }
 
-export interface NgJointImportMapping {
-    importSymbols: string[];
-    fromPath: string;
-}
-
-export interface NgJointShapeTypes {
-    [shapeType: string]: NgJointShapeType;
-}
-
-export interface NgJointShapeType {
-    defaults?: NgJointShape;
-    elements?: NgJointShape;
-    links?: NgJointShape;
-}
-
-export interface NgJointShape {
-    [shapeName: string]: {
-        properties: NgJointShapeProperties;
-    };
-}
-
+/**
+ * "attrs": {
+ *  "propName": { NgJointClassDefinition },
+ *  .....
+ * }
+ */
 export interface NgJointShapeProperties {
     attrs: {
         [propName: string]: NgJointClassDefinition;
     };
 }
 
-export interface NgJointClassDefinition {
-    nameSpace?: string;
-    class: string;
-    type?: string;
+/**
+ * "shapeName(1)": { "properties": { NgJointShapeProperties }},
+ * 
+ * ...,
+ * 
+ * "shapeName(n)": { "properties": { NgJointShapeProperties }},
+ */
+export interface NgJointShape {
+    [shapeName: string]: {
+        properties: NgJointShapeProperties;
+    };
+}
+
+/**
+ * "importSymbols": ["sym1", ..., "sym(n)"],
+ * 
+ * "fromPath": "../(example) "
+ */
+export interface NgJointImportMapping {
+    importSymbols: string[];
+    fromPath: string;
+}
+
+/**
+ * importMappings: NgJointImportMapping[]
+ */
+export interface NgJointDefaults {
+    importMappings: NgJointImportMapping[];
+}
+
+/**
+ * "defaults": { NgJointShapeTypeDefaults },
+ * 
+ * "elements": { NgJointShape },
+ * 
+ * "links": { NgJointShape }
+ */
+export interface NgJointShapeType {
+    defaults: NgJointShapeTypeDefaults;
+    elements?: NgJointShape;
+    links?: NgJointShape;
+}
+
+export interface NgJointShapeTypes {
+    [shapeType: string]: NgJointShapeType;
+}
+
+/**
+ * "default": { NgJointDefaults },
+ * 
+ * "shapes": { NgJointShapeTypes }
+ */
+export interface NgJointSchematicData {
+    defaults: NgJointDefaults;
+    shapes: NgJointShapeTypes;
 }
 
 /**

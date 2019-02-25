@@ -145,6 +145,15 @@ export function getShapeType(
 }
 
 /**
+ * Get the Defaults for the Shape Type (standard, uml, angular, ...)
+ * @param options 
+ */
+export function getShapeTypeDefaults(
+    options: NgJointSchematicDataOptions): NgJointShapeTypeDefaults | undefined {
+    return getShapeType(options).defaults;
+}
+
+/**
  * Get the Elements for the Shape Type (standard, uml, angular, ...)
  * @param options 
  */

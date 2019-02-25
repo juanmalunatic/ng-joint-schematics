@@ -26,7 +26,9 @@ import { buildDefaultPath, getProject } from '@schematics/angular/utility/projec
 import {
     getElementProperties,
     getLinkProperties,
-    getDefaults
+    getDefaults,
+    getShapeTypeDefaults,
+    NgJointClassDefinition
 } from '../../ng-joint-schematics-data';
 import {
   buildShapeComponentInputDecorators,
@@ -41,6 +43,7 @@ import {
   updateShapeTypeModule,
   updateShapeTypeIndex
 } from '../shape/shape-utils';
+import { buildShapeClass } from '../../ng-joint-shape-classes';
 
 /**
  * Update Shape Type References (imports, exports, @ContentChildren)
@@ -98,16 +101,27 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     }
 
     const defaults = getDefaults(options);
+    const shapeTypeDefaults = getShapeTypeDefaults(options);
+
+    if (!shapeTypeDefaults) {
+      throw new SchematicsException('Shape type defaults are required.');
+    }
 
     let shapeProperties = undefined;
+    let shapeObjectClass: NgJointClassDefinition;
+    let shapeOptionsClass: NgJointClassDefinition;
 
     switch (options.implementation) {
       case 'element': {
         shapeProperties = getElementProperties(options);
+        shapeObjectClass = shapeTypeDefaults.elements.shapeObjectClass;
+        shapeOptionsClass = shapeTypeDefaults.elements.shapeOptionsClass;
         break;
       }
       case 'link': {
         shapeProperties = getLinkProperties(options);
+        shapeObjectClass = shapeTypeDefaults.links.shapeObjectClass;
+        shapeOptionsClass = shapeTypeDefaults.links.shapeOptionsClass;
         break;
       }
       default: {
@@ -118,6 +132,8 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeComponentInputDecorators = buildShapeComponentInputDecorators(shapeProperties);
     options.shapeInterfaceProperties = buildShapeInterfaceProperties(shapeProperties);
     options.shapeInterfacePropertiesImportStatements = buildShapeInterfacePropertiesImportStatements(shapeProperties, defaults.importMappings);
+    options.shapeObjectClass = buildShapeClass(shapeObjectClass);
+    options.shapeOptionsClass = buildShapeClass(shapeOptionsClass);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);

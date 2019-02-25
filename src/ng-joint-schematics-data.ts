@@ -42,11 +42,14 @@ export interface NgJointShape {
 
 export interface NgJointShapeProperties {
     attrs: {
-        [propName: string]: {
-            nameSpace?: string;
-            class: string;
-        };
+        [propName: string]: NgJointClassDefinition;
     };
+}
+
+export interface NgJointClassDefinition {
+    nameSpace?: string;
+    class: string;
+    type?: string;
 }
 
 /**

@@ -49,8 +49,11 @@ export function parseOptions(input: string, options: Schema): string {
 
     if (typeof optionValue === 'string') {
       const classifySymbol = '__' + key + '@classify__';
-      const classifyValue = strings.classify(optionValue);
-      output = input.replace(classifySymbol, classifyValue);
+
+      if (input.includes(classifySymbol)) {
+        const classifyValue = strings.classify(optionValue);
+        output = input.replace(classifySymbol, classifyValue);
+      }
     }
   }
 

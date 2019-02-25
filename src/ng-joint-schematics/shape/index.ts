@@ -42,7 +42,8 @@ import {
   updateShapeTypeComponent,
   updateShapeTypeModule,
   updateShapeTypeIndex,
-  parseOptions
+  parseOptions,
+  buildImportStatements
 } from '../shape/shape-utils';
 import { buildShapeClass } from '../../ng-joint-shape-classes';
 
@@ -135,6 +136,11 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeInterfacePropertiesImportStatements = buildShapeInterfacePropertiesImportStatements(shapeProperties, defaults.importMappings);
     options.shapeObjectClass = parseOptions(buildShapeClass(shapeObjectClassDef), options);
     options.shapeOptionsClass = parseOptions(buildShapeClass(shapeOptionsClassDef), options);
+    options.shapeClassImportStatements = buildImportStatements(
+      [shapeObjectClassDef.nameSpace || '', shapeOptionsClassDef.nameSpace || ''], 
+      defaults.importMappings
+    );
+    console.log('options.shapeClassImportStatements', options.shapeClassImportStatements);
 
     const rootPath = join(options.path, options.generatePath);
     const parsedPath = parseName(rootPath, options.name);

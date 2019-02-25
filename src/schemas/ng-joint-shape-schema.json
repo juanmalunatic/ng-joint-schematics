@@ -93,6 +93,12 @@
       "description": "jointjs options class for the shape to render.",
       "visible": false
     },
+    "shapeClassImportStatements": {
+      "type": "string",
+      "default": "",
+      "description": "Required jointjs Shape Class (namespace) Importstatements.",
+      "visible": false
+    },
     "lintFix": {
       "type": "boolean",
       "default": false,

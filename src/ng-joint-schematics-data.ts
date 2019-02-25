@@ -107,14 +107,11 @@ export function getSchematicsData(
     options: NgJointSchematicDataOptions
     ): NgJointSchematicData {
 
-    if (!options.path) {
-        throw new SchematicsException('getSchematicsData() Option (path) is required.');
+    if (!options.schematicsDataFile) {
+        throw new SchematicsException('Option (schematicsDataFile) is required.');
     }
 
-    if (options.schematicsDataFile === '' || options.schematicsDataFile === undefined) {
-        options.schematicsDataFile = '.' + sep + resolve(options.path, '..', 'ng-joint-schematics-data.json');
-        console.log('options.schematicsDataFile ', options.schematicsDataFile);
-    }
+    console.log('options.schematicsDataFile ', options.schematicsDataFile);
 
     const data = readFileSync(options.schematicsDataFile, 'utf-8');
     return JSON.parse(data);

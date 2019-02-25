@@ -5,7 +5,7 @@
  * 
  * https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
  */
-import { join } from 'path';
+import { join, sep, resolve } from 'path';
 import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
 import {
@@ -13,6 +13,7 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
+import { parseName } from '@schematics/angular/utility/parse-name';
 import {
   insertImport,
   findNodes,
@@ -36,17 +37,36 @@ const _MODULE_IMPORT_SUFFIX_ = '.module';
 const _MODULE_CLASS_SUFFIX_ = 'Module';
 const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
 
-export function resolvePath(host: Tree, options: Schema) {
+/**
+ * Resolve Options with Paths
+ * @param host 
+ * @param options 
+ */
+export function resolveOptionPaths(host: Tree, options: Schema) {
 
   if (!options.project) {
     throw new SchematicsException('Option (project) is required.');
   }
 
-  const project = getProject(host, options.project);
-
-  if (options.path === undefined) {
-    options.path = buildDefaultPath(project);
+  if (!options.generatePath) {
+    throw new SchematicsException('Option (generatePath) is required.');
   }
+
+  let buildPath = options.path;
+
+  if (buildPath === undefined) {
+    const project = getProject(host, options.project);
+    buildPath = buildDefaultPath(project);
+  }
+
+  if (options.schematicsDataFile === '' || options.schematicsDataFile === undefined) {
+    options.schematicsDataFile = '.' + sep + resolve(buildPath, '..', 'ng-joint-schematics-data.json');
+    console.log('options.schematicsDataFile ', options.schematicsDataFile);
+  }
+
+  const rootPath = join(buildPath, options.generatePath);
+  const location = parseName(rootPath, options.name);
+  options.path = location.path;
 
 }
 

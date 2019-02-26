@@ -96,7 +96,7 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     }
 
     if (!options.shapesPath) {
-      throw new SchematicsException('Option (shapePath) is required.');
+      throw new SchematicsException('Option (shapesPath) is required.');
     }
   
     const defaults = getDefaults(options);

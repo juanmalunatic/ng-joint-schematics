@@ -5,15 +5,13 @@
  * 
  * https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
  */
-import { join, resolve } from 'path';
+import { join } from 'path';
 import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
 import {
   SchematicsException,
   Tree,
 } from '@angular-devkit/schematics';
-import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
-import { parseName } from '@schematics/angular/utility/parse-name';
 import {
   insertImport,
   findNodes,

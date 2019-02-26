@@ -22,7 +22,7 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 import { parseName } from '@schematics/angular/utility/parse-name';
 
 // Dgwnu Imports
-import { _QUOTE_, _DOUBLE_QUOTE } from '../../ng-joint-config';
+import { _QUOTE_, _DOUBLE_QUOTE, _SPACES_, _COMMA_ } from '../../ng-joint-config';
 import { resolveOptionPaths } from '../../ng-joint-paths';
 import { getSchematicsData } from '../../ng-joint-schematics-data';
 import { Schema } from '../../schemas/ng-joint-build-schema';
@@ -60,8 +60,18 @@ export function ngJointBuildSchematics(options: Schema): Rule {
             }
         }
 
-        let ngCliCmdChain = JSON.stringify(cmdChain);
-        options.ngCliCmdChain = ngCliCmdChain.replace(_DOUBLE_QUOTE, _QUOTE_);
+        // convert array to JSON-string value
+        options.ngCliCmdChain = JSON.stringify(cmdChain)
+        // convert from JSON-double quote to TS-single quote
+        options.ngCliCmdChain = options.ngCliCmdChain.replace(_DOUBLE_QUOTE, _QUOTE_);
+        // add line breaks ans spaces at the start of the chain
+        options.ngCliCmdChain = options.ngCliCmdChain.replace('[[', '\n[\n' + _SPACES_ + '[');
+        // add spaces and line break after every command line
+        options.ngCliCmdChain = options.ngCliCmdChain.replace('],[', '],\n' + _SPACES_ + '[');
+        // add a space after every comma
+        options.ngCliCmdChain = options.ngCliCmdChain.replace(_COMMA_, ', ');
+        // add line breaks at the end of the chain
+        options.ngCliCmdChain = options.ngCliCmdChain.replace(']]', ']\n]\n');
 
         const templateBuildSource = apply(url('./files'), [
             options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),

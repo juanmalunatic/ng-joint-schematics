@@ -22,6 +22,7 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 import { parseName } from '@schematics/angular/utility/parse-name';
 
 // Dgwnu Imports
+import { _QUOTE_, _DOUBLE_QUOTE } from '../../ng-joint-config';
 import { resolveOptionPaths } from '../../ng-joint-paths';
 import { getSchematicsData } from '../../ng-joint-schematics-data';
 import { Schema } from '../../schemas/ng-joint-build-schema';
@@ -41,24 +42,26 @@ export function ngJointBuildSchematics(options: Schema): Rule {
         const rootPath = '.' + resolve(options.path, '..');
         const buildLocation = parseName(rootPath, options.name);
         options.path = buildLocation.path;
-        console.log('buildLocation.path', buildLocation.path);
 
         const schematicsData = getSchematicsData(options);
         const shapes = schematicsData.shapes;
-        options.ngCliBuildStatements = '// start: ' + options.name + '\n\n';
-
+        let cmdChain: string[][] = [];
+        
         for (const shapeType in shapes) {
             const elements = shapes[shapeType].elements;
 
             for (const element in elements) {
-                options.ngCliBuildStatements += 'ng g ng-joint-schematics:element ' + shapeType + ' ' + element + ' --project=ng-joint\n';
+                cmdChain.push(['g', 'ng-joint-schematics:element', shapeType, element, '--project=ng-joint']);
             }
 
             const links = shapes[shapeType].links;
             for (const link in links) {
-                options.ngCliBuildStatements += 'ng g ng-joint-schematics:link ' + shapeType + ' ' + link + ' --project=ng-joint\n';
+                cmdChain.push(['g', 'ng-joint-schematics:element', shapeType, link, '--project=ng-joint'])
             }
         }
+
+        let ngCliCmdChain = JSON.stringify(cmdChain);
+        options.ngCliCmdChain = ngCliCmdChain.replace(_DOUBLE_QUOTE, _QUOTE_);
 
         const templateBuildSource = apply(url('./files'), [
             options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),

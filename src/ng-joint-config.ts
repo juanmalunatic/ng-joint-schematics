@@ -1,4 +1,5 @@
 export const _QUOTE_ = "'";
+export const _DOUBLE_QUOTE = /"/g;
 export const _DASH_ = '-';
 export const _TS_SUFFIX_ = '.ts';
 export const _COMPONENT_IMPORT_SUFFIX_ = '.component';

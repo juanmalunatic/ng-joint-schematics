@@ -37,9 +37,9 @@
             "description": "Path where schematics-data file is located.",
             "default": ""
         },
-        "ngCliBuildStatements": {
+        "ngCliCmdChain": {
             "type": "string",
-            "description": "ts-code with build-statements (generated from ng-joint-schematics-data.json).",
+            "description": "angular cli command chain (generated from ng-joint-schematics-data.json).",
             "default": ""
         },
         "lintFix": {

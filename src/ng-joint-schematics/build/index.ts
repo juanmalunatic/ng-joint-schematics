@@ -19,10 +19,10 @@ import {
     MergeStrategy
 } from '@angular-devkit/schematics';
 import { applyLintFix } from '@schematics/angular/utility/lint-fix';
-import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
 import { parseName } from '@schematics/angular/utility/parse-name';
 
 // Dgwnu Imports
+import { resolveOptionPaths } from '../../ng-joint-paths';
 import { getSchematicsData } from '../../ng-joint-schematics-data';
 import { Schema } from '../../schemas/ng-joint-build-schema';
 
@@ -32,25 +32,16 @@ import { Schema } from '../../schemas/ng-joint-build-schema';
  */
 export function ngJointBuildSchematics(options: Schema): Rule {
     return (host: Tree, context: SchematicContext) => {
-        if (!options.project) {
-            throw new SchematicsException('Option (project) is required.');
+        resolveOptionPaths(host, options);
+
+        if (!options.path) {
+            throw new SchematicsException('Option (path) is not resolved and required.');
         }
 
-        let buildPath = options.path;
-
-        if (buildPath === undefined) {
-            const project = getProject(host, options.project);
-            buildPath = buildDefaultPath(project);
-        }
-
-        const rootPath = '.' + resolve(buildPath, '..');
-
-        if (options.schematicsDataFile === '' || options.schematicsDataFile === undefined) {
-            options.schematicsDataFile = resolve(rootPath, 'ng-joint-schematics-data.json');
-        }
-
-        const location = parseName(rootPath, options.name);
-        options.path = location.path;
+        const rootPath = '.' + resolve(options.path, '..');
+        const buildLocation = parseName(rootPath, options.name);
+        options.path = buildLocation.path;
+        console.log('buildLocation.path', buildLocation.path);
 
         const schematicsData = getSchematicsData(options);
         const shapes = schematicsData.shapes;

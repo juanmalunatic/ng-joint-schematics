@@ -38,7 +38,7 @@
     "generatePath": {
       "type": "string",
       "description": "The path where shape modules are generated.",
-      "default": "_generate_",
+      "default": "schematic-generated",
       "visible": false
     },
     "project": {

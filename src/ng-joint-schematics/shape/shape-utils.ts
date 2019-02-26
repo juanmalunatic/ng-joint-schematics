@@ -70,11 +70,15 @@ export function parseOptions(input: string, options: Schema): string {
  * @param options 
  */
 export function buildShapeTypePath(options: Schema): string | undefined {
-    if (!options.path || !options.shapeType) {
+    if (!options.path || !options.generatePath || !options.shapeType) {
       return undefined;
     }
 
-    return join(options.path, strings.dasherize(options.shapeType));
+    return join(
+      options.path,
+      strings.dasherize(options.generatePath),
+      strings.dasherize(options.shapeType)
+    );
   }
 
 /**

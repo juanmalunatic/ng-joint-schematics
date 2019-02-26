@@ -31,8 +31,8 @@ import {
   buildShapeInterfacePropertiesImportStatements
 } from '../../ng-joint-shape-properties';
 import { Schema } from '../../schemas/ng-joint-shape-schema';
+import { resolveOptionPaths } from '../../ng-joint-paths';
 import {
-  resolveOptionPaths,
   buildShapeTypeComponentFilePath,
   buildShapeTypeComponentFileName,
   updateShapeTypeComponent,

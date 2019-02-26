@@ -38,38 +38,6 @@ const _MODULE_CLASS_SUFFIX_ = 'Module';
 const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
 
 /**
- * Resolve Options with Paths
- * @param host 
- * @param options 
- */
-export function resolveOptionPaths(host: Tree, options: Schema) {
-
-  if (!options.project) {
-    throw new SchematicsException('Option (project) is required.');
-  }
-
-  if (!options.generatePath) {
-    throw new SchematicsException('Option (generatePath) is required.');
-  }
-
-  let buildPath = options.path;
-
-  if (buildPath === undefined) {
-    const project = getProject(host, options.project);
-    buildPath = buildDefaultPath(project);
-  }
-
-  if (options.schematicsDataFile === '' || options.schematicsDataFile === undefined) {
-    options.schematicsDataFile = '.' + resolve(buildPath, '..', 'ng-joint-schematics-data.json');
-  }
-
-  const rootPath = join(buildPath, options.generatePath);
-  const location = parseName(rootPath, options.name);
-  options.path = location.path;
-
-}
-
-/**
  * Parse Options into Input-String
  * 
  * Current supported format:

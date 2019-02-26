@@ -26,14 +26,16 @@ import { NgJointImportMapping } from '../../ng-joint-schematics-data';
 /**
  * Constants to build Angular TS-statements
  */
-const _QUOTE_ = "'";
-const _DASH_ = '-';
-const _TS_SUFFIX_ = '.ts';
-const _COMPONENT_IMPORT_SUFFIX_ = '.component';
-const _COMPONENT_CLASS_SUFFIX_ = 'Component';
-const _MODULE_IMPORT_SUFFIX_ = '.module';
-const _MODULE_CLASS_SUFFIX_ = 'Module';
-const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
+import {
+  _COMPONENT_CLASS_SUFFIX_,
+  _COMPONENT_IMPORT_SUFFIX_,
+  _DASH_,
+  _MODULE_CLASS_SUFFIX_,
+  _MODULE_IMPORT_SUFFIX_,
+  _QUOTE_,
+  _TS_INDEX_FILE,
+  _TS_SUFFIX_
+} from '../../ng-joint-config';
 
 /**
  * Parse Options into Input-String

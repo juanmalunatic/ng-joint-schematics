@@ -31,7 +31,7 @@ import {
   buildShapeInterfacePropertiesImportStatements
 } from '../../ng-joint-shape-properties';
 import { Schema } from '../../schemas/ng-joint-shape-schema';
-import { resolveOptionPaths, removeDirPath } from '../../ng-joint-paths';
+import { resolveOptionPaths } from '../../ng-joint-paths';
 import {
   buildShapeTypeComponentFilePath,
   buildShapeTypeComponentFileName,
@@ -90,8 +90,6 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     if (!options.path) {
       throw new SchematicsException('Option (path) is not resolved and required.');
     }
-
-    removeDirPath(options.path);
 
     if (!options.shapeType) {
       throw new SchematicsException('Option (shapeType) is required.');

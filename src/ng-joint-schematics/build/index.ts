@@ -44,20 +44,34 @@ export function ngJointBuildSchematics(options: Schema): Rule {
         options.path = buildLocation.path;
 
         const schematicsData = getSchematicsData(options);
-        const shapes = schematicsData.shapes;
+        const shapeTypes = schematicsData.shapes;
+        const generateParm = 'g';
+        const schematicsParm = 'ng-joint-schematics';
+        const elementSchematicsParm = schematicsParm + ':' + 'element';
+        const linkSchematicsParm = schematicsParm + ':' + 'link';
+        const projectParm = '--project=' + options.project;
         let cmdChain: string[][] = [];
         
-        for (const shapeType in shapes) {
-            const elements = shapes[shapeType].elements;
+        for (const shapeType in shapeTypes) {
 
+            const elements = shapeTypes[shapeType].elements;
             for (const element in elements) {
-                cmdChain.push(['g', 'ng-joint-schematics:element', shapeType, element, '--project=ng-joint']);
+                cmdChain.push(
+                    [
+                        generateParm, elementSchematicsParm, shapeType, element, projectParm
+                    ]
+                );
             }
 
-            const links = shapes[shapeType].links;
+            const links = shapeTypes[shapeType].links;
             for (const link in links) {
-                cmdChain.push(['g', 'ng-joint-schematics:element', shapeType, link, '--project=ng-joint'])
+                cmdChain.push(
+                    [
+                        generateParm, linkSchematicsParm, shapeType, link, projectParm
+                    ]
+                );
             }
+
         }
 
         // convert array to JSON-string value

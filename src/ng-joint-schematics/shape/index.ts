@@ -133,10 +133,18 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeInterfacePropertiesImportStatements = buildShapeInterfacePropertiesImportStatements(shapeProperties, defaults.importMappings);
     options.shapeObjectClass = parseOptions(buildShapeClass(shapeObjectClassDef), options);
     options.shapeOptionsClass = parseOptions(buildShapeClass(shapeOptionsClassDef), options);
-    options.shapeClassImportStatements = buildImportStatements(
-      [shapeObjectClassDef.nameSpace || '', shapeOptionsClassDef.nameSpace || ''], 
-      defaults.importMappings
-    );
+
+    let nameSpaces: string[] = []
+
+    if (shapeObjectClassDef.nameSpace) { 
+      nameSpaces.push(shapeObjectClassDef.nameSpace); 
+    }
+
+    if (shapeOptionsClassDef.nameSpace && shapeOptionsClassDef.nameSpace !== shapeObjectClassDef.nameSpace) {
+      nameSpaces.push(shapeOptionsClassDef.nameSpace);
+    }
+
+    options.shapeClassImportStatements = buildImportStatements(nameSpaces, defaults.importMappings);
     
     const shapeTypeComponentFilePath = buildShapeTypeComponentFilePath(options) || '';
         

@@ -1,8 +1,10 @@
 import * as cli from '@angular/cli';
 
+export type CliCmdChain = string[][];
+
 // testing
 console.log('start test syncNgCli');
-let cmdChain = [['help'], ['help']];
+const cmdChain = [['help'], ['help']];
 chainNgCliCmds(cmdChain);
 
 /**
@@ -10,7 +12,7 @@ chainNgCliCmds(cmdChain);
  * @param cmdChain [['cmd1arg1', 'cmd1arg2'], ..., ['cmd(n)arg1',...,  'cmd(n)arg(m)'] ] 
  * @param chainIndex?
  */
-export function chainNgCliCmds(cmdChain: string[][], chainIndex?: number) {
+export function chainNgCliCmds(cmdChain: CliCmdChain, chainIndex?: number) {
     let index = 0;
 
     if (chainIndex) {

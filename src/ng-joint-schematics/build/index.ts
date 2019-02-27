@@ -26,6 +26,7 @@ import { _QUOTE_, _DOUBLE_QUOTE, _SPACES_, _COMMA_ } from '../../ng-joint-config
 import { resolveOptionPaths } from '../../ng-joint-paths';
 import { getSchematicsData } from '../../ng-joint-schematics-data';
 import { Schema } from '../../schemas/ng-joint-build-schema';
+import { CliCmdChain } from './build-utils';
 
 /**
  * Joint Js Build Schematics
@@ -50,7 +51,7 @@ export function ngJointBuildSchematics(options: Schema): Rule {
         const elementSchematicsParm = schematicsParm + ':' + 'element';
         const linkSchematicsParm = schematicsParm + ':' + 'link';
         const projectParm = '--project=' + options.project;
-        let cmdChain: string[][] = [];
+        let cmdChain: CliCmdChain = [];
         
         for (const shapeType in shapeTypes) {
 

@@ -49,7 +49,7 @@ import {
  * @returns parsed string
  */
 export function parseOptions(input: string, options: Schema): string {
-  let output = '';
+  let output = input;
 
   for (const key in options) {
     const optionValue = options[key];

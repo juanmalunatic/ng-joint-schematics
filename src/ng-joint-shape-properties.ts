@@ -1,10 +1,10 @@
+import { _SPACES_ } from './ng-joint-config';
 import {
   NgJointShapeProperties,
   NgJointImportMapping
 } from './ng-joint-schematics-data';
 import { buildImportStatements } from './ng-joint-schematics/shape/shape-utils';
 
-const _INPUT_SPACING_ = '  ';
 
 function buildShapeProperty(
   shapeProperties: NgJointShapeProperties,
@@ -32,7 +32,7 @@ export function buildShapeComponentInputDecorators(
   if (shapeProperties) {
 
     for (const key in shapeProperties.attrs) {
-      inputs += _INPUT_SPACING_ + '@Input() ' + buildShapeProperty(shapeProperties, key);
+      inputs += _SPACES_ + '@Input() ' + buildShapeProperty(shapeProperties, key);
     }
 
   }
@@ -52,7 +52,7 @@ export function buildShapeInterfaceProperties(
   if (shapeProperties) {
 
     for (const key in shapeProperties.attrs) {
-      properties += _INPUT_SPACING_ + buildShapeProperty(shapeProperties, key);
+      properties += _SPACES_ + buildShapeProperty(shapeProperties, key);
     }
 
   }  

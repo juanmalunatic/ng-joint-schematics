@@ -68,8 +68,9 @@ export function ngJointBuildSchematics(options: Schema): Rule {
         options.ngCliCmdChain = options.ngCliCmdChain.replace('[[', '\n[\n' + _SPACES_ + '[');
         // add spaces and line break after every command line
         options.ngCliCmdChain = options.ngCliCmdChain.replace('],[', '],\n' + _SPACES_ + '[');
-        // add a space after every comma
+        // add a space after every comma between a string-value
         options.ngCliCmdChain = options.ngCliCmdChain.replace(_COMMA_, ', ');
+        options.ngCliCmdChain = options.ngCliCmdChain.replace('], ', '],');
         // add line breaks at the end of the chain
         options.ngCliCmdChain = options.ngCliCmdChain.replace(']]', ']\n]\n');
 

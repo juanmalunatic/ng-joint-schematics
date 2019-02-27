@@ -232,7 +232,9 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
     let isNewDecoratorString = true;
     let decoratorString = '@ContentChildren(' + shapeComponent + ') ' + 
     strings.dasherize(options.shapeType) + strings.classify(options.name) + 's' +
-    ': QueryList<GenericStandard' + strings.classify(implementation) + 'ShapeComponent>;'
+      ': QueryList<Generic' + 
+        strings.classify(options.shapeType) + 
+        strings.classify(implementation) + 'ShapeComponent>;'
 
     classNodes.forEach(node => node.forEachChild(child => { 
       // console.log(child.kind);

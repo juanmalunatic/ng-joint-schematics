@@ -4,7 +4,7 @@
 import { Component, ContentChildren, QueryList } from '@angular/core';
 
 import { GenericShapePluginComponent } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapesPath) %>';
-import { GenericStandardElementShapeComponent, GenericStandardLinkShapeComponent } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>';
+import { Generic<%= classify(shapeType) %>ElementShapeComponent, Generic<%= classify(shapeType) %>LinkShapeComponent } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>';
 import { Shapes<%= classify(shapeType) %>Service } from '../../<%= dasherize(shapesPath) %>/<%= dasherize(shapeType) %>/<%= dasherize(shapesPath) %>-<%= dasherize(shapeType) %>.service';
 
 @Component({

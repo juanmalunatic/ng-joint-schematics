@@ -75,14 +75,12 @@ export function ngJointBuildSchematics(options: Schema): Rule {
 
         }
 
-        // convert array to JSON-string value
-        options.ngCliCmdChain = JSON.stringify(cmdChain)
-        // add line breaks ans spaces at the start of the chain
-        options.ngCliCmdChain = options.ngCliCmdChain.replace('[[', '\n[\n' + _SPACES_ + '[');
-        // add spaces and line break after every command line
-        options.ngCliCmdChain = options.ngCliCmdChain.replace('],[', '],\n' + _SPACES_ + '[');
-        // add line breaks at the end of the chain
-        options.ngCliCmdChain = options.ngCliCmdChain.replace(']]', ']\n]\n');
+        // convert JavaObject-array to String
+        options.ngCliCmdChain = '[\n';
+        for (const cmd of cmdChain) {
+            options.ngCliCmdChain += _SPACES_ + JSON.stringify(cmd) + ',\n'
+        }
+        options.ngCliCmdChain += ']';
 
         const templateBuildSource = apply(url('./files'), [
             options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),

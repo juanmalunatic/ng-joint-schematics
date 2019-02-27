@@ -99,6 +99,11 @@
       "description": "Required jointjs Shape Class (namespace) Importstatements.",
       "visible": false
     },
+    "ngElementRef": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, add extra ElementRef Parm to Component Constructor."
+    },
     "lintFix": {
       "type": "boolean",
       "default": false,

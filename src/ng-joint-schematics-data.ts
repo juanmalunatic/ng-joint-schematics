@@ -22,10 +22,12 @@ export interface NgJointShapeTypeDefaults {
     elements: {
         shapeObjectClass: NgJointClassDefinition;
         shapeOptionsClass: NgJointClassDefinition;
+        ngElementRef?: boolean;
     },
     links: {
         shapeObjectClass: NgJointClassDefinition;
         shapeOptionsClass: NgJointClassDefinition;
+        ngElementRef?: boolean;
     }
 }
 

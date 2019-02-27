@@ -1,5 +1,7 @@
 // Node Imports
 import { resolve } from 'path';
+// import * as rmdirRecursive from 'fs-rmdir-recursive';
+import rmdirRecursive = require('fs-rmdir-recursive');
 
 // Angular Imports
 import {
@@ -43,4 +45,8 @@ export function resolveOptionPaths(
     options.name = location.name;
     options.path = location.path;
   
+  }
+
+  export function removeDirPath(dirPath: string) {
+    rmdirRecursive(dirPath);
   }

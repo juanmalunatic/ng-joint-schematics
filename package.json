@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon",
     "build": "npm run build:schemas && npm run build:schematics",
-    "build:schemas": "ts-node src/build-schemas.ts",
+    "build:schemas": "ts-node -P cfg/tsconfig.json cfg/build-schemas.ts",
     "build:schematics": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js",
     "test:sync:ng:cli": "ts-node src/ng-joint-schematics/build/build-utils.ts"

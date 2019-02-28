@@ -1,6 +1,6 @@
 {
-    "watch": ["src/schemas/*.json", "src/**/*.ts"],
-    "ignore": ["src/build-schemas.ts", "src/**/*.d.ts"],
+    "watch": ["src/*.json", "src/**/*.ts", "src/**/*.template"],
+    "ignore": ["src/**/*.d.ts"],
     "ext": "json ts",
     "exec": "npm run build"
 }

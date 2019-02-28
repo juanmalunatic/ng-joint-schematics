@@ -115,12 +115,14 @@ export function ngJointShapeSchematics(options: Schema): Rule {
         shapeProperties = getElementProperties(options);
         shapeObjectClassDef = shapeTypeDefaults.elements.shapeObjectClass;
         shapeOptionsClassDef = shapeTypeDefaults.elements.shapeOptionsClass;
+        options.ngElementRef = shapeTypeDefaults.elements.ngElementRef;
         break;
       }
       case 'link': {
         shapeProperties = getLinkProperties(options);
         shapeObjectClassDef = shapeTypeDefaults.links.shapeObjectClass;
         shapeOptionsClassDef = shapeTypeDefaults.links.shapeOptionsClass;
+        options.ngElementRef = shapeTypeDefaults.links.ngElementRef;
         break;
       }
       default: {

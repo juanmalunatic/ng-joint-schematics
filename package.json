@@ -7,11 +7,11 @@
     "build": "npm run build:schemas && npm run build:schematics",
     "build:schemas": "npm run compile:schemas && npm run cpx:schemas && npm run cpx:collection",
     "compile:schemas": "ts-node -P cfg/tsconfig.json cfg/compile-schemas.ts",
-    "cpx:schemas": "cpx \"src/schemas/*.{json,ts}\" dist/schemas -v",
+    "cpx:schemas": "cpx \"src/schemas/*.{json,ts}\" dist/schemas --clean",
     "build:schematics": "npm run compile:schematics && npm run cpx:templates",
     "compile:schematics": "tsc -p tsconfig.json",
-    "cpx:templates": "cpx \"src/**/*.template\" dist -v",
-    "cpx:collection": "cpx src/collection.json dist -v",
+    "cpx:templates": "cpx \"src/**/*.template\" dist --clean",
+    "cpx:collection": "cpx src/collection.json dist --clean",
     "test": "npm run build && jasmine dist/**/*_spec.js"
   },
   "keywords": [

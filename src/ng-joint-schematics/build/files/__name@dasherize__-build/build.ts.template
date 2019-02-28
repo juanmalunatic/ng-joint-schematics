@@ -19,5 +19,4 @@ export function chainNgCliCmds(cmdChain: string[][], chainIndex?: number) {
 
 }
 
-
 chainNgCliCmds(<%= ngCliCmdChain %>);

@@ -387,41 +387,6 @@ export function updateShapeTypeIndex(options: Schema, host: Tree) {
 }
 
 /**
- * update shape type index (exports)
- * @param options 
- */
-export function updateGeneratedIndex(options: Schema, host: Tree) {
-
-  const generatedIndexFilePath = buildGeneratedIndexFilePath(options);
-
-  if (generatedIndexFilePath && options.shapeType) {
-    // Initialize Update (generatePath).index file
-    const text = host.read(generatedIndexFilePath);
-  
-    if (text === null) {
-      throw new SchematicsException(`File ${generatedIndexFilePath} does not exist.`);
-    }
-
-    const sourceText = text.toString('utf-8');
-    const source = ts.createSourceFile(generatedIndexFilePath, sourceText, ts.ScriptTarget.Latest, true);
-    const exportNodes = findNodes(source, ts.SyntaxKind.ExportDeclaration);
-    const shapeTypeExport = 'export * from ' + "./'" + strings.dasherize(options.shapeType) + "';";
-    const exportExists = exportNodes.find(node => node.getText() === shapeTypeExport);
-
-    if (!exportExists) {
-      let changes = [
-        new InsertChange(
-          generatedIndexFilePath, 0, shapeTypeExport + '\n'
-        )
-      ];
-      commitChanges(host, changes, shapeTypeExport);
-    }
-
-  }
-
-}
-
-/**
  * Build string with Import Statements based on Symbols to Import and Import Mappings (symbols -> path)
  * @param symbols 
  * @param importMapping 

@@ -149,7 +149,7 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeClassImportStatements = buildImportStatements(nameSpaces, defaults.importMappings);
     
     const shapeTypeComponentFilePath = buildShapeTypeComponentFilePath(options) || '';
-        
+       
     const templateShapeTypeSource = apply(url('./files/shape-type'), [
       options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
       host.exists(shapeTypeComponentFilePath) ? filter(path => path === buildShapeTypeComponentFileName(options)) : noop(),

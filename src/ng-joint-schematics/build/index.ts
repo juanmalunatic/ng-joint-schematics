@@ -72,7 +72,7 @@ export function ngJointBuildSchematics(options: Schema): Rule {
                 );
             }
 
-            options.generatedExports += 'export * from ' + _QUOTE_ + '/' + shapeType + _QUOTE_ + ';\n';
+            options.generatedExports += 'export * from ' + _QUOTE_ + './' + shapeType + _QUOTE_ + ';\n';
         }
 
         // convert JavaObject-array to String

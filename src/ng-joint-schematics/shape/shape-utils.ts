@@ -68,20 +68,62 @@ export function parseOptions(input: string, options: Schema): string {
 }
 
 /**
+ * Build tge path where the schematics are generated
+ * @param options 
+ */
+export function buildGeneratePath(options: Schema): string | undefined {
+
+  if (!options.path || !options.generatePath) {
+    return undefined;
+  }
+
+  return join(options.path, strings.dasherize(options.generatePath));
+}
+
+/**
+ * Build file path to generated shapes index
+ * @param options 
+ */
+export function buildGeneratedIndexFilePath(options: Schema): string | undefined {
+
+  const generatedPath = buildGeneratePath(options);
+
+  if (!generatedPath) {
+    return undefined;
+  }
+
+  return join(generatedPath, _TS_INDEX_FILE);
+}
+
+/**
  * Build path where the shape type files are located
  * @param options 
  */
 export function buildShapeTypePath(options: Schema): string | undefined {
-    if (!options.path || !options.generatePath || !options.shapeType) {
-      return undefined;
-    }
 
-    return join(
-      options.path,
-      strings.dasherize(options.generatePath),
-      strings.dasherize(options.shapeType)
-    );
+  const generatedPath = buildGeneratePath(options);
+
+  if (!generatedPath || !options.shapeType) {
+    return undefined;
   }
+
+  return join(generatedPath, strings.dasherize(options.shapeType));
+}
+
+/**
+ * Build file path to shape type index
+ * @param options 
+ */
+export function buildShapeTypeIndexFilePath(options: Schema): string | undefined {
+
+  const shapeTypePath = buildShapeTypePath(options);
+
+  if (!shapeTypePath) {
+    return undefined;
+  }
+
+  return join(shapeTypePath, _TS_INDEX_FILE);
+}
 
 /**
  * Build shape type file name prefix
@@ -166,20 +208,6 @@ export function buildShapeTypeModuleFilePath(options: Schema): string | undefine
   }
 
   return join(shapeTypePath, moduleName);
-}
-
-/**
- * Build file path to shape type index
- * @param options 
- */
-export function buildShapeTypeIndexFilePath(options: Schema): string | undefined {
-  const shapeTypePath = buildShapeTypePath(options);
-
-  if (!shapeTypePath) {
-    return undefined;
-  }
-
-  return join(shapeTypePath, _TS_INDEX_FILE);
 }
 
 function commitChanges(host: Tree, changes: Change[], path: string) {
@@ -352,6 +380,41 @@ export function updateShapeTypeIndex(options: Schema, host: Tree) {
         )
       ];
       commitChanges(host, changes, shapeTypeIndexFilePath);
+    }
+
+  }
+
+}
+
+/**
+ * update shape type index (exports)
+ * @param options 
+ */
+export function updateGeneratedIndex(options: Schema, host: Tree) {
+
+  const generatedIndexFilePath = buildGeneratedIndexFilePath(options);
+
+  if (generatedIndexFilePath && options.shapeType) {
+    // Initialize Update (generatePath).index file
+    const text = host.read(generatedIndexFilePath);
+  
+    if (text === null) {
+      throw new SchematicsException(`File ${generatedIndexFilePath} does not exist.`);
+    }
+
+    const sourceText = text.toString('utf-8');
+    const source = ts.createSourceFile(generatedIndexFilePath, sourceText, ts.ScriptTarget.Latest, true);
+    const exportNodes = findNodes(source, ts.SyntaxKind.ExportDeclaration);
+    const shapeTypeExport = 'export * from ' + "./'" + strings.dasherize(options.shapeType) + "';";
+    const exportExists = exportNodes.find(node => node.getText() === shapeTypeExport);
+
+    if (!exportExists) {
+      let changes = [
+        new InsertChange(
+          generatedIndexFilePath, 0, shapeTypeExport + '\n'
+        )
+      ];
+      commitChanges(host, changes, shapeTypeExport);
     }
 
   }

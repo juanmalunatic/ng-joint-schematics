@@ -5,10 +5,11 @@
   "scripts": {
     "start": "nodemon",
     "build": "npm run build:schemas && npm run build:schematics",
-    "build:schemas": "ts-node -P cfg/tsconfig.json cfg/build-schemas.ts",
+    "build:schemas": "npm run compile:schemas && npm run cpx:schemas",
+    "compile:schemas": "ts-node -P cfg/tsconfig.json cfg/compile-schemas.ts",
+    "cpx:schemas": "cpx \"src/schemas/*.{json,ts}\" dist/schemas",
     "build:schematics": "tsc -p tsconfig.json",
-    "test": "npm run build && jasmine src/**/*_spec.js",
-    "test:sync:ng:cli": "ts-node src/ng-joint-schematics/build/build-utils.ts"
+    "test": "npm run build && jasmine dist/**/*_spec.js"
   },
   "keywords": [
     "schematics"
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/node": "^8.10.40",
     "@types/npm": "^2.0.29",
+    "cpx": "^1.5.0",
     "json-schema-to-typescript": "^6.1.1",
     "nodemon": "^1.18.10",
     "ts-node": "^8.0.2"

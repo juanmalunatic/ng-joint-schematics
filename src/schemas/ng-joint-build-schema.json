@@ -43,6 +43,18 @@
             "default": "",
             "visible": false
         },
+        "generatePath": {
+            "type": "string",
+            "description": "The path where shape modules are generated.",
+            "default": "schematic-generated",
+            "visible": false
+        },
+        "generatedExports": {
+            "type": "string",
+            "description": "Export-statements of generated components and modules.",
+            "default": "",
+            "visible": false
+        },
         "lintFix": {
             "type": "boolean",
             "default": true,

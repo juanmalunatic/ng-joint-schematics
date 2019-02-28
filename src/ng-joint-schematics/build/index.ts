@@ -50,6 +50,7 @@ export function ngJointBuildSchematics(options: Schema): Rule {
         const linkSchematicsParm = schematicsParm + ':' + 'link';
         const projectParm = '--project=' + options.project;
         let cmdChain: CliCmdChain = [];
+        options.generatedExports = '';
         
         for (const shapeType in shapeTypes) {
 
@@ -71,6 +72,7 @@ export function ngJointBuildSchematics(options: Schema): Rule {
                 );
             }
 
+            options.generatedExports += 'export * from ' + _QUOTE_ + '/' + shapeType + _QUOTE_ + ';\n';
         }
 
         // convert JavaObject-array to String
@@ -80,7 +82,16 @@ export function ngJointBuildSchematics(options: Schema): Rule {
         }
         options.ngCliCmdChain += ']';
 
-        const templateBuildSource = apply(url('./files'), [
+        const templateBuildSource = apply(url('./files/build'), [
+            options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
+            applyTemplates({
+              ...strings,
+              ...options,
+            }),
+            move(options.path)
+          ]);
+
+          const templateIndexSource = apply(url('./files/index'), [
             options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
             applyTemplates({
               ...strings,
@@ -91,6 +102,7 @@ export function ngJointBuildSchematics(options: Schema): Rule {
 
         const rule = chain([
             mergeWith(templateBuildSource, MergeStrategy.Default),
+            mergeWith(templateIndexSource, MergeStrategy.Default),
             options.lintFix ? applyLintFix(options.path) : noop(),
         ]);
         return rule(host, context);

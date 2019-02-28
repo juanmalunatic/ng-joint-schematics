@@ -1,5 +1,3 @@
-// To-Do
-// Build commnand line exec: https://stackoverflow.com/questions/20643470/execute-a-command-line-binary-with-node-js
 import { resolve } from 'path';
 // Angular Imports
 import { strings } from '@angular-devkit/core';

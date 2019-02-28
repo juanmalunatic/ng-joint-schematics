@@ -17,9 +17,9 @@
   "keywords": [
     "schematics"
   ],
-  "author": "",
+  "author": "Onno Haldar<onno@plan-k.nl>",
   "license": "MIT",
-  "schematics": "./src/collection.json",
+  "schematics": "./dist/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^7.3.1",
     "@angular-devkit/schematics": "^7.3.1",

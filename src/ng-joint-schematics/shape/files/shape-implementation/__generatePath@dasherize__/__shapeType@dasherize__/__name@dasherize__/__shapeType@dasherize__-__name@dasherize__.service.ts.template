@@ -22,7 +22,7 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements <
   }
 
   create<%= classify(implementation) %>Shape(id: string,<% if (implementation === 'link') { %> sourceId: string, targetId: string,<% } %> options: {}): <%= classify(shapeType) %><%= classify(name) %> {
-    return <%= camelize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
+    return new <%= classify(shapeType) %><%= classify(name) %>(
       id,<% if (implementation === 'link') { %> sourceId, targetId,<% } %>
       options
     );

@@ -18,8 +18,8 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
 export class <%= classify(shapeType) %><%= classify(name) %>Component extends Generic<%= classify(shapeType) %><%= classify(implementation) %>ShapeComponent {
 <% if (shapeComponentInputDecorators !== '') { %><%= shapeComponentInputDecorators %><% } else { %>// no additional inputs
 <% } %>
-  constructor(private <%= camelize(name) %>Service: <%= classify(shapeType) %><%= classify(name) %>Service<% if (ngElementRef) { %>, public ngElementRef: ElementRef<% } %>) {
-    super(<%= camelize(name) %>Service);
+  constructor(private <%= camelize(name) %>Service: <%= classify(shapeType) %><%= classify(name) %>Service<% if (ngElementRef) { %>, private ngElementRef: ElementRef<% } %>) {
+    super(<%= camelize(name) %>Service<% if (ngElementRef) { %>, ngElementRef<% } %>);
   }
 
   shapeInstance: <%= classify(shapeType) %><%= classify(name) %>;

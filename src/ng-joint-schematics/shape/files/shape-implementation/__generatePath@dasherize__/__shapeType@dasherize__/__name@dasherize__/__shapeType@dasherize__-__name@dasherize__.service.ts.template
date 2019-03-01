@@ -17,13 +17,19 @@ export class <%= classify(shapeType) %><%= classify(name) %>Service implements <
 
   constructor(private service: Shapes<%= classify(shapeType) %>Service) {}
 
-  create<%= classify(implementation) %>Shape(component: <%= classify(shapeType) %><%= classify(name) %>Component): <%= classify(shapeType) %><%= classify(name) %> {
-    const <%= camelize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
-      component.id,<% if (implementation === 'link') { %> component.sourceId, component.targetId,<% } %>
-      this.service.<%= dasherize(implementation) %>ShapeOptions(component)
+  shapeOptions(component: <%= classify(shapeType) %><%= classify(name) %>Component): {} {
+    return this.service.<%= dasherize(implementation) %>ShapeOptions(component);
+  }
+
+  create<%= classify(implementation) %>Shape(id: string,<% if (implementation === 'link') { %> sourceId: string, targetId: string,<% } %> options: {}): <%= classify(shapeType) %><%= classify(name) %> {
+    return <%= camelize(name) %>Shape = new <%= classify(shapeType) %><%= classify(name) %>(
+      id,<% if (implementation === 'link') { %> sourceId, targetId,<% } %>
+      options
     );
+  }
+
+  configShape(component: <%= classify(shapeType) %><%= classify(name) %>Component) {
     this.service.config<%= classify(implementation) %>Shape(component);
-    return <%= camelize(name) %>Shape;
   }
 
   onEvents(component: <%= classify(shapeType) %><%= classify(name) %>Component) {

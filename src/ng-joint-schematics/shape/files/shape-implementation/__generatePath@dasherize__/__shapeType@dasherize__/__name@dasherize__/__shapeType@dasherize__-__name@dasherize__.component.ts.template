@@ -13,9 +13,9 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
   selector: 'ng-joint-<%= dasherize(shapeType) %>-<%= dasherize(name) %>',
   template: `
 <% if (template !== '') { %><%= template %><% } else { %>    <!-- joint.shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>  --><% } %>
-  `,
-<% if (style !== '') { %>  styles: [`
-  <%= style %>
+  `<% if (style !== '') { %>,
+  styles: [`
+    <%= style %>
   `]
 <% } %> 
 })

@@ -12,8 +12,12 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
 @Component({
   selector: 'ng-joint-<%= dasherize(shapeType) %>-<%= dasherize(name) %>',
   template: `
-    <!-- joint.shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>  -->
-    `,
+<% if (template !== '') { %><%= template %><% } else { %>    <!-- joint.shapes.<%= dasherize(shapeType) %>.<%= classify(name) %>  --><% } %>
+  `,
+<% if (style !== '') { %>  styles: [`
+  <%= style %>
+  `]
+<% } %> 
 })
 export class <%= classify(shapeType) %><%= classify(name) %>Component extends Generic<%= classify(shapeType) %><%= classify(implementation) %>ShapeComponent {
 <% if (shapeComponentInputDecorators !== '') { %><%= shapeComponentInputDecorators %><% } else { %>// no additional inputs

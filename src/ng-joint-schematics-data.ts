@@ -10,6 +10,11 @@ export interface NgJointSchematicDataOptions {
 }
 
 /**
+ * Format JSON Escapes @see {https://www.freeformatter.com/json-escape.html}
+ */
+
+
+/**
  * "nameSpace"."class"<"type">
  */
 export interface NgJointClassDefinition {
@@ -53,6 +58,8 @@ export interface NgJointShapeProperties {
 export interface NgJointShape {
     [shapeName: string]: {
         properties: NgJointShapeProperties;
+        template?: string;
+        style?: string;
     };
 }
 

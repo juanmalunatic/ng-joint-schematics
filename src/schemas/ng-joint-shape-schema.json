@@ -99,6 +99,18 @@
       "description": "Required jointjs Shape Class (namespace) Importstatements.",
       "visible": false
     },
+    "template": {
+      "type": "string",
+      "default": "<!-- joint.shapes.___shapeType@dasherize__.name@classify__  -->",
+      "description": "ng-joint Shape Component Template (HTML).",
+      "visible": false
+    },
+    "style": {
+      "type": "string",
+      "default": "",
+      "description": "ng-joint Shape Component Style (CSS).",
+      "visible": false
+    },
     "ngElementRef": {
       "type": "boolean",
       "default": false,

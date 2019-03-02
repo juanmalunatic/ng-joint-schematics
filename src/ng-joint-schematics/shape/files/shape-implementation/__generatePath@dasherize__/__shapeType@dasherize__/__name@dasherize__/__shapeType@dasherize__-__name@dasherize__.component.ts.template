@@ -16,7 +16,7 @@ import { <%= classify(shapeType) %><%= classify(name) %> } from './<%= dasherize
   `<% if (style !== '') { %>,
   styles: [`
 <%= style %>
-  `]<% } %> 
+  `]<% } %>
 })
 export class <%= classify(shapeType) %><%= classify(name) %>Component extends Generic<%= classify(shapeType) %><%= classify(implementation) %>ShapeComponent {
 <% if (shapeComponentInputDecorators !== '') { %><%= shapeComponentInputDecorators %><% } else { %>// no additional inputs

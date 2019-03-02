@@ -101,7 +101,7 @@
     },
     "template": {
       "type": "string",
-      "default": "<!-- joint.shapes.___shapeType@dasherize__.name@classify__  -->",
+      "default": "",
       "description": "ng-joint Shape Component Template (HTML).",
       "visible": false
     },

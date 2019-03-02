@@ -191,12 +191,12 @@ export function getElementProperties(
     if (shapeTypeElements) {
         // shapetype has elements
         if (shapeTypeElements[options.name]) {
-            // element has properties
+            // element is defined
             return shapeTypeElements[options.name].properties;
         }
     }
 
-    // no elements or properties defined
+    // no element defined
     return undefined;
 }
 
@@ -216,11 +216,111 @@ export function getLinkProperties(
     if (shapeTypeLinks) {
         // shapetype has elements
         if (shapeTypeLinks[options.name]) {
-            // element has properties
+            // element is defined
             return shapeTypeLinks[options.name].properties;
         }
     }
 
-    // no elements or properties defined
+    // no link defined
+    return undefined;
+}
+
+/**
+ * Get Angular Component HTML-template for a specific Element (Angular, ....)
+ * @param options 
+ */
+export function getElementTemplate(
+    options: NgJointSchematicDataOptions): string | undefined {
+        
+    if (!options.name) {
+        throw new SchematicsException('getElementTemplate() Option (name) is required.');
+    }
+
+    const shapeTypeElements = getShapeTypeElements(options);
+
+    if (shapeTypeElements) {
+        // shapetype has elements
+        if (shapeTypeElements[options.name]) {
+            // element is defined
+            return shapeTypeElements[options.name].template;
+        }
+    }
+
+    // no element defined
+    return undefined;
+}
+
+/**
+ * Get Angular Component HTML-template for a specific Link (Angular, ....)
+ * @param options 
+ */
+export function getLinkTemplate(
+    options: NgJointSchematicDataOptions): string | undefined {
+        
+    if (!options.name) {
+        throw new SchematicsException('getLinkTemplate() Option (name) is required.');
+    }
+
+    const shapeTypeLinks = getShapeTypeLinks(options);
+
+    if (shapeTypeLinks) {
+        // shapetype has links
+        if (shapeTypeLinks[options.name]) {
+            // link is defined
+            return shapeTypeLinks[options.name].template;
+        }
+    }
+
+    // no link defined
+    return undefined;
+}
+
+/**
+ * Get Angular Component Style for a specific Element (Angular, ....)
+ * @param options 
+ */
+export function getElementStyle(
+    options: NgJointSchematicDataOptions): string | undefined {
+        
+    if (!options.name) {
+        throw new SchematicsException('getElementStyle() Option (name) is required.');
+    }
+
+    const shapeTypeElements = getShapeTypeElements(options);
+
+    if (shapeTypeElements) {
+        // shapetype has elements
+        if (shapeTypeElements[options.name]) {
+            // element is defined
+            return shapeTypeElements[options.name].style;
+        }
+    }
+
+    // no element defined
+    return undefined;
+}
+
+/**
+ * Get Angular Component Style for a specific Link (Angular, ....)
+ * @param options 
+ */
+export function getLinkStyle(
+    options: NgJointSchematicDataOptions): string | undefined {
+        
+    if (!options.name) {
+        throw new SchematicsException('getLinkStyle() Option (name) is required.');
+    }
+
+    const shapeTypeLinks = getShapeTypeLinks(options);
+
+    if (shapeTypeLinks) {
+        // shapetype has links
+        if (shapeTypeLinks[options.name]) {
+            // link is defined
+            return shapeTypeLinks[options.name].style;
+        }
+    }
+
+    // no link defined
     return undefined;
 }

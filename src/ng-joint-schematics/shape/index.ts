@@ -21,6 +21,10 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 import {
     getElementProperties,
     getLinkProperties,
+    getElementTemplate,
+    getLinkTemplate,
+    getElementStyle,
+    getLinkStyle,
     getDefaults,
     getShapeTypeDefaults,
     NgJointClassDefinition
@@ -116,6 +120,8 @@ export function ngJointShapeSchematics(options: Schema): Rule {
         shapeObjectClassDef = shapeTypeDefaults.elements.shapeObjectClass;
         shapeOptionsClassDef = shapeTypeDefaults.elements.shapeOptionsClass;
         options.ngElementRef = shapeTypeDefaults.elements.ngElementRef;
+        options.template = getElementTemplate(options);
+        options.style = getElementStyle(options);
         break;
       }
       case 'link': {
@@ -123,6 +129,8 @@ export function ngJointShapeSchematics(options: Schema): Rule {
         shapeObjectClassDef = shapeTypeDefaults.links.shapeObjectClass;
         shapeOptionsClassDef = shapeTypeDefaults.links.shapeOptionsClass;
         options.ngElementRef = shapeTypeDefaults.links.ngElementRef;
+        options.template = getLinkTemplate(options);
+        options.style = getLinkStyle(options);
         break;
       }
       default: {

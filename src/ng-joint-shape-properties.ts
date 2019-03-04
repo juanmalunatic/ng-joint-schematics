@@ -1,20 +1,17 @@
 import { _SPACES_ } from './ng-joint-config';
 import {
   NgJointShapeProperties,
-  NgJointImportMapping
+  NgJointImportMapping,
+  NgJointClassDefinition
 } from './ng-joint-schematics-data';
 import { buildImportStatements } from './ng-joint-schematics/shape/shape-utils';
 
 
-function buildShapeProperty(
-  shapeProperties: NgJointShapeProperties,
-  key: string): string {
-  
-  const attr = shapeProperties.attrs[key];
-  let attrClass = attr.class;
+function buildShapeAttrProperty(key: string, property: NgJointClassDefinition): string {
+  let attrClass = property.class;
 
-  if (attr.nameSpace) {
-    attrClass = attr.nameSpace + '.' + attrClass;
+  if (property.nameSpace) {
+    attrClass = property.nameSpace + '.' + attrClass;
   }
 
   return key + ': ' + attrClass + ';\n';
@@ -32,7 +29,8 @@ export function buildShapeComponentInputDecorators(
   if (shapeProperties) {
 
     for (const key in shapeProperties.attrs) {
-      inputs += _SPACES_ + '@Input() ' + buildShapeProperty(shapeProperties, key);
+      const property = shapeProperties.attrs[key] as NgJointClassDefinition;
+      inputs += _SPACES_ + '@Input() ' + buildShapeAttrProperty(key, property);
     }
 
   }
@@ -52,7 +50,8 @@ export function buildShapeInterfaceProperties(
   if (shapeProperties) {
 
     for (const key in shapeProperties.attrs) {
-      properties += _SPACES_ + buildShapeProperty(shapeProperties, key);
+      const property = shapeProperties.attrs[key] as NgJointClassDefinition;
+      properties += _SPACES_ + buildShapeAttrProperty(key, property);
     }
 
   }  

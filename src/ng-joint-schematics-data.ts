@@ -43,7 +43,10 @@ export interface NgJointShapeTypeDefaults {
  * }
  */
 export interface NgJointShapeProperties {
-    attrs: {
+    attrs?: {
+        [propName: string]: NgJointClassDefinition;
+    };
+    extra?: {
         [propName: string]: NgJointClassDefinition;
     };
 }

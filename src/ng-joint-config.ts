@@ -9,3 +9,4 @@ export const _MODULE_IMPORT_SUFFIX_ = '.module';
 export const _MODULE_CLASS_SUFFIX_ = 'Module';
 export const _TS_INDEX_FILE = 'index' + _TS_SUFFIX_;
 export const _SPACES_ = '  ';
+export const _DATA_TYPES_ = ['number', 'string', 'boolean', 'symbol'];

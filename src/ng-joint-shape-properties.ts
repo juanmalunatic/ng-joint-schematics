@@ -1,11 +1,10 @@
-import { _SPACES_ } from './ng-joint-config';
+import { _SPACES_ , _DATA_TYPES_ } from './ng-joint-config';
 import {
   NgJointShapeProperties,
   NgJointImportMapping,
   NgJointClassDefinition
 } from './ng-joint-schematics-data';
 import { buildImportStatements } from './ng-joint-schematics/shape/shape-utils';
-
 
 function buildShapeAttrProperty(key: string, property: NgJointClassDefinition): string {
   let attrClass = property.class;
@@ -75,8 +74,14 @@ function updateImportSymbols(importSymbols: string[], classDefinition: NgJointCl
     symbol = classDefinition.nameSpace;
   }
 
-  if (!importSymbols.find(importSymbol => importSymbol === symbol)) {
-    importSymbols.push(symbol);
+  if (!_DATA_TYPES_.find(dataType => symbol.includes(dataType))) {
+    // No Data Type (string, number, ..), so need to be Imported (as Namespace or Class)
+
+    if (!importSymbols.find(importSymbol => importSymbol === symbol)) {
+      // Add symbol to Imports, if not already done so 
+      importSymbols.push(symbol);
+    }
+
   }
 
 }

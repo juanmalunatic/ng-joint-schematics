@@ -50,13 +50,35 @@ export function buildShapeInterfaceProperties(
   if (shapeProperties) {
 
     for (const key in shapeProperties.attrs) {
-      const property = shapeProperties.attrs[key] as NgJointClassDefinition;
-      properties += _SPACES_ + buildShapeAttrProperty(key, property);
+      properties += _SPACES_ + buildShapeAttrProperty(key, shapeProperties.attrs[key]);
+    }
+
+    for (const key in shapeProperties.extra) {
+      properties += _SPACES_ + buildShapeAttrProperty(key, shapeProperties.extra[key]);
     }
 
   }  
 
   return properties;
+}
+
+/**
+ * Update importSymbols by adding Unique Symbol (Class or Namespace)
+ * @param importSymbols
+ * @param classDefinition 
+ */
+function updateImportSymbols(importSymbols: string[], classDefinition: NgJointClassDefinition) {
+
+  let symbol = classDefinition.class;
+
+  if (classDefinition.nameSpace) {
+    symbol = classDefinition.nameSpace;
+  }
+
+  if (!importSymbols.find(importSymbol => importSymbol === symbol)) {
+    importSymbols.push(symbol);
+  }
+
 }
 
 /**
@@ -75,17 +97,11 @@ export function buildShapeInterfacePropertiesImportStatements(
     let importSymbols: string[] = [];
 
     for (const key in shapeProperties.attrs) {
-      const attr = shapeProperties.attrs[key];
-      let attrSymbol = attr.class;
+      updateImportSymbols(importSymbols, shapeProperties.attrs[key])
+    }
 
-      if (attr.nameSpace) {
-        attrSymbol = attr.nameSpace;
-      }
-
-      if (!importSymbols.find(importSymbol => importSymbol === attrSymbol)) {
-        importSymbols.push(attrSymbol);
-      }
-
+    for (const key in shapeProperties.extra) {
+      updateImportSymbols(importSymbols, shapeProperties.extra[key])
     }
 
     imports = buildImportStatements(importSymbols, importMappings);

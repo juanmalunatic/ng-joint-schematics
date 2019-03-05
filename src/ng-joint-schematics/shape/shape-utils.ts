@@ -308,9 +308,9 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
 
       // Update Constant with Array of used Property values
       const constNodes = findNodes(source, ts.SyntaxKind.VariableDeclaration);
-      const constPropArrayNode = constNodes.find(node => node.getText().startsWith('_ATTR_PROPERTIES_'));
-      console.log(constPropArrayNode);
-      if (constPropArrayNode) {
+      const constPropArrayNode = constNodes[0];
+
+      if (constPropArrayNode.getText().startsWith('_ATTR_PROPERTIES_')) {
         const buildArray = constPropArrayNode.getText().split(' = ');
         let shapeTypeProps: string[] = JSON.parse(buildArray[1]);
         console.log('PRE: shapeTypeProps', shapeTypeProps);

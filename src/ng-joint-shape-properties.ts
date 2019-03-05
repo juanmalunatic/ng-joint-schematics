@@ -90,7 +90,7 @@ function updateImportSymbols(importSymbols: string[], classDefinition: NgJointCl
 }
 
 /**
- * Build a string with required imports (namespaces, ..) fpr used properties
+ * Build a string with required imports (namespaces, ..) for used properties
  * @param shapeProperties
  * @param imports 
  */

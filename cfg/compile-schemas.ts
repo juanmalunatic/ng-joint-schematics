@@ -8,10 +8,11 @@ import * as Collection from '@angular-devkit/schematics/collection-schema';
 const srcPath = resolve(__dirname, '..', 'src');
 
 // compile schematic data schema's
-compileSchemaToTypeDefinition(join(srcPath, 'data-options-schema.json'));
+const dataPath = join(srcPath, 'data');
+compileSchemaToTypeDefinition(join(dataPath, 'data-options-schema.json'));
 // remove schema's lower in hierachie (tey will be added as #ref's)
-compileSchemaToTypeDefinition(join(srcPath, 'shape-properties.json'));
-compileSchemaToTypeDefinition(join(srcPath, 'shape-type-defaults.json'));
+compileSchemaToTypeDefinition(join(dataPath, 'shape-properties.json'));
+compileSchemaToTypeDefinition(join(dataPath, 'shape-type-defaults.json'));
 
 
 // compile all schema's defined in collection.json

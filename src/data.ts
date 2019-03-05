@@ -12,25 +12,8 @@ import { SchematicsException } from '@angular-devkit/schematics';
 
 // Dgwnu Imports
 import { NgJointSchematicDataOptions } from './data-options-schema';
-import {
-    NgJointClassDefinition,
-    NgJointShapeTypeDefaults
-} from './shape-type-defaults';
-
-/**
- * "attrs": {
- *  "propName": { NgJointClassDefinition },
- *  .....
- * }
- */
-export interface NgJointShapeProperties {
-    attrs?: {
-        [propName: string]: NgJointClassDefinition;
-    };
-    extra?: {
-        [propName: string]: NgJointClassDefinition;
-    };
-}
+import { NgJointShapeTypeDefaults } from './shape-type-defaults';
+import { NgJointShapeProperties } from './shape-properties';
 
 /**
  * "shapeName(1)": { "properties": { NgJointShapeProperties }},

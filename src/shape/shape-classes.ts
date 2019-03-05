@@ -1,6 +1,6 @@
 import {
     NgJointClassDefinition
-} from './ng-joint-schematics-data';
+} from '../data';
 
 export function buildShapeClass(shapeClass: NgJointClassDefinition): string {
     let classString = '';

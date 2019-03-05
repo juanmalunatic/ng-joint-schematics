@@ -2,12 +2,7 @@ import { readFileSync } from 'fs';
 
 import { SchematicsException } from '@angular-devkit/schematics';
 
-export interface NgJointSchematicDataOptions { 
-    path?: string,
-    schematicsDataFile?: string
-    name?: string;
-    shapeType?: string;
-}
+import { NgJointSchematicDataOptions } from './data-options-schema';
 
 /**
  * Format JSON Escapes @see {https://www.freeformatter.com/json-escape.html}

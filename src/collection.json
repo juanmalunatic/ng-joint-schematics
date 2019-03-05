@@ -16,6 +16,5 @@
       "factory": "./build/index#ngJointBuildSchematics",
       "schema": "./build/build-schema.json"
     }
-
   }
 }

@@ -1,0 +1,30 @@
+{
+    "$id": "NgJointSchematicDataOptions",
+    "$schema": "http://json-schema.org/schema",
+    "title": "NgJointSchematicDataOptions",
+    "type": "object",
+    "description": "Creates a new shape in the given or default project.",
+    "properties": {
+      "shapeType": {
+        "type": "string",
+        "description": "The shape type.",
+        "default": ""
+      },
+      "name": {
+        "type": "string",
+        "description": "The name of the new shape.",
+        "default": ""
+      },
+      "path": {
+        "type": "string",
+        "format": "path",
+        "description": "The path at which to create the class, relative to the workspace root."
+      },
+      "schematicsDataFile": {
+        "type": "string",
+        "description": "Path where schematics-data file is located.",
+        "default": ""
+      }
+    },
+    "additionalProperties": false
+  }

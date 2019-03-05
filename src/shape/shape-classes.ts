@@ -1,6 +1,4 @@
-import {
-    NgJointClassDefinition
-} from '../data';
+import { NgJointClassDefinition } from '../class-definition';
 
 export function buildShapeClass(shapeClass: NgJointClassDefinition): string {
     let classString = '';

@@ -1,8 +1,8 @@
 import { _SPACES_ , _DATA_TYPES_ } from '../config';
+import { NgJointClassDefinition } from '../class-definition';
 import {
   NgJointShapeProperties,
   NgJointImportMapping,
-  NgJointClassDefinition
 } from '../data';
 import { buildImportStatements } from './shape-utils';
 

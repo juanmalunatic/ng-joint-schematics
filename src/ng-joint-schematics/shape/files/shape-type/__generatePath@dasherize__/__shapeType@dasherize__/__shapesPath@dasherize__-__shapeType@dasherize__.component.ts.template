@@ -18,3 +18,5 @@ export class <%= classify(shapesPath) %><%= classify(shapeType) %>Component exte
     super(<%= dasherize(shapesPath) %><%= classify(shapeType) %>Service);
   }
 }
+
+const _SHAPE_PROPERTIES_: string[] = [];

@@ -1,9 +1,12 @@
 /**
  * @dgwnu/ngschematics shape utils to create and update shape dependencies
  * 
- * Based on @angular/cli/schematics/angular/component:
+ * Based on @angular/cli/schematics/angular (https://github.com/angular/angular-cli/blob/master/packages/schematics/angular)
  * 
- * https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
+ * Component: https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts
+ * 
+ * Utility: https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/utility/change.ts
+ * 
  */
 import { join } from 'path';
 import * as ts from 'typescript';
@@ -15,6 +18,7 @@ import {
 import {
   insertImport,
   findNodes,
+//  findNode,
   addImportToModule,
   addExportToModule
 } from '@schematics/angular/utility/ast-utils';
@@ -297,6 +301,15 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
           decoratorString + '\n\n'
         )
       );
+
+      // Update Constant with Array of used Property values
+      const constNode = findNodes(source, ts.SyntaxKind.VariableDeclaration);
+      const shapePropsNode = constNode.find(node => node.getText() === '_SHAPE_PROPERTIES_');
+
+      if (shapePropsNode) {
+        let propsArray = shapePropsNode.getText().split(':')[1];
+        console.log('propsArray', propsArray);
+      }
 
       commitChanges(host, changes, shapeTypeComponentPath);
     }

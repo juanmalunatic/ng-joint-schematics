@@ -22,10 +22,14 @@ import {
   addImportToModule,
   addExportToModule
 } from '@schematics/angular/utility/ast-utils';
-import { InsertChange, Change } from '@schematics/angular/utility/change';
+import { InsertChange, Change, ReplaceChange } from '@schematics/angular/utility/change';
 
 import { Schema } from '../../schemas/ng-joint-shape-schema';
-import { NgJointImportMapping } from '../../ng-joint-schematics-data';
+import {
+  NgJointImportMapping,
+  getElementProperties,
+  getLinkProperties
+} from '../../ng-joint-schematics-data';
 
 /**
  * Constants to build Angular TS-statements
@@ -303,18 +307,55 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
       );
 
       // Update Constant with Array of used Property values
-      const constNode = findNodes(source, ts.SyntaxKind.VariableDeclaration);
-      const shapePropsNode = constNode.find(node => node.getText() === '_SHAPE_PROPERTIES_');
+      const constNodes = findNodes(source, ts.SyntaxKind.VariableDeclaration);
+      const constPropArrayNode = constNodes.find(node => node.getText().startsWith('_ATTR_PROPERTIES_'));
+      console.log(constPropArrayNode);
+      if (constPropArrayNode) {
+        const buildArray = constPropArrayNode.getText().split(' = ');
+        let shapeTypeProps: string[] = JSON.parse(buildArray[1]);
+        console.log('PRE: shapeTypeProps', shapeTypeProps);
+        let shapeProps;
 
-      if (shapePropsNode) {
-        let propsArray = shapePropsNode.getText().split(':')[1];
-        console.log('propsArray', propsArray);
+        switch (options.implementation) {
+          case 'element': {
+            shapeProps = getElementProperties(options);
+            break;
+          }
+          case 'link': {
+            shapeProps = getLinkProperties(options);
+            break;
+          }
+          default: {
+            throw new SchematicsException('Option.implementation ${options.implementation} is not defined here.');
+          }
+        }
+
+        if (shapeProps) {
+          // shape specific attr(s) to add
+          for (const key in shapeProps.attrs) {
+            // look for existing prop
+            if (!shapeTypeProps.find(prop => prop === key)) {
+              // add non existing prop
+              shapeTypeProps.push(key);
+            }
+          }
+        }
+        console.log('POST: shapeTypeProps', shapeTypeProps);
+        // Replace Props Array
+        changes.push(
+          new ReplaceChange(
+            shapeTypeComponentPath,
+            constPropArrayNode.pos,
+            constPropArrayNode.getText(),
+            buildArray[0] + ' = ' + JSON.stringify(shapeTypeProps)
+          )
+        );
+
+        commitChanges(host, changes, shapeTypeComponentPath);
       }
 
-      commitChanges(host, changes, shapeTypeComponentPath);
     }
 
-    
   }
 
 }

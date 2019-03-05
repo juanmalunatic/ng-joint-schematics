@@ -9,14 +9,14 @@
             "type": "object",
             "description": "jointjs attributes defined for shape.",
             "additionalProperties": {
-                "$ref": "src/class-definition.json"
+                "$ref": "src/data/class-definition.json"
             }
         },
         "extra": {
             "type": "object",
             "description": "extra attributes defined for shape.",
             "additionalProperties": {
-                "$ref": "src/class-definition.json"
+                "$ref": "src/data/class-definition.json"
             }
         },
         "additionalProperties": false

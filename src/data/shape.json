@@ -5,7 +5,7 @@
     "type": "object",
     "description": "shape definition.",
     "additionalProperties": {
-        "shapeProperties": { "$ref": "src/class-definition.json" },
+        "shapeProperties": { "$ref": "src/data/class-definition.json" },
         "shapeTemplate": "string",
         "shapeStyle": "string"
     }

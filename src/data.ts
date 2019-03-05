@@ -1,22 +1,19 @@
-import { readFileSync } from 'fs';
-
-import { SchematicsException } from '@angular-devkit/schematics';
-
-import { NgJointSchematicDataOptions } from './data-options-schema';
-
 /**
+ * @dgwnu/joint-schematics data handling functions
+ * 
  * Format JSON Escapes @see {https://www.freeformatter.com/json-escape.html}
  */
 
+// Node Imports
+import { readFileSync } from 'fs';
 
-/**
- * "nameSpace"."class"<"type">
- */
-export interface NgJointClassDefinition {
-    nameSpace?: string;
-    class: string;
-    type?: string;
-}
+// Angular Imports
+import { SchematicsException } from '@angular-devkit/schematics';
+
+// Dgwnu Imports
+import { NgJointSchematicDataOptions } from './data-options-schema';
+import { NgJointClassDefinition } from './class-definition';
+
 
 export interface NgJointShapeTypeDefaults {
     elements: {

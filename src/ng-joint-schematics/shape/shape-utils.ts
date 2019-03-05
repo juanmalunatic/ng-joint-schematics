@@ -229,31 +229,21 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
   const shapeTypeComponentPath = buildShapeTypeComponentFilePath(options);
   
   if (shapeTypeComponentPath && options.shapeType) {
-    // Initialize Update (shapeType).component file
+    // Check Component Source File
     const text = host.read(shapeTypeComponentPath);
   
     if (text === null) {
       throw new SchematicsException(`File ${shapeTypeComponentPath} does not exist.`);
     }
   
+    // Initilalize Component Source Update
     const sourceText = text.toString('utf-8');
     const source = ts.createSourceFile(shapeTypeComponentPath, sourceText, ts.ScriptTarget.Latest, true);
     const shapeClass = strings.classify(options.shapeType) + strings.classify(options.name);
-    const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + _DASH_ + strings.dasherize(options.name);
-
-    // Shape Import Changes
     const shapeComponent = shapeClass + _COMPONENT_CLASS_SUFFIX_;
-    const shapeComponentFilePath = shapeClassFilePath + _COMPONENT_IMPORT_SUFFIX_;
-    let changes = [
-      insertImport(
-        source, 
-        shapeTypeComponentPath, 
-        shapeComponent, 
-        shapeComponentFilePath
-      )
-    ];
 
     // Shape (at)ContentChildren Decorator Changes
+    // pre: existing Shape OR new Shape
     const classNodes = findNodes(source, ts.SyntaxKind.ClassDeclaration);
     const implementation = options.implementation || '';
     let contentChildrenPos: number = 0;
@@ -278,7 +268,6 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
         case ts.SyntaxKind.Constructor: {
           if (contentChildrenPos < child.getStart()) {
             contentChildrenPos = child.getStart();
-            decoratorString
           }
           break;
         }
@@ -286,6 +275,21 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
     }));
         
     if (isNewDecoratorString) {
+      // post: new Shape
+
+      // Add Shape Import
+      const shapeClassFilePath = './' + strings.dasherize(options.name) + '/' + strings.dasherize(options.shapeType) + _DASH_ + strings.dasherize(options.name);
+      const shapeComponentFilePath = shapeClassFilePath + _COMPONENT_IMPORT_SUFFIX_;
+      let changes = [
+          insertImport(
+            source, 
+            shapeTypeComponentPath, 
+            shapeComponent, 
+            shapeComponentFilePath
+          )
+      ];
+    
+      // Add Input Decorator
       changes.push(
         new InsertChange(
           shapeTypeComponentPath,
@@ -293,6 +297,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
           decoratorString + '\n\n'
         )
       );
+
       commitChanges(host, changes, shapeTypeComponentPath);
     }
 

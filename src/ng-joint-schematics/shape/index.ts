@@ -48,7 +48,7 @@ import {
 import { buildShapeClass } from '../../ng-joint-shape-classes';
 
 /**
- * Update Shape Type References (imports, exports, @ContentChildren)
+ * Update Shape Type References
  * @param options 
  */
 function updateShapeType(options: Schema): Rule {

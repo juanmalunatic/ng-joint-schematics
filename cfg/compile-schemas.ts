@@ -10,6 +10,8 @@ const srcPath = resolve(__dirname, '..', 'src');
 // compile schematic data schema's
 compileSchemaToTypeDefinition(join(srcPath, 'data-options-schema.json'));
 compileSchemaToTypeDefinition(join(srcPath, 'class-definition.json'));
+compileSchemaToTypeDefinition(join(srcPath, 'shape-type-defaults.json'));
+
 
 // compile all schema's defined in collection.json
 const jsonCollectionFile = join(srcPath, 'collection.json');

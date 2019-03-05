@@ -9,12 +9,19 @@
         "type": "object",
         "description": "Defaults for all elements of shapetype.",
         "properties": {
-            "shapeObjectClass": { "$ref": "class-definition.json" }
-        }
+            "shapeObjectClass": { "$ref": "src/class-definition.json" },
+            "shapeOptionsClass": { "$ref": "src/class-definition.json" },
+            "ngElementRef": {
+              "type": "boolean",
+              "description": ""
+            }
+        },
+        "required": [
+          "shapeObjectClass",
+          "shapeOptionsClass"
+        ],
+        "additionalProperties": false
       }
     },
-    "required": [
-        "class"
-    ],
     "additionalProperties": false
   }

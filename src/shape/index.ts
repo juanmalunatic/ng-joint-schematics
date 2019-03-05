@@ -28,7 +28,7 @@ import {
     getLinkStyle,
     getDefaults,
     getShapeTypeDefaults
-} from '../data';
+} from '../data/data';
 import {
   buildShapeComponentInputDecorators,
   buildShapeInterfaceProperties,

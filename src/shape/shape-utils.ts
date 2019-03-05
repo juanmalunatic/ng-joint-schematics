@@ -29,7 +29,7 @@ import {
   NgJointImportMapping,
   getElementProperties,
   getLinkProperties
-} from '../data';
+} from '../data/data';
 
 /**
  * Constants to build Angular TS-statements

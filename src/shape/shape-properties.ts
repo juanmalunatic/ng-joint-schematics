@@ -1,6 +1,6 @@
 import { _SPACES_ , _DATA_TYPES_ } from '../config';
 import { NgJointShapeProperties, NgJointClassDefinition } from '../shape-properties'
-import { NgJointImportMapping } from '../data';
+import { NgJointImportMapping } from '../data/data';
 import { buildImportStatements } from './shape-utils';
 
 function buildShapeProperty(key: string, property: NgJointClassDefinition): string {

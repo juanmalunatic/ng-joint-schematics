@@ -9,9 +9,8 @@ const srcPath = resolve(__dirname, '..', 'src');
 
 // compile schematic data schema's
 compileSchemaToTypeDefinition(join(srcPath, 'data-options-schema.json'));
-
 // remove schema's lower in hierachie (tey will be added as #ref's)
-// compileSchemaToTypeDefinition(join(srcPath, 'class-definition.json'));
+compileSchemaToTypeDefinition(join(srcPath, 'shape-properties.json'));
 compileSchemaToTypeDefinition(join(srcPath, 'shape-type-defaults.json'));
 
 

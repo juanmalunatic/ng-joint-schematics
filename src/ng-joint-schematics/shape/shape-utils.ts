@@ -308,9 +308,9 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
 
       // Update Constant with Array of used Property values
       const constNodes = findNodes(source, ts.SyntaxKind.VariableDeclaration);
-      const constPropArrayNode = constNodes[0];
+      const constPropArrayNode = constNodes.find(node => node.getText().startsWith('_SHAPE_PROPERTIES_'));
 
-      if (constPropArrayNode.getText().startsWith('_ATTR_PROPERTIES_')) {
+      if (constPropArrayNode) {
         const buildArray = constPropArrayNode.getText().split(' = ');
         let shapeTypeProps: string[] = JSON.parse(buildArray[1]);
         console.log('PRE: shapeTypeProps', shapeTypeProps);
@@ -341,14 +341,18 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
           }
         }
         console.log('POST: shapeTypeProps', shapeTypeProps);
+        const shapeTypePropsArrayStr = JSON.stringify(shapeTypeProps);
+
         // Replace Props Array
+        const replacePropArray = new ReplaceChange(
+          shapeTypeComponentPath,
+          constPropArrayNode.pos,
+          constPropArrayNode.getText(),
+          buildArray[0] + ' = ' + shapeTypePropsArrayStr
+        );
+        console.log(replacePropArray);
         changes.push(
-          new ReplaceChange(
-            shapeTypeComponentPath,
-            constPropArrayNode.pos,
-            constPropArrayNode.getText(),
-            buildArray[0] + ' = ' + JSON.stringify(shapeTypeProps)
-          )
+          replacePropArray
         );
 
         commitChanges(host, changes, shapeTypeComponentPath);

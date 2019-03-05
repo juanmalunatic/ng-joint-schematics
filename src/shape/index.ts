@@ -28,14 +28,14 @@ import {
     getDefaults,
     getShapeTypeDefaults,
     NgJointClassDefinition
-} from '../../ng-joint-schematics-data';
+} from '../data';
 import {
   buildShapeComponentInputDecorators,
   buildShapeInterfaceProperties,
   buildShapeInterfacePropertiesImportStatements
-} from '../../ng-joint-shape-properties';
-import { Schema } from '../../schemas/ng-joint-shape-schema';
-import { resolveOptionPaths } from '../../ng-joint-paths';
+} from './shape-properties';
+import { Schema } from './shape-schema';
+import { resolveOptionPaths } from '../paths';
 import {
   buildShapeTypeComponentFilePath,
   buildShapeTypeComponentFileName,
@@ -45,7 +45,7 @@ import {
   parseOptions,
   buildImportStatements
 } from '../shape/shape-utils';
-import { buildShapeClass } from '../../ng-joint-shape-classes';
+import { buildShapeClass } from './shape-classes';
 
 /**
  * Update Shape Type References

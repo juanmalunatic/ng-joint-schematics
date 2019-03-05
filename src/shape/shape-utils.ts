@@ -24,12 +24,12 @@ import {
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange, Change, ReplaceChange } from '@schematics/angular/utility/change';
 
-import { Schema } from '../../schemas/ng-joint-shape-schema';
+import { Schema } from './shape-schema';
 import {
   NgJointImportMapping,
   getElementProperties,
   getLinkProperties
-} from '../../ng-joint-schematics-data';
+} from '../data';
 
 /**
  * Constants to build Angular TS-statements
@@ -43,7 +43,7 @@ import {
   _QUOTE_,
   _TS_INDEX_FILE,
   _TS_SUFFIX_
-} from '../../ng-joint-config';
+} from '../config';
 
 /**
  * Parse Options into Input-String

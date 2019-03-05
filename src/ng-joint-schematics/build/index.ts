@@ -91,14 +91,14 @@ export function ngJointBuildSchematics(options: Schema): Rule {
             move(options.path)
           ]);
 
-          const templateIndexSource = apply(url('./files/index'), [
+        const templateIndexSource = apply(url('./files/index'), [
             options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
             applyTemplates({
               ...strings,
               ...options,
             }),
             move(options.path)
-          ]);
+        ]);
 
         const rule = chain([
             mergeWith(templateBuildSource, MergeStrategy.Default),

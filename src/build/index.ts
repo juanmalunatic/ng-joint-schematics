@@ -1,4 +1,6 @@
+// Node Imports
 import { resolve } from 'path';
+
 // Angular Imports
 import { strings } from '@angular-devkit/core';
 import {
@@ -20,10 +22,10 @@ import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 import { parseName } from '@schematics/angular/utility/parse-name';
 
 // Dgwnu Imports
-import { _QUOTE_, _DOUBLE_QUOTE, _SPACES_, _COMMA_ } from '../../ng-joint-config';
-import { resolveOptionPaths } from '../../ng-joint-paths';
-import { getSchematicsData } from '../../ng-joint-schematics-data';
-import { Schema } from '../../schemas/ng-joint-build-schema';
+import { _QUOTE_, _DOUBLE_QUOTE, _SPACES_, _COMMA_ } from '../config';
+import { resolveOptionPaths } from '../paths';
+import { getSchematicsData } from '../data';
+import { Schema } from './build-schema';
 import { CliCmdChain } from './build-utils';
 
 /**

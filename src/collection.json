@@ -9,7 +9,7 @@
     "link": {
       "description": "ng-joint shape link schematics",
       "factory": "./shape/index#ngJointLinkSchematics",
-      "schema": "./shapes/shape-schema.json"
+      "schema": "./shape/shape-schema.json"
     },
     "build": {
       "description": "ng-joint build schematics",

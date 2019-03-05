@@ -31,10 +31,10 @@
       "description": "Defaults for all elements of shapetype.",
       "properties": {
         "shapeObjectClass": {
-          "$ref": "src/class-definition.json"
+          "$ref": "src/data/class-definition.json"
         },
         "shapeOptionsClass": {
-          "$ref": "src/class-definition.json"
+          "$ref": "src/data/class-definition.json"
         },
         "ngElementRef": {
           "type": "boolean",

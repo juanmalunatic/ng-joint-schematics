@@ -18,7 +18,7 @@ import {
 import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 // Dgwnu Imports
-import { NgJointClassDefinition } from '../class-definition';
+import { NgJointClassDefinition } from '../data/shape-type-defaults';
 import {
     getElementProperties,
     getLinkProperties,
@@ -28,7 +28,7 @@ import {
     getLinkStyle,
     getDefaults,
     getShapeTypeDefaults
-} from '../data/data';
+} from '../data';
 import {
   buildShapeComponentInputDecorators,
   buildShapeInterfaceProperties,

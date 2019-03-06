@@ -5,10 +5,10 @@ import { join, resolve } from 'path';
 import * as Collection from '@angular-devkit/schematics/collection-schema';
 
 // Resolve source path
-const srcPath = resolve(__dirname, '..', 'ng-joint-schematics', 'src');
+const srcPath = resolve(__dirname, '..', 'src');
 
 // Compile schematic data schema's
-const dataPath = join(srcPath, 'data');
+const dataPath = join(srcPath, 'ng-joint-schematics', 'data');
 compileSchemaToTypeDefinition(join(dataPath, 'ng-joint-schematic-data-options.json'));
 compileSchemaToTypeDefinition(join(dataPath, 'ng-joint-schematic-data-schema.json'));
 

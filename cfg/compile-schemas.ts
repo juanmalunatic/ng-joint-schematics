@@ -9,7 +9,7 @@ const srcPath = resolve(__dirname, '..', 'src');
 
 // Compile schematic data schema's
 const dataPath = join(srcPath, 'data');
-compileSchemaToTypeDefinition(join(dataPath, 'data-options-schema.json'));
+compileSchemaToTypeDefinition(join(dataPath, 'ng-joint-schematic-data-options.json'));
 compileSchemaToTypeDefinition(join(dataPath, 'ng-joint-schematic-data-schema.json'));
 
 // Compile all schema's defined in collection.json

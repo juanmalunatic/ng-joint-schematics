@@ -1,9 +1,10 @@
 {
     "$id": "NgJointSchematicDataOptions",
     "$schema": "http://json-schema.org/schema",
-    "type": "object",
     "description": "Options to store and retrieve NgJointSchematicData.",
 
+    "type": "object",
+    
     "properties": {
       "shapeType": {
         "type": "string",
@@ -26,5 +27,6 @@
         "default": ""
       }
     },
+
     "additionalProperties": false
   }

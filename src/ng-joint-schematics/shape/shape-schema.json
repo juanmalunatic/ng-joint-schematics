@@ -74,6 +74,12 @@
       "default": "",
       "visible": false
     },
+    "shapePropertiesMetaData": {
+      "type": "string",
+      "description": "Shape Component Properties description array ts-code.",
+      "default": "",
+      "visible": false
+    },
     "shapeInterfacePropertiesImportStatements": {
       "type": "string",
       "default": "",
@@ -117,7 +123,7 @@
     },
     "lintFix": {
       "type": "boolean",
-      "default": false,
+      "default": true,
       "description": "When true, applies lint fixes after generating the class."
     }
   },

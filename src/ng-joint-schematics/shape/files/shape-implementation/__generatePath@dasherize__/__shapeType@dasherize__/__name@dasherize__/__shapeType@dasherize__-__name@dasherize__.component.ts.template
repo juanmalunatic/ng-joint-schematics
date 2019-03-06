@@ -28,6 +28,7 @@ export class <%= classify(shapeType) %><%= classify(name) %>Component extends Ge
 
   shapeInstance: <%= classify(shapeType) %><%= classify(name) %>;
 
+  readonly shapePropertiesMetaData = <%= shapePropertiesMetaData %>;
 }
 
 /**

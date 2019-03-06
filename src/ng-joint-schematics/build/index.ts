@@ -25,7 +25,7 @@ import { parseName } from '@schematics/angular/utility/parse-name';
 import { _QUOTE_, _DOUBLE_QUOTE, _SPACES_, _COMMA_ } from '../config';
 import { resolveOptionPaths } from '../paths';
 import { getSchematicsData } from '../data';
-import { Schema } from './build-schema';
+import { BuildSchema as Schema } from './build-schema';
 import { CliCmdChain } from './build-utils';
 
 /**

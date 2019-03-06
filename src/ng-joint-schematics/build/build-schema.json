@@ -1,7 +1,6 @@
 {
-    "$schema": "http://json-schema.org/schema",
-    "id": "BuildSchema",
-    "title": "Schema",
+    "$id": "https://raw.githubusercontent.com/dgwnu/ng-joint-schematics/master/src/ng-joint-schematics/build/build-schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "description": "Creates a new shape in the given or default project.",
     "properties": {

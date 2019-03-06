@@ -1,7 +1,7 @@
 {
     "$id": "NgJointShape",
     "$schema": "http://json-schema.org/schema",
-    "title": "NgJointShapeProperties",
+    "title": "NgJointShape",
     "type": "object",
     "description": "shape definition.",
     "additionalProperties": {
@@ -10,6 +10,7 @@
             "properties": { "$ref": "src/data/class-definition.json" },
             "template": { "type": "string" },
             "style": { "type": "string" } 
-        }
+        },
+        "additionalProperties": false
     }
 }

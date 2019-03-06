@@ -34,7 +34,7 @@ import {
   buildShapeInterfaceProperties,
   buildShapeInterfacePropertiesImportStatements
 } from './shape-properties';
-import { Schema } from './shape-schema';
+import { ShapeSchema as Schema } from './shape-schema';
 import { resolveOptionPaths } from '../paths';
 import {
   buildShapeTypeComponentFilePath,

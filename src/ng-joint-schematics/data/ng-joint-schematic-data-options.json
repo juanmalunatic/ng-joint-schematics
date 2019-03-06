@@ -1,6 +1,6 @@
 {
     "$id": "https://raw.githubusercontent.com/dgwnu/ng-joint-schematics/ng73x/src/data/ng-joint-schematic-data-options.json",
-    "$schema": "http://json-schema.org/schema",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "description": "Options to store and retrieve NgJointSchematicData.",
 
     "type": "object",

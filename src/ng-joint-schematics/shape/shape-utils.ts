@@ -33,7 +33,7 @@ import {
 } from '@schematics/angular/utility/change';
 
 // Dgwnu Imports
-import { Schema } from './shape-schema';
+import { ShapeSchema as Schema } from './shape-schema';
 import {
   NgJointImportMapping
 } from '../data';

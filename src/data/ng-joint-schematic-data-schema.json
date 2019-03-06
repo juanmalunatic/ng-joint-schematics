@@ -6,11 +6,26 @@
     "definitions": {
         "NgJointDefaults": {
             "type": "object",
-            "properties": {}
+            "description": "Global defaults.",
+            "additionalProperties": { }   
         },
         "NgJointShapeTypes": {
             "type": "object",
-            "properties": {}
+            "description": "Defined shape types.",
+            "additionalProperties": { "$ref": "#/definitions/NgJointShapeType" }   
+        },
+        "NgJointShapeType": {
+            "type": "object",
+            "description": "Shape type (standard, uml, angular, ...etc.)",
+            "properties": {
+                "defaults": {},
+                "elements": {},
+                "links": {}
+            },
+            "required": [
+                "defaults"
+            ],
+            "additionalProperties": false
         }
     },
 

@@ -1,9 +1,9 @@
 {
     "$id": "NgJointSchematicDataOptions",
     "$schema": "http://json-schema.org/schema",
-    "title": "NgJointSchematicDataOptions",
     "type": "object",
-    "description": "Creates a new shape in the given or default project.",
+    "description": "Options to store and retrieve NgJointSchematicData.",
+
     "properties": {
       "shapeType": {
         "type": "string",

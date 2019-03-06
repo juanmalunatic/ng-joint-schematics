@@ -4,6 +4,9 @@
     "description": "Schema to store and retrieve NgJoint Schematic Data to create shapes etc..",
     "type": "object",
     "properties": {
+        "$schema": {
+            "$ref": "#/definitions"
+        },
         "defaults": {
             "$ref": "#/definitions/NgJointDefaults"
         },

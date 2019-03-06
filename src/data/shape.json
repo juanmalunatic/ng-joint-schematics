@@ -11,6 +11,7 @@
             "template": { "type": "string" },
             "style": { "type": "string" } 
         },
+        "required": ["properties"],
         "additionalProperties": false
     }
 }

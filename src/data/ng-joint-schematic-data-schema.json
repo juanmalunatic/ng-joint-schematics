@@ -7,7 +7,13 @@
         "NgJointDefaults": {
             "type": "object",
             "description": "Global defaults.",
-            "additionalProperties": { }   
+            "properties": { 
+                "importMappings": {
+                    "type": "array",
+                    "items": { }
+                }
+            },
+            "additionalProperties": false
         },
         "NgJointShapeTypes": {
             "type": "object",

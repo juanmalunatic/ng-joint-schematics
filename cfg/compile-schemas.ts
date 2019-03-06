@@ -4,15 +4,15 @@ import { writeFileSync, readFileSync } from 'fs';
 import { join, resolve } from 'path';
 import * as Collection from '@angular-devkit/schematics/collection-schema';
 
-// resolve source path
+// Resolve source path
 const srcPath = resolve(__dirname, '..', 'src');
 
-// compile schematic data schema's
+// Compile schematic data schema's
 const dataPath = join(srcPath, 'data');
 compileSchemaToTypeDefinition(join(dataPath, 'data-options-schema.json'));
 compileSchemaToTypeDefinition(join(dataPath, 'schematic-data-schema.json'));
 
-// compile all schema's defined in collection.json
+// Compile all schema's defined in collection.json
 const jsonCollectionFile = join(srcPath, 'collection.json');
 const data = readFileSync(jsonCollectionFile, 'utf-8');
 const collection: Collection.Schema = JSON.parse(data);

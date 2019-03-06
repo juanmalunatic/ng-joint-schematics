@@ -4,13 +4,12 @@ import { writeFileSync, readFileSync } from 'fs';
 import { join, resolve } from 'path';
 import * as Collection from '@angular-devkit/schematics/collection-schema';
 
-// read schematics collection
+// resolve source path
 const srcPath = resolve(__dirname, '..', 'src');
 
 // compile schematic data schema's
 const dataPath = join(srcPath, 'data');
 compileSchemaToTypeDefinition(join(dataPath, 'data-options-schema.json'));
-// remove schema's lower in hierachie (tey will be added as #ref's)
 compileSchemaToTypeDefinition(join(dataPath, 'schematic-data-schema.json'));
 
 // compile all schema's defined in collection.json

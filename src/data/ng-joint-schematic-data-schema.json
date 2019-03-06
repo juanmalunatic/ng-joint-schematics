@@ -28,6 +28,9 @@
                     }
                 }
             },
+            "required": [
+                "importMappings"
+            ],
             "additionalProperties": false
         },
         "NgJointShapeTypes": {

@@ -238,3 +238,5 @@ export function getLinkStyle(
     // no link defined
     return undefined;
 }
+
+export * from './ng-joint-schematic-data-schema';

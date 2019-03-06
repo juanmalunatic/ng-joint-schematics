@@ -15,23 +15,11 @@ import { NgJointSchematicDataOptions } from './ng-joint-schematic-data-options';
 import { 
     NgJointSchematicDataSchema,
     NgJointDefaults,
-    NgJointImportMapping,
-    NgJointShapeTypes,
-    NgJointShapeType
+    NgJointShapeType,
+    NgJointShapeTypeDefaults,
+    NgJointShape,
+    NgJointShapeProperties
 } from './ng-joint-schematic-data-schema';
-
-/**
- * "defaults": { NgJointShapeTypeDefaults },
- * 
- * "elements": { NgJointShape },
- * 
- * "links": { NgJointShape }
- */
-export interface NgJointShapeType {
-    defaults: NgJointShapeTypeDefaults;
-    elements?: NgJointShape;
-    links?: NgJointShape;
-}
 
 /**
  * Read Ng Joint Schematics File defined in options and return JSON Data 

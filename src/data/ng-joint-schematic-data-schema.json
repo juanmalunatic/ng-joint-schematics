@@ -11,6 +11,10 @@
             "$ref": "#/definitions/NgJointShapeTypes"
         }
     },
+    "required": [
+        "defaults",
+        "shapes"
+    ],
     "additionalProperties": false,
     "definitions": {
         "NgJointDefaults": {
@@ -131,7 +135,7 @@
             "additionalProperties": {
                 "properties": {
                     "properties": {
-                        "$ref": "#/definitions/NgJointClassDefinition"
+                        "$ref": "#/definitions/NgJointShapeProperties"
                     },
                     "template": {
                         "type": "string"
@@ -146,9 +150,31 @@
                 "additionalProperties": false
             }
         },
+        "NgJointShapeProperties": {
+            "type": "object",
+            "description": "properties that are defined for shape.",
+            "properties": {
+                "attrs": {
+                    "type": "object",
+                    "description": "jointjs attributes defined for shape.",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/NgJointClassDefinition"
+                    }
+                },
+                "extra": {
+                    "type": "object",
+                    "description": "extra attributes defined for shape.",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/NgJointClassDefinition"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "additionalProperties": false
+        },
         "NgJointClassDefinition": {
             "type": "object",
-            "description": "Creates a new shape in the given or default project.",
+            "description": "Provided jointjs class OR ng-joint custom developed class.",
             "properties": {
                 "nameSpace": {
                     "type": "string",

@@ -1,0 +1,25 @@
+{
+    "$id": "NgJointSchematicData",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "NgJointSchematicData",
+
+    "definitions": {
+        "NgJointDefaults": {
+            "type": "object",
+            "properties": {}
+        },
+        "NgJointShapeTypes": {
+            "type": "object",
+            "properties": {}
+        }
+    },
+
+    "type": "object",
+
+    "properties": {
+        "defaults": { "$ref": "#/definitions/NgJointDefaults" },
+        "shapes": { "$ref": "#/definitions/NgJointShapeTypes" }
+    },
+
+    "additionalProperties": false
+}

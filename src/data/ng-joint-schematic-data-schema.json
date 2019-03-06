@@ -2,8 +2,32 @@
     "$id": "https://github.com/dgwnu/ng-joint-schematics/blob/master/src/data/ng-joint-schematic-data-schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "description": "Schema to store and retrieve NgJoint Schematic Data to create shapes etc..",
+    "type": "object",
+    "properties": {
+        "defaults": { "$ref": "#/definitions/NgJointDefaults" },
+        "shapes": { "$ref": "#/definitions/NgJointShapeTypes" }
+    },
+    "additionalProperties": false,
 
     "definitions": {
+
+        "NgJointDefaults": {
+            "type": "object",
+            "description": "Global defaults.",
+            "properties": { 
+                "importMappings": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/NgJointImportMapping" }
+                }
+            },
+            "additionalProperties": false
+        },
+
+        "NgJointShapeTypes": {
+            "type": "object",
+            "description": "Defined shape types.",
+            "additionalProperties": { "$ref": "#/definitions/NgJointShapeType" }   
+        },
 
         "NgJointImportMapping": {
             "type": "object",
@@ -25,45 +49,29 @@
             ],
             "additionalProperties": false
         },
-        "NgJointDefaults": {
-            "type": "object",
-            "description": "Global defaults.",
-            "properties": { 
-                "importMappings": {
-                    "type": "array",
-                    "items": { "$ref": "#/definitions/NgJointImportMapping" }
-                }
-            },
-            "additionalProperties": false
-        },
 
         "NgJointShapeType": {
             "type": "object",
             "description": "Shape type (standard, uml, angular, ...etc.)",
             "properties": {
-                "defaults": {},
-                "elements": {},
-                "links": {}
+                "defaults": { "$ref": "#/definitions/NgJointShapeTypeDefaults" },
+                "elements": { "$ref": "#/definitions/NgJointShape" },
+                "links": { "$ref": "#/definitions/NgJointShape" }
             },
             "required": [
                 "defaults"
             ],
             "additionalProperties": false
-        },        
-        "NgJointShapeTypes": {
-            "type": "object",
-            "description": "Defined shape types.",
-            "additionalProperties": { "$ref": "#/definitions/NgJointShapeType" }   
+        },
+
+        "NgJointShapeTypeDefaults": {
+
+        },
+
+        "NgJointShape": {
+
         }
 
-    },
+    }
 
-    "type": "object",
-
-    "properties": {
-        "defaults": { "$ref": "#/definitions/NgJointDefaults" },
-        "shapes": { "$ref": "#/definitions/NgJointShapeTypes" }
-    },
-
-    "additionalProperties": false
 }

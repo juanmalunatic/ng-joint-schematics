@@ -11,27 +11,14 @@ import { readFileSync } from 'fs';
 import { SchematicsException } from '@angular-devkit/schematics';
 
 // Dgwnu Imports
-import { NgJointSchematicDataOptions } from './data-options-schema';
-import { NgJointShapeTypeDefaults } from './shape-type-defaults';
-import { NgJointShapeProperties } from './shape-properties';
-import { NgJointShape } from './shape';
-
-/**
- * "importSymbols": ["sym1", ..., "sym(n)"],
- * 
- * "fromPath": "../(example) "
- */
-export interface NgJointImportMapping {
-    importSymbols: string[];
-    fromPath: string;
-}
-
-/**
- * importMappings: NgJointImportMapping[]
- */
-export interface NgJointDefaults {
-    importMappings: NgJointImportMapping[];
-}
+import { NgJointSchematicDataOptions } from './ng-joint-schematic-data-options';
+import { 
+    NgJointSchematicDataSchema,
+    NgJointDefaults,
+    NgJointImportMapping,
+    NgJointShapeTypes,
+    NgJointShapeType
+} from './ng-joint-schematic-data-schema';
 
 /**
  * "defaults": { NgJointShapeTypeDefaults },
@@ -46,27 +33,13 @@ export interface NgJointShapeType {
     links?: NgJointShape;
 }
 
-export interface NgJointShapeTypes {
-    [shapeType: string]: NgJointShapeType;
-}
-
-/**
- * "default": { NgJointDefaults },
- * 
- * "shapes": { NgJointShapeTypes }
- */
-export interface NgJointSchematicData {
-    defaults: NgJointDefaults;
-    shapes: NgJointShapeTypes;
-}
-
 /**
  * Read Ng Joint Schematics File defined in options and return JSON Data 
  * @param options 
  */
 export function getSchematicsData(
     options: NgJointSchematicDataOptions
-    ): NgJointSchematicData {
+    ): NgJointSchematicDataSchema {
 
     if (!options.schematicsDataFile) {
         throw new SchematicsException('Option (schematicsDataFile) is required.');

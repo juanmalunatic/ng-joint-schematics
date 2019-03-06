@@ -1,10 +1,10 @@
 {
-    "$id": "NgJointSchematicDataOptions",
+    "$id": "https://github.com/dgwnu/ng-joint-schematics/blob/master/src/data/ng-joint-schematic-data-options.json",
     "$schema": "http://json-schema.org/schema",
     "description": "Options to store and retrieve NgJointSchematicData.",
 
     "type": "object",
-    
+
     "properties": {
       "shapeType": {
         "type": "string",

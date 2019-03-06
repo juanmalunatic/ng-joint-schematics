@@ -1,6 +1,7 @@
 {
     "$id": "https://github.com/dgwnu/ng-joint-schematics/blob/master/src/data/ng-joint-schematic-data-schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Schema to store and retrieve NgJoint Schematic Data to create shapes etc..",
 
     "definitions": {
         "NgJointDefaults": {

@@ -5,8 +5,11 @@
     "type": "object",
     "description": "shape definition.",
     "additionalProperties": {
-        "shapeProperties": { "$ref": "src/data/class-definition.json" },
-        "shapeTemplate": "string",
-        "shapeStyle": "string"
+        "properties":
+         {
+            "properties": { "$ref": "src/data/class-definition.json" },
+            "template": { "type": "string" },
+            "style": { "type": "string" } 
+        }
     }
 }

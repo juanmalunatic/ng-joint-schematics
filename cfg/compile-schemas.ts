@@ -13,7 +13,7 @@ compileSchemaToTypeDefinition(join(dataPath, 'data-options-schema.json'));
 // remove schema's lower in hierachie (tey will be added as #ref's)
 compileSchemaToTypeDefinition(join(dataPath, 'shape-properties.json'));
 compileSchemaToTypeDefinition(join(dataPath, 'shape-type-defaults.json'));
-
+compileSchemaToTypeDefinition(join(dataPath, 'shape.json'));
 
 // compile all schema's defined in collection.json
 const jsonCollectionFile = join(srcPath, 'collection.json');

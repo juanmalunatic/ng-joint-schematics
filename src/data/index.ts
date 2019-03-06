@@ -14,21 +14,7 @@ import { SchematicsException } from '@angular-devkit/schematics';
 import { NgJointSchematicDataOptions } from './data-options-schema';
 import { NgJointShapeTypeDefaults } from './shape-type-defaults';
 import { NgJointShapeProperties } from './shape-properties';
-
-/**
- * "shapeName(1)": { "properties": { NgJointShapeProperties }},
- * 
- * ...,
- * 
- * "shapeName(n)": { "properties": { NgJointShapeProperties }},
- */
-export interface NgJointShape {
-    [shapeName: string]: {
-        properties: NgJointShapeProperties;
-        template?: string;
-        style?: string;
-    };
-}
+import { NgJointShape } from './shape';
 
 /**
  * "importSymbols": ["sym1", ..., "sym(n)"],

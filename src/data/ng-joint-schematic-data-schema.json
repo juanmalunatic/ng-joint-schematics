@@ -4,31 +4,35 @@
     "description": "Schema to store and retrieve NgJoint Schematic Data to create shapes etc..",
     "type": "object",
     "properties": {
-        "defaults": { "$ref": "#/definitions/NgJointDefaults" },
-        "shapes": { "$ref": "#/definitions/NgJointShapeTypes" }
+        "defaults": {
+            "$ref": "#/definitions/NgJointDefaults"
+        },
+        "shapes": {
+            "$ref": "#/definitions/NgJointShapeTypes"
+        }
     },
     "additionalProperties": false,
-
     "definitions": {
-
         "NgJointDefaults": {
             "type": "object",
             "description": "Global defaults.",
-            "properties": { 
+            "properties": {
                 "importMappings": {
                     "type": "array",
-                    "items": { "$ref": "#/definitions/NgJointImportMapping" }
+                    "items": {
+                        "$ref": "#/definitions/NgJointImportMapping"
+                    }
                 }
             },
             "additionalProperties": false
         },
-
         "NgJointShapeTypes": {
             "type": "object",
             "description": "Defined shape types.",
-            "additionalProperties": { "$ref": "#/definitions/NgJointShapeType" }   
+            "additionalProperties": {
+                "$ref": "#/definitions/NgJointShapeType"
+            }
         },
-
         "NgJointImportMapping": {
             "type": "object",
             "description": "Mapping of symbols (namespaces, classes or types) to Import",
@@ -49,29 +53,123 @@
             ],
             "additionalProperties": false
         },
-
         "NgJointShapeType": {
             "type": "object",
             "description": "Shape type (standard, uml, angular, ...etc.)",
             "properties": {
-                "defaults": { "$ref": "#/definitions/NgJointShapeTypeDefaults" },
-                "elements": { "$ref": "#/definitions/NgJointShape" },
-                "links": { "$ref": "#/definitions/NgJointShape" }
+                "defaults": {
+                    "$ref": "#/definitions/NgJointShapeTypeDefaults"
+                },
+                "elements": {
+                    "$ref": "#/definitions/NgJointShape"
+                },
+                "links": {
+                    "$ref": "#/definitions/NgJointShape"
+                }
             },
             "required": [
                 "defaults"
             ],
             "additionalProperties": false
         },
-
         "NgJointShapeTypeDefaults": {
-
+            "type": "object",
+            "description": "Creates a new shape in the given or default project.",
+            "properties": {
+                "elements": {
+                    "type": "object",
+                    "description": "Defaults for all elements of shapetype.",
+                    "properties": {
+                        "shapeObjectClass": {
+                            "$ref": "#/definitions/NgJointClassDefinition"
+                        },
+                        "shapeOptionsClass": {
+                            "$ref": "#/definitions/NgJointClassDefinition"
+                        },
+                        "ngElementRef": {
+                            "type": "boolean",
+                            "description": "provide ng element-reference (Y/N) in shape component constructor."
+                        }
+                    },
+                    "required": [
+                        "shapeObjectClass",
+                        "shapeOptionsClass"
+                    ],
+                    "additionalProperties": false
+                },
+                "links": {
+                    "type": "object",
+                    "description": "Defaults for all elements of shapetype.",
+                    "properties": {
+                        "shapeObjectClass": {
+                            "$ref": "#/definitions/NgJointClassDefinition"
+                        },
+                        "shapeOptionsClass": {
+                            "$ref": "#/definitions/NgJointClassDefinition"
+                        },
+                        "ngElementRef": {
+                            "type": "boolean",
+                            "description": "provide ng element-reference (Y/N) in shape component constructor."
+                        }
+                    },
+                    "required": [
+                        "shapeObjectClass",
+                        "shapeOptionsClass"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "elements",
+                "links"
+            ],
+            "additionalProperties": false
         },
-
         "NgJointShape": {
-
+            "type": "object",
+            "description": "shape definition.",
+            "additionalProperties": {
+                "properties": {
+                    "properties": {
+                        "$ref": "#/definitions/NgJointClassDefinition"
+                    },
+                    "template": {
+                        "type": "string"
+                    },
+                    "style": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "properties"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "NgJointClassDefinition": {
+            "type": "object",
+            "description": "Creates a new shape in the given or default project.",
+            "properties": {
+                "nameSpace": {
+                    "type": "string",
+                    "description": "The Namespace of the Class (Import).",
+                    "default": ""
+                },
+                "class": {
+                    "type": "string",
+                    "description": "The name of the Class.",
+                    "default": ""
+                },
+                "type": {
+                    "type": "string",
+                    "format": "path",
+                    "description": "The Class<Type>."
+                }
+            },
+            "required": [
+                "class"
+            ],
+            "additionalProperties": false
         }
-
     }
-
 }

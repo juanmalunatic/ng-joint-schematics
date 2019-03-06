@@ -8,8 +8,14 @@
  * Utility: https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/utility/change.ts
  * 
  */
+
+ // Node Imports
 import { join } from 'path';
+
+// Typescript Imports
 import * as ts from 'typescript';
+
+// Angular Imports
 import { strings } from '@angular-devkit/core';
 import {
   SchematicsException,
@@ -18,22 +24,19 @@ import {
 import {
   insertImport,
   findNodes,
-//  findNode,
   addImportToModule,
   addExportToModule
 } from '@schematics/angular/utility/ast-utils';
-import { InsertChange, Change, ReplaceChange } from '@schematics/angular/utility/change';
+import {
+  InsertChange,
+  Change
+} from '@schematics/angular/utility/change';
 
+// Dgwnu Imports
 import { Schema } from './shape-schema';
 import {
-  NgJointImportMapping,
-  getElementProperties,
-  getLinkProperties
+  NgJointImportMapping
 } from '../data';
-
-/**
- * Constants to build Angular TS-statements
- */
 import {
   _COMPONENT_CLASS_SUFFIX_,
   _COMPONENT_IMPORT_SUFFIX_,
@@ -306,58 +309,7 @@ export function updateShapeTypeComponent(options: Schema, host: Tree) {
         )
       );
 
-      // Update Constant with Array of used Property values
-      const constNodes = findNodes(source, ts.SyntaxKind.VariableDeclaration);
-      const constPropArrayNode = constNodes.find(node => node.getText().startsWith('_SHAPE_PROPERTIES_'));
-
-      if (constPropArrayNode) {
-        const buildArray = constPropArrayNode.getText().split(' = ');
-        let shapeTypeProps: string[] = JSON.parse(buildArray[1]);
-        console.log('PRE: shapeTypeProps', shapeTypeProps);
-        let shapeProps;
-
-        switch (options.implementation) {
-          case 'element': {
-            shapeProps = getElementProperties(options);
-            break;
-          }
-          case 'link': {
-            shapeProps = getLinkProperties(options);
-            break;
-          }
-          default: {
-            throw new SchematicsException('Option.implementation ${options.implementation} is not defined here.');
-          }
-        }
-
-        if (shapeProps) {
-          // shape specific attr(s) to add
-          for (const key in shapeProps.attrs) {
-            // look for existing prop
-            if (!shapeTypeProps.find(prop => prop === key)) {
-              // add non existing prop
-              shapeTypeProps.push(key);
-            }
-          }
-        }
-        console.log('POST: shapeTypeProps', shapeTypeProps);
-        const shapeTypePropsArrayStr = JSON.stringify(shapeTypeProps);
-
-        // Replace Props Array
-        const replacePropArray = new ReplaceChange(
-          shapeTypeComponentPath,
-          constPropArrayNode.pos,
-          constPropArrayNode.getText(),
-          buildArray[0] + ' = ' + shapeTypePropsArrayStr
-        );
-        console.log(replacePropArray);
-        changes.push(
-          replacePropArray
-        );
-
-        commitChanges(host, changes, shapeTypeComponentPath);
-      }
-
+      commitChanges(host, changes, shapeTypeComponentPath);
     }
 
   }

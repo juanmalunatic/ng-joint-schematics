@@ -1,5 +1,5 @@
 {
-    "$id": "NgJointSchematicDataSchema",
+    "$id": "https://github.com/dgwnu/ng-joint-schematics/blob/master/src/data/ng-joint-schematic-data-schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
 
     "definitions": {

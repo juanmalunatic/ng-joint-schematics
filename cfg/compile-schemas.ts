@@ -5,7 +5,7 @@ import { join, resolve } from 'path';
 import * as Collection from '@angular-devkit/schematics/collection-schema';
 
 // Resolve source path
-const srcPath = resolve(__dirname, '..', 'src');
+const srcPath = resolve(__dirname, '..', 'ng-joint-schematics', 'src');
 
 // Compile schematic data schema's
 const dataPath = join(srcPath, 'data');

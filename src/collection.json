@@ -3,18 +3,18 @@
   "schematics": {
     "element": {
       "description": "ng-joint shape element schematics",
-      "factory": "./shape/index#ngJointElementSchematics",
-      "schema": "./shape/shape-schema.json"
+      "factory": "./shape/ng-joint-schematics/index#ngJointElementSchematics",
+      "schema": "./shape/ng-joint-schematics/shape-schema.json"
     },
     "link": {
       "description": "ng-joint shape link schematics",
-      "factory": "./shape/index#ngJointLinkSchematics",
-      "schema": "./shape/shape-schema.json"
+      "factory": "./shape/ng-joint-schematics/index#ngJointLinkSchematics",
+      "schema": "./shape/ng-joint-schematics/shape-schema.json"
     },
     "build": {
       "description": "ng-joint build schematics",
-      "factory": "./build/index#ngJointBuildSchematics",
-      "schema": "./build/build-schema.json"
+      "factory": "./build/ng-joint-schematics/index#ngJointBuildSchematics",
+      "schema": "./build/ng-joint-schematics/build-schema.json"
     }
   }
 }

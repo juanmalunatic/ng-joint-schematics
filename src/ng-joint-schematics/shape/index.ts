@@ -32,7 +32,6 @@ import {
 import {
   buildShapeComponentInputDecorators,
   buildShapeInterfaceProperties,
-  buildShapePropertiesMetaData,
   buildShapeInterfacePropertiesImportStatements
 } from './shape-properties';
 import { ShapeSchema as Schema } from './shape-schema';
@@ -144,8 +143,7 @@ export function ngJointShapeSchematics(options: Schema): Rule {
     options.shapeInterfacePropertiesImportStatements = buildShapeInterfacePropertiesImportStatements(shapeProperties, defaults.importMappings);
     options.shapeObjectClass = parseOptions(buildShapeClass(shapeObjectClassDef), options);
     options.shapeOptionsClass = parseOptions(buildShapeClass(shapeOptionsClassDef), options);
-    options.shapePropertiesMetaData = buildShapePropertiesMetaData(shapeProperties);
-
+    
     let nameSpaces: string[] = []
 
     if (shapeObjectClassDef.nameSpace) { 

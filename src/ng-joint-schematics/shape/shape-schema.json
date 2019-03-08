@@ -74,12 +74,6 @@
       "default": "",
       "visible": false
     },
-    "shapePropertiesMetaData": {
-      "type": "string",
-      "description": "Shape Component Properties description array ts-code.",
-      "default": "",
-      "visible": false
-    },
     "shapeInterfacePropertiesImportStatements": {
       "type": "string",
       "default": "",
@@ -131,5 +125,6 @@
     "name",
     "project",
     "shapeType"
-  ]
+  ],
+  "additionalProperties": true
 }

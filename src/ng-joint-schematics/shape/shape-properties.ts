@@ -65,38 +65,6 @@ export function buildShapeInterfaceProperties(
 }
 
 /**
- * Build a string with parsed Shape Interface Properties
- * @param shapeProperties
- */
-export function buildShapePropertiesMetaData(
-  shapeProperties: NgJointShapeProperties | undefined): string {
-
-  let metaData = [];
-
-  if (shapeProperties) {
-
-    for (const key in shapeProperties.attrs) {
-      metaData.push({
-        type: 'attrs',
-        key: key,
-        classDefinition: shapeProperties.attrs[key]
-      });
-    }
-
-    for (const key in shapeProperties.extra) {
-      metaData.push({
-        type: 'extra',
-        key: key,
-        classDefinition: shapeProperties.extra[key]
-      });
-    }
-
-  }
-
-  return JSON.stringify(metaData);;
-}
-
-/**
  * Update importSymbols by adding Unique Symbol (Class or Namespace)
  * @param importSymbols
  * @param classDefinition 

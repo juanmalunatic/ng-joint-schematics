@@ -40,7 +40,17 @@ export function ngJointBuildSchematics(options: Schema): Rule {
             throw new SchematicsException('Option (path) is not resolved and required.');
         }
 
-        const rootPath = '.' + resolve(options.path, '..');
+        let a = "aa";
+        console.log(a);
+        let rootPath = '.' + resolve(options.path, '..');
+
+        // Add a special branch if compiled from another project
+        if (options.project == 'ng-joint') {
+            let d = "dd";
+            console.log(d);
+            rootPath = 'projects/ng-joint/src';
+        }
+
         const buildLocation = parseName(rootPath, options.name);
         options.path = buildLocation.path;
 

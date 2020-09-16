@@ -1,5 +1,5 @@
 {
-  "name": "@dgwnu/ng-joint-schematics",
+  "name": "ng-joint-schematics",
   "version": "0.0.1",
   "description": "Angular Schematics to support ng-joint development",
   "scripts": {

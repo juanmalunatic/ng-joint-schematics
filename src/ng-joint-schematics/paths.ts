@@ -33,20 +33,15 @@ export function resolveOptionPaths(
     if (buildPath === undefined) {
       const project = getProject(host, options.project);
 
-      //let a = "aa";
-      //console.log(a);
-
       try {
+        // This errors in the sibling configuration
         buildPath = buildDefaultPath(project);
       } catch (e) {
-        // Execution ignores this.
+        // Execution ignores this and jumps to finally.
       } finally {
-        //let c = "cc";
-        //console.log(c);
-
-        const burntPath = 'C:/Work/WeProp/ng-joint/projects/ng-joint/src/ng-joint-schematics-data.json';
-        options.schematicsDataFile = burntPath;
-        buildPath = burntPath;
+        const burntPath = 'projects/ng-joint/src/';
+        options.schematicsDataFile = burntPath + 'ng-joint-schematics-data.json';
+        buildPath = burntPath + 'lib/'; // This is the location of schematic-generated
       }
     }
 

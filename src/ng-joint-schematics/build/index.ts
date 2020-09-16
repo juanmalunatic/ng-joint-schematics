@@ -40,15 +40,11 @@ export function ngJointBuildSchematics(options: Schema): Rule {
             throw new SchematicsException('Option (path) is not resolved and required.');
         }
 
-        let a = "aa";
-        console.log(a);
         let rootPath = '.' + resolve(options.path, '..');
 
         // Add a special branch if compiled from another project
         if (options.project == 'ng-joint') {
-            let d = "dd";
-            console.log(d);
-            rootPath = 'projects/ng-joint/src';
+            rootPath = 'projects/ng-joint/src'; // This path controls the location of "schematic-build"
         }
 
         const buildLocation = parseName(rootPath, options.name);
@@ -63,7 +59,7 @@ export function ngJointBuildSchematics(options: Schema): Rule {
         const projectParm = '--project=' + options.project;
         let cmdChain: CliCmdChain = [];
         options.generatedExports = '';
-        
+
         for (const shapeType in shapeTypes) {
 
             const elements = shapeTypes[shapeType].elements;

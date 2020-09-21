@@ -22,7 +22,7 @@
   "schematics": "./dist/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^8.3.29",
-    "@angular-devkit/schematics": "^7.3.4",
+    "@angular-devkit/schematics": "^8.3.29",
     "@angular/cli": "^8.3.29",
     "@types/jasmine": "^3.0.0",
     "fs-rmdir-recursive": "^1.0.0",

@@ -23,7 +23,7 @@
   "dependencies": {
     "@angular-devkit/core": "^7.3.4",
     "@angular-devkit/schematics": "^7.3.4",
-    "@angular/cli": "^7.3.4",
+    "@angular/cli": "^8.3.29",
     "@types/jasmine": "^3.0.0",
     "fs-rmdir-recursive": "^1.0.0",
     "jasmine": "^3.0.0",
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@types/node": "^8.10.40",
     "@types/npm": "^2.0.29",
+    "codelyzer": "^5.0.1",
     "cpx": "^1.5.0",
     "json-schema-to-typescript": "^6.1.1",
     "nodemon": "^1.18.10",

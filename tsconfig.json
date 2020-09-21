@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "baseUrl": "tsconfig",
+    "downlevelIteration": true,
     "lib": [
       "es2018",
       "dom"
     ],
     "declaration": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
@@ -19,7 +20,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "es6",
+    "target": "es2015",
     "outDir": "dist",
     "types": [
       "jasmine",

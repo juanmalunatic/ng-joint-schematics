@@ -27,7 +27,7 @@
     "@types/jasmine": "^3.0.0",
     "fs-rmdir-recursive": "^1.0.0",
     "jasmine": "^3.0.0",
-    "typescript": "~3.2.2"
+    "typescript": "^3.5.3"
   },
   "devDependencies": {
     "@types/node": "^8.10.40",

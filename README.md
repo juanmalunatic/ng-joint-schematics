@@ -2,6 +2,7 @@
 
 ### JM log
 2020-09-21 17:05:05 - Tentatively updated to ng8.3.29
+2020-09-21 19:28:57 - Finished update to ng8
 
 This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
 
